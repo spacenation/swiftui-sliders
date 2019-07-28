@@ -4,19 +4,19 @@ public struct RangeSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
     private var range: Binding<ClosedRange<V>>
     private let boundingRange: ClosedRange<V> = 0.0 ... 1.0
     private let thumbRadius: CGFloat = 27
-    
+
     public init(range: Binding<ClosedRange<V>>) {
         self.range = range
     }
-    
+
     public var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 RangeSliderTrack()
-                LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .leading, endPoint: .trailing)
-                    .frame(height: 3)
-                    .cornerRadius(1.5)
-                
+//                LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .leading, endPoint: .trailing)
+//                    .frame(height: 3)
+//                    .cornerRadius(1.5)
+
                 Circle()
                     .frame(width: self.thumbRadius, height: self.thumbRadius)
                     .shadow(radius: 3)
@@ -29,7 +29,7 @@ public struct RangeSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
                             self.range.value = (validatedLowerBound...validatedUpperBound).clamped(to: self.boundingRange)
                         }
                     )
-                
+
                 Circle()
                     .frame(width: self.thumbRadius, height: self.thumbRadius)
                     .shadow(radius: 3)
@@ -65,7 +65,7 @@ struct RangeSlider_Previews: PreviewProvider {
     
     static var previews: some View {
         VStack {
-            Text("123")
+            RangeSliderTrack()
         }
     }
 }
