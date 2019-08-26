@@ -87,23 +87,6 @@ public struct RangeSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
     }
 }
 
-//struct DefaultTrackView: View {
-//    var body: some View {
-//        Rectangle()
-//            .fixedSize(horizontal: false, vertical: true)
-//            .foregroundColor(.secondary)
-//    }
-//}
-
-//public struct DefaultValueView: View {
-//    public var body: some View {
-//        Rectangle()
-//            .fixedSize(horizontal: false, vertical: true)
-//            .foregroundColor(.accentColor)
-//    }
-//    public init() {}
-//}
-
 #if DEBUG
 
 struct RangeSlider_Previews: PreviewProvider {
