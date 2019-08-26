@@ -14,6 +14,7 @@
 		FA61E9C0231365E5006A5B6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA61E9BE231365E5006A5B6B /* Main.storyboard */; };
 		FA61E9CA23136A48006A5B6B /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = FA61E9C923136A48006A5B6B /* Sliders */; };
 		FA61E9CC23136A50006A5B6B /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = FA61E9CB23136A50006A5B6B /* Sliders */; };
+		FA61E9CF23136CDD006A5B6B /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = FA61E9CE23136CDD006A5B6B /* Sliders */; };
 		FAF1C03722ED3B7D00F92FEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF1C03622ED3B7D00F92FEA /* AppDelegate.swift */; };
 		FAF1C03922ED3B7D00F92FEA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF1C03822ED3B7D00F92FEA /* SceneDelegate.swift */; };
 		FAF1C03B22ED3B7D00F92FEA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF1C03A22ED3B7D00F92FEA /* ContentView.swift */; };
@@ -56,6 +57,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA61E9CA23136A48006A5B6B /* Sliders in Frameworks */,
+				FA61E9CF23136CDD006A5B6B /* Sliders in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +173,7 @@
 			name = "SlidersExamples iOS";
 			packageProductDependencies = (
 				FA61E9C923136A48006A5B6B /* Sliders */,
+				FA61E9CE23136CDD006A5B6B /* Sliders */,
 			);
 			productName = "RangeSliderExamples iOS";
 			productReference = FAF1C03322ED3B7D00F92FEA /* SlidersExamples iOS.app */;
@@ -203,7 +206,7 @@
 			);
 			mainGroup = FAF1C02722ED3AD500F92FEA;
 			packageReferences = (
-				FAF1C04822ED3C5500F92FEA /* XCRemoteSwiftPackageReference "range-slider" */,
+				FA61E9CD23136CDD006A5B6B /* XCRemoteSwiftPackageReference "sliders" */,
 			);
 			productRefGroup = FAF1C03422ED3B7D00F92FEA /* Products */;
 			projectDirPath = "";
@@ -614,9 +617,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FAF1C04822ED3C5500F92FEA /* XCRemoteSwiftPackageReference "range-slider" */ = {
+		FA61E9CD23136CDD006A5B6B /* XCRemoteSwiftPackageReference "sliders" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:spacenation/range-slider.git";
+			repositoryURL = "git@github.com:spacenation/sliders.git";
 			requirement = {
 				branch = master;
 				kind = branch;
@@ -631,6 +634,11 @@
 		};
 		FA61E9CB23136A50006A5B6B /* Sliders */ = {
 			isa = XCSwiftPackageProductDependency;
+			productName = Sliders;
+		};
+		FA61E9CE23136CDD006A5B6B /* Sliders */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA61E9CD23136CDD006A5B6B /* XCRemoteSwiftPackageReference "sliders" */;
 			productName = Sliders;
 		};
 /* End XCSwiftPackageProductDependency section */
