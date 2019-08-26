@@ -4,18 +4,18 @@
 import PackageDescription
 
 let package = Package(
-    name: "RangeSlider",
+    name: "Sliders",
     platforms: [
         .iOS(.v13), .macOS(.v10_15)
     ],
     products: [
         .library(
-            name: "RangeSlider",
-            targets: ["RangeSlider"]),
+            name: "Sliders",
+            targets: ["Sliders"]),
     ],
     targets: [
         .target(
-            name: "RangeSlider"
+            name: "Sliders"
         )
     ]
 )

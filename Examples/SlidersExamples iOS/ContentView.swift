@@ -1,5 +1,5 @@
-import RangeSlider
 import SwiftUI
+import Sliders
 
 struct ContentView: View {
     @State var value = 0.5
@@ -36,7 +36,7 @@ struct ContentView: View {
                 }
             }
             .listStyle(GroupedListStyle())
-            .navigationBarTitle("Range Slider")
+            .navigationBarTitle("Sliders")
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

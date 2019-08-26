@@ -1,9 +1,9 @@
-## SwiftUI RangeSlider
+## SwiftUI Sliders
 
-SwiftUI Range Slider with custom styles.
+SwiftUI Sliders with custom styles.
 
 <center>
-<img src="Resources/rangeslider.png"/>
+<img src="Resources/sliders.png"/>
 </center>
 
 ## SDKs

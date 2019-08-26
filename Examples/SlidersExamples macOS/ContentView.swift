@@ -1,5 +1,5 @@
 import SwiftUI
-import RangeSlider
+import Sliders
 
 struct ContentView: View {
     @State var value = 0.5
