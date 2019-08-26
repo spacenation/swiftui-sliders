@@ -4,7 +4,8 @@ import Sliders
 struct ContentView: View {
     @State var value = 0.5
     @State var range = 0.2...0.8
-    @State var gradientRange = 0.0...1.0
+    @State var gradientRange1 = 0.2...0.8
+    @State var gradientRange2 = 0.1...0.9
     
     var body: some View {
         NavigationView {
@@ -22,17 +23,23 @@ struct ContentView: View {
                     Spacer()
                     Text("\(range.description)")
                 }) {
-                    RangeSlider(range: $range, valueView: DefaultValueView())
+                    RangeSlider(range: $range)
                 }
                 
                 Section(header: HStack {
                     Text("Gradient")
                     Spacer()
-                    Text("\(gradientRange.description)")
                 }) {
-                    RangeSlider(range: $gradientRange, valueView:
-                        LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing)
-                    )
+                    RangeSlider(range: $gradientRange1)
+                        .thickness(6)
+                        .clippedValue(false)
+                        .sliderStyle(
+                            GradientSliderStyle()
+                        )
+                    RangeSlider(range: $gradientRange2)
+                        .sliderStyle(
+                            GradientSliderStyle(colors: [.blue, .red])
+                        )
                 }
             }
             .listStyle(GroupedListStyle())

@@ -15,7 +15,8 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "Sliders"
+            name: "Sliders",
+            exclude: ["Examples", "Resources"]
         )
     ]
 )
