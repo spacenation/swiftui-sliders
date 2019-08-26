@@ -12,12 +12,8 @@ public struct ValueSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
         GeometryReader { geometry in
             ZStack(alignment: .init(horizontal: .leading, vertical: .center)) {
                 self.style.trackView
-                    .frame(height: self.style.thickness)
-                    .cornerRadius(self.style.thickness / 2)
-                                
+
                 self.style.valueView
-                    .frame(height: self.style.thickness)
-                    .cornerRadius(self.style.thickness / 2)
                     .mask(
                         Rectangle()
                             .frame(
@@ -29,12 +25,11 @@ public struct ValueSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
                     )
 
                 self.style.knobView
-                    .frame(width: self.style.thumbRadius, height: self.style.thumbRadius)
                     .offset(x: self.xForValue(width: geometry.size.width))
                     .gesture(
                         DragGesture()
                             .onChanged { value in
-                                let newLowerBound = V(value.location.x / (geometry.size.width - self.style.thumbRadius))
+                                let newLowerBound = V(value.location.x / (geometry.size.width - self.style.knobSize.width))
                                 let steppedNewValue = round(newLowerBound / self.step) * self.step
                                 let validatedValue = min(self.bounds.upperBound, max(self.bounds.lowerBound, steppedNewValue))
                                 self.value.wrappedValue = validatedValue
@@ -55,7 +50,7 @@ public struct ValueSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
     }
     
     func xForValue(width: CGFloat) -> CGFloat {
-        (width - self.style.thumbRadius) * CGFloat(self.value.wrappedValue)
+        (width - self.style.knobSize.width) * CGFloat(self.value.wrappedValue)
     }
 }
 

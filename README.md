@@ -51,6 +51,33 @@ RangeSlider(range: $range)
     )
 ```
 
+### Create your own style with SliderStyle protocol
+```swift
+public protocol SliderStyle {
+    var height: CGFloat { get set }
+    var thickness: CGFloat { get set }
+    var knobSize: CGSize { get set }
+    var knobCornerRadius: CGFloat { get set }
+    
+    var knobView: AnyView { get }
+    var valueView: AnyView { get }
+    var trackView: AnyView { get }
+    
+    var clippedValue: Bool { get set }
+}
+```
+
+## Custom Modifiers
+```swift
+RangeSlider(range: $range)
+    .thickness(8)
+    .knobCornerRadius(8)
+    .knobSize(CGSize(width: 16, height: 24))
+    .sliderStyle(
+        GradientSliderStyle()
+    )
+```
+
 ## SDKs
 - iOS 13+
 - Mac Catalyst 13.0+

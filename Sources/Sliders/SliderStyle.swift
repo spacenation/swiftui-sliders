@@ -1,9 +1,10 @@
 import SwiftUI
 
 public protocol SliderStyle {
-    var thumbRadius: CGFloat { get set }
-    var thickness: CGFloat { get set }
     var height: CGFloat { get set }
+    var thickness: CGFloat { get set }
+    var knobSize: CGSize { get set }
+    var knobCornerRadius: CGFloat { get set }
     
     var knobView: AnyView { get }
     var valueView: AnyView { get }
@@ -14,42 +15,30 @@ public protocol SliderStyle {
 
 extension SliderStyle {
     public var knobView: AnyView {
-        AnyView(Circle()
+        AnyView(Rectangle()
+            .frame(width: self.knobSize.width, height: self.knobSize.height)
             .foregroundColor(.white)
+            .cornerRadius(self.knobCornerRadius)
             .shadow(radius: 3)
+        )
+    }
+    
+    public var valueView: AnyView {
+        AnyView(Rectangle()
+            .fixedSize(horizontal: false, vertical: true)
+            .frame(height: self.thickness)
+            .cornerRadius(self.thickness / 2)
+            .foregroundColor(.accentColor)
         )
     }
     
     public var trackView: AnyView {
         AnyView(Rectangle()
             .fixedSize(horizontal: false, vertical: true)
+            .frame(height: self.thickness)
+            .cornerRadius(self.thickness / 2)
             .foregroundColor(.secondary)
             .opacity(0.25)
         )
-    }
-}
-
-
-struct SliderStyleKey: EnvironmentKey {
-    static let defaultValue: SliderStyle = DefaultSliderStyle()
-}
-
-extension View {
-
-    /// Sets the style for `Slider` within the environment of `self`.
-    public func sliderStyle<S>(_ style: S) -> some View where S : SliderStyle {
-        self.environment(\.sliderStyle, style)
-    }
-
-}
-
-extension EnvironmentValues {
-    var sliderStyle: SliderStyle {
-        get {
-            return self[SliderStyleKey.self]
-        }
-        set {
-            self[SliderStyleKey.self] = newValue
-        }
     }
 }
