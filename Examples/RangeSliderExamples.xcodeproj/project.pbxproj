@@ -43,8 +43,8 @@
 		FAF1C02722ED3AD500F92FEA = {
 			isa = PBXGroup;
 			children = (
-				FAF1C02E22ED3B1C00F92FEA /* range-slider */,
 				FAF1C03522ED3B7D00F92FEA /* RangeSliderExamples iOS */,
+				FAF1C02E22ED3B1C00F92FEA /* range-slider */,
 				FAF1C03422ED3B7D00F92FEA /* Products */,
 			);
 			sourceTree = "<group>";
