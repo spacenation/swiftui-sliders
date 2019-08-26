@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA61E9B6231365E3006A5B6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61E9B5231365E3006A5B6B /* AppDelegate.swift */; };
+		FA61E9B8231365E3006A5B6B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61E9B7231365E3006A5B6B /* ContentView.swift */; };
+		FA61E9BA231365E5006A5B6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA61E9B9231365E5006A5B6B /* Assets.xcassets */; };
+		FA61E9BD231365E5006A5B6B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA61E9BC231365E5006A5B6B /* Preview Assets.xcassets */; };
+		FA61E9C0231365E5006A5B6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA61E9BE231365E5006A5B6B /* Main.storyboard */; };
+		FA61E9C823136657006A5B6B /* RangeSlider in Frameworks */ = {isa = PBXBuildFile; productRef = FA61E9C723136657006A5B6B /* RangeSlider */; };
 		FAF1C03722ED3B7D00F92FEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF1C03622ED3B7D00F92FEA /* AppDelegate.swift */; };
 		FAF1C03922ED3B7D00F92FEA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF1C03822ED3B7D00F92FEA /* SceneDelegate.swift */; };
 		FAF1C03B22ED3B7D00F92FEA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF1C03A22ED3B7D00F92FEA /* ContentView.swift */; };
@@ -17,6 +23,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA61E9B3231365E3006A5B6B /* RangeSliderExamples macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RangeSliderExamples macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA61E9B5231365E3006A5B6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FA61E9B7231365E3006A5B6B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FA61E9B9231365E5006A5B6B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FA61E9BC231365E5006A5B6B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		FA61E9BF231365E5006A5B6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FA61E9C1231365E5006A5B6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA61E9C2231365E5006A5B6B /* RangeSliderExamples_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RangeSliderExamples_macOS.entitlements; sourceTree = "<group>"; };
 		FAF1C02E22ED3B1C00F92FEA /* range-slider */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "range-slider"; path = ..; sourceTree = "<group>"; };
 		FAF1C03322ED3B7D00F92FEA /* RangeSliderExamples iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RangeSliderExamples iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAF1C03622ED3B7D00F92FEA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -29,6 +43,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		FA61E9B0231365E3006A5B6B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA61E9C823136657006A5B6B /* RangeSlider in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FAF1C03022ED3B7D00F92FEA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -40,12 +62,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA61E9B4231365E3006A5B6B /* RangeSliderExamples macOS */ = {
+			isa = PBXGroup;
+			children = (
+				FA61E9B5231365E3006A5B6B /* AppDelegate.swift */,
+				FA61E9B7231365E3006A5B6B /* ContentView.swift */,
+				FA61E9B9231365E5006A5B6B /* Assets.xcassets */,
+				FA61E9BE231365E5006A5B6B /* Main.storyboard */,
+				FA61E9C1231365E5006A5B6B /* Info.plist */,
+				FA61E9C2231365E5006A5B6B /* RangeSliderExamples_macOS.entitlements */,
+				FA61E9BB231365E5006A5B6B /* Preview Content */,
+			);
+			path = "RangeSliderExamples macOS";
+			sourceTree = "<group>";
+		};
+		FA61E9BB231365E5006A5B6B /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				FA61E9BC231365E5006A5B6B /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		FA61E9C623136657006A5B6B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FAF1C02722ED3AD500F92FEA = {
 			isa = PBXGroup;
 			children = (
 				FAF1C03522ED3B7D00F92FEA /* RangeSliderExamples iOS */,
+				FA61E9B4231365E3006A5B6B /* RangeSliderExamples macOS */,
 				FAF1C02E22ED3B1C00F92FEA /* range-slider */,
 				FAF1C03422ED3B7D00F92FEA /* Products */,
+				FA61E9C623136657006A5B6B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -53,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				FAF1C03322ED3B7D00F92FEA /* RangeSliderExamples iOS.app */,
+				FA61E9B3231365E3006A5B6B /* RangeSliderExamples macOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -82,6 +136,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		FA61E9B2231365E3006A5B6B /* RangeSliderExamples macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA61E9C5231365E5006A5B6B /* Build configuration list for PBXNativeTarget "RangeSliderExamples macOS" */;
+			buildPhases = (
+				FA61E9AF231365E3006A5B6B /* Sources */,
+				FA61E9B0231365E3006A5B6B /* Frameworks */,
+				FA61E9B1231365E3006A5B6B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RangeSliderExamples macOS";
+			packageProductDependencies = (
+				FA61E9C723136657006A5B6B /* RangeSlider */,
+			);
+			productName = "RangeSliderExamples macOS";
+			productReference = FA61E9B3231365E3006A5B6B /* RangeSliderExamples macOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 		FAF1C03222ED3B7D00F92FEA /* RangeSliderExamples iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FAF1C04522ED3B7E00F92FEA /* Build configuration list for PBXNativeTarget "RangeSliderExamples iOS" */;
@@ -111,6 +185,9 @@
 				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1100;
 				TargetAttributes = {
+					FA61E9B2231365E3006A5B6B = {
+						CreatedOnToolsVersion = 11.0;
+					};
 					FAF1C03222ED3B7D00F92FEA = {
 						CreatedOnToolsVersion = 11.0;
 					};
@@ -133,11 +210,22 @@
 			projectRoot = "";
 			targets = (
 				FAF1C03222ED3B7D00F92FEA /* RangeSliderExamples iOS */,
+				FA61E9B2231365E3006A5B6B /* RangeSliderExamples macOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		FA61E9B1231365E3006A5B6B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA61E9C0231365E5006A5B6B /* Main.storyboard in Resources */,
+				FA61E9BD231365E5006A5B6B /* Preview Assets.xcassets in Resources */,
+				FA61E9BA231365E5006A5B6B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FAF1C03122ED3B7D00F92FEA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -151,6 +239,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		FA61E9AF231365E3006A5B6B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA61E9B8231365E3006A5B6B /* ContentView.swift in Sources */,
+				FA61E9B6231365E3006A5B6B /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FAF1C02F22ED3B7D00F92FEA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -164,6 +261,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		FA61E9BE231365E5006A5B6B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA61E9BF231365E5006A5B6B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		FAF1C04122ED3B7E00F92FEA /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -175,6 +280,153 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		FA61E9C3231365E5006A5B6B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "RangeSliderExamples macOS/RangeSliderExamples_macOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_ASSET_PATHS = "\"RangeSliderExamples macOS/Preview Content\"";
+				DEVELOPMENT_TEAM = Z8L4G5WZR3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "RangeSliderExamples macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.spacenation.rangeslider.examples.macos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		FA61E9C4231365E5006A5B6B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "RangeSliderExamples macOS/RangeSliderExamples_macOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_ASSET_PATHS = "\"RangeSliderExamples macOS/Preview Content\"";
+				DEVELOPMENT_TEAM = Z8L4G5WZR3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "RangeSliderExamples macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.spacenation.rangeslider.examples.macos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		FAF1C02C22ED3AD500F92FEA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -332,6 +584,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		FA61E9C5231365E5006A5B6B /* Build configuration list for PBXNativeTarget "RangeSliderExamples macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA61E9C3231365E5006A5B6B /* Debug */,
+				FA61E9C4231365E5006A5B6B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FAF1C02B22ED3AD500F92FEA /* Build configuration list for PBXProject "RangeSliderExamples" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -364,6 +625,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		FA61E9C723136657006A5B6B /* RangeSlider */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RangeSlider;
+		};
 		FAF1C04922ED3C5500F92FEA /* RangeSlider */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FAF1C04822ED3C5500F92FEA /* XCRemoteSwiftPackageReference "range-slider" */;
