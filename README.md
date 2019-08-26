@@ -1,10 +1,55 @@
 ## SwiftUI Sliders
 
-SwiftUI Sliders with custom styles.
+SwiftUI Sliders with custom styles for iOS, macOS and Mac Catalyst
 
 <center>
 <img src="Resources/sliders.png"/>
 </center>
+
+## How to use
+
+Add this swift package to  your project
+```
+git@github.com:spacenation/sliders.git
+```
+
+Import and use
+
+```swift
+import Sliders
+import SwiftUI
+
+struct ContentView: View {
+    @State var value = 0.5
+    @State var range = 0.2...0.8
+    
+    var body: some View {
+        Group {
+            ValueSlider(value: $value)
+            RangeSlider(range: $range)
+        }
+    }
+}
+```
+For more examples open `/Examples/SlidersExamples.xcodeproj`
+
+
+## Styles
+### GradientSliderStyle
+```swift
+ValueSlider(value: $value)
+    .clippedValue(false)
+    .sliderStyle(
+        GradientSliderStyle()
+    )
+```
+```swift
+RangeSlider(range: $range)
+    .thickness(6)
+    .sliderStyle(
+        GradientSliderStyle(colors: [.green, .yellow, .red])
+    )
+```
 
 ## SDKs
 - iOS 13+

@@ -18,6 +18,7 @@ struct ContentView: View {
                 Section(header: HStack {
                     Text("Native Slider")
                     Spacer()
+                    Text("\(nativeValue.description)")
                 }) {
                     Slider(value: $nativeValue, in: 0.0...1.0, step: 0.01)
                 }
@@ -25,6 +26,7 @@ struct ContentView: View {
                 Section(header: HStack {
                     Text("Value Sliders")
                     Spacer()
+                    Text("\(value1.description)")
                 }) {
                     ValueSlider(value: $value1)
                     ValueSlider(value: $value2)
@@ -44,6 +46,7 @@ struct ContentView: View {
                 Section(header: HStack {
                     Text("Range Sliders")
                     Spacer()
+                    Text("\(range1.description)")
                 }) {
                     RangeSlider(range: $range1)
                     RangeSlider(range: $range2)
