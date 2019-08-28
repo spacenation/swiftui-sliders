@@ -23,7 +23,6 @@ struct RangeSliderExamplesView: View {
                     GradientSliderStyle(colors: [.blue, .red])
                 )
             RangeSlider(range: $range4)
-                .thickness(6)
                 .clippedValue(false)
                 .sliderStyle(
                     GradientSliderStyle()

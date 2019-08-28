@@ -5,6 +5,7 @@ public protocol SliderStyle {
     var thickness: CGFloat { get set }
     var knobSize: CGSize { get set }
     var knobCornerRadius: CGFloat { get set }
+    var trackCornerRadius: CGFloat? { get set }
     
     var knobView: AnyView { get }
     var valueView: AnyView { get }
@@ -16,27 +17,19 @@ public protocol SliderStyle {
 extension SliderStyle {
     public var knobView: AnyView {
         AnyView(Rectangle()
-            .frame(width: self.knobSize.width, height: self.knobSize.height)
             .foregroundColor(.white)
-            .cornerRadius(self.knobCornerRadius)
-            .shadow(radius: 3)
         )
+        
     }
     
     public var valueView: AnyView {
         AnyView(Rectangle()
-            .fixedSize(horizontal: false, vertical: true)
-            .frame(height: self.thickness)
-            .cornerRadius(self.thickness / 2)
             .foregroundColor(.accentColor)
         )
     }
     
     public var trackView: AnyView {
         AnyView(Rectangle()
-            .fixedSize(horizontal: false, vertical: true)
-            .frame(height: self.thickness)
-            .cornerRadius(self.thickness / 2)
             .foregroundColor(.secondary)
             .opacity(0.25)
         )

@@ -70,9 +70,12 @@ public protocol SliderStyle {
 ## Custom Modifiers
 ```swift
 RangeSlider(range: $range)
+    .height(60)
     .thickness(8)
     .knobCornerRadius(8)
     .knobSize(CGSize(width: 16, height: 24))
+    .trackCornerRadius(2)
+    .clippedValue(false)
     .sliderStyle(
         GradientSliderStyle()
     )

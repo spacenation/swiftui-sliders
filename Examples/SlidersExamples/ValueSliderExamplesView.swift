@@ -25,7 +25,6 @@ struct ValueSliderExamplesView: View {
                     GradientSliderStyle(colors: [.green, .yellow, .red])
                 )
             ValueSlider(value: $value4)
-                .thickness(6)
                 .clippedValue(false)
                 .sliderStyle(
                     GradientSliderStyle()

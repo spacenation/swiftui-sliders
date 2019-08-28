@@ -12,12 +12,16 @@ public struct ValueSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
         GeometryReader { geometry in
             ZStack(alignment: .init(horizontal: .leading, vertical: .center)) {
                 self.style.trackView
+                    .frame(height: self.style.thickness)
+                    .cornerRadius(self.style.trackCornerRadius ?? self.style.thickness / 2)
 
                 self.style.valueView
+                    .frame(height: self.style.thickness)
+                    .cornerRadius(self.style.trackCornerRadius ?? self.style.thickness / 2)
                     .mask(
                         Rectangle()
                             .frame(
-                                width: self.style.clippedValue ? self.xForValue(width: geometry.size.width) : geometry.size.width,
+                                width: self.style.clippedValue ? (self.xForValue(width: geometry.size.width) + self.style.knobSize.width) : geometry.size.width,
                                 height: self.style.thickness
                             )
                             .fixedSize()
@@ -25,6 +29,9 @@ public struct ValueSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
                     )
 
                 self.style.knobView
+                    .frame(width: self.style.knobSize.width, height: self.style.knobSize.height)
+                    .cornerRadius(self.style.knobCornerRadius)
+                    .shadow(radius: 3)
                     .offset(x: self.xForValue(width: geometry.size.width))
                     .gesture(
                         DragGesture()

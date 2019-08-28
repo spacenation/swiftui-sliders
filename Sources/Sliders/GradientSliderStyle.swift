@@ -3,8 +3,9 @@ import SwiftUI
 public struct GradientSliderStyle: SliderStyle {
     public var knobSize: CGSize = CGSize(width: 27, height: 27)
     public var knobCornerRadius: CGFloat = 13.5
+    public var trackCornerRadius: CGFloat? = nil
     public var thickness: CGFloat = 3
-    public var height: CGFloat = 30
+    public var height: CGFloat = 44
     public var clippedValue: Bool = true
     
     private let gradient: LinearGradient
@@ -18,10 +19,6 @@ public struct GradientSliderStyle: SliderStyle {
     }
 
     public var valueView: AnyView {
-        AnyView(gradient
-            .fixedSize(horizontal: false, vertical: true)
-            .frame(height: thickness)
-            .cornerRadius(thickness / 2)
-        )
+        AnyView(gradient)
     }
 }

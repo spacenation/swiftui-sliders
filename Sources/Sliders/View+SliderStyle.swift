@@ -1,6 +1,14 @@
 import SwiftUI
 
 extension View {
+    public func height(_ length: CGFloat) -> some View {
+        self.environment(\.sliderStyle.height, length)
+    }
+    
+    public func trackCornerRadius(_ length: CGFloat?) -> some View {
+        self.environment(\.sliderStyle.trackCornerRadius, length)
+    }
+    
     public func knobSize(_ size: CGSize) -> some View {
         self.environment(\.sliderStyle.knobSize, size)
     }
