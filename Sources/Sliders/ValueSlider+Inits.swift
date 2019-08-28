@@ -13,6 +13,8 @@ extension ValueSlider {
     /// the user is touching the knob and sliding it around the track.
     @available(tvOS, unavailable)
     public init(value: Binding<V>, in bounds: ClosedRange<V> = 0...1, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        assert(value.wrappedValue >= bounds.lowerBound, "Value \(value.wrappedValue) is out of bounds \(bounds)")
+        assert(value.wrappedValue <= bounds.upperBound, "Value \(value.wrappedValue) is out of bounds \(bounds)")
         self.value = value
         self.bounds = bounds
         self.step = 0.001
@@ -32,6 +34,8 @@ extension ValueSlider {
     /// the user is touching the knob and sliding it around the track.
     @available(tvOS, unavailable)
     public init(value: Binding<V>, in bounds: ClosedRange<V>, step: V.Stride = 1, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        assert(value.wrappedValue >= bounds.lowerBound, "Value \(value.wrappedValue) is out of bounds \(bounds)")
+        assert(value.wrappedValue <= bounds.upperBound, "Value \(value.wrappedValue) is out of bounds \(bounds)")
         self.value = value
         self.bounds = bounds
         self.step = V(step)

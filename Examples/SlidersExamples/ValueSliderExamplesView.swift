@@ -2,23 +2,23 @@ import SwiftUI
 import Sliders
 
 struct ValueSliderExamplesView: View {
-    @State var nativeValue = 0.5
+    @State var nativeValue = 1500.0
     @State var value1 = 0.5
-    @State var value2 = 0.5
+    @State var value2 = 75.0
     @State var value3 = 0.5
     @State var value4 = 0.5
     
     var body: some View {
         ScrollView {
-            //Slider(value: $nativeValue, in: 0.0...1.0)
+            Slider(value: $nativeValue, in: 1000...2000)
             ValueSlider(value: $value1)
-            ValueSlider(value: $value2)
+            ValueSlider(value: $value2, in: 25...125)
                 .clippedValue(false)
-            ValueSlider(value: $value4)
+            ValueSlider(value: $value3)
                 .sliderStyle(
                     GradientSliderStyle(colors: [.green, .yellow, .red])
                 )
-            ValueSlider(value: $value3)
+            ValueSlider(value: $value4)
                 .thickness(6)
                 .clippedValue(false)
                 .sliderStyle(

@@ -13,6 +13,8 @@ extension RangeSlider {
     /// the user is touching the knob and sliding it around the track.
     @available(tvOS, unavailable)
     public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0...1, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        assert(range.wrappedValue.lowerBound >= bounds.lowerBound, "Range value \(range.wrappedValue) is out of bounds \(bounds)")
+        assert(range.wrappedValue.upperBound <= bounds.upperBound, "Range value \(range.wrappedValue) is out of bounds \(bounds)")
         self.range = range
         self.bounds = bounds
         self.step = 0.001
@@ -32,6 +34,8 @@ extension RangeSlider {
     /// the user is touching the knob and sliding it around the track.
     @available(tvOS, unavailable)
     public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V>, step: V.Stride = 1, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        assert(range.wrappedValue.lowerBound >= bounds.lowerBound, "Range value \(range) is out of bounds \(bounds)")
+        assert(range.wrappedValue.upperBound <= bounds.upperBound, "Range value \(range) is out of bounds \(bounds)")
         self.range = range
         self.bounds = bounds
         self.step = V(step)

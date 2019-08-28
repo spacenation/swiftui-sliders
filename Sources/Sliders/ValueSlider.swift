@@ -29,8 +29,9 @@ public struct ValueSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
                     .gesture(
                         DragGesture()
                             .onChanged { value in
-                                let newLowerBound = V(value.location.x / (geometry.size.width - self.style.knobSize.width))
-                                let steppedNewValue = round(newLowerBound / self.step) * self.step
+                                let relativeValue: CGFloat = value.location.x / (geometry.size.width - self.style.knobSize.width)
+                                let newValue = V(CGFloat(self.bounds.lowerBound) + (relativeValue * CGFloat(self.bounds.upperBound - self.bounds.lowerBound)))
+                                let steppedNewValue = round(newValue / self.step) * self.step
                                 let validatedValue = min(self.bounds.upperBound, max(self.bounds.lowerBound, steppedNewValue))
                                 self.value.wrappedValue = validatedValue
                                 self.onEditingChanged(true)
@@ -50,7 +51,7 @@ public struct ValueSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
     }
     
     func xForValue(width: CGFloat) -> CGFloat {
-        (width - self.style.knobSize.width) * CGFloat(self.value.wrappedValue)
+        (width - self.style.knobSize.width) * (CGFloat(self.value.wrappedValue - bounds.lowerBound) / CGFloat(bounds.upperBound - bounds.lowerBound))
     }
 }
 

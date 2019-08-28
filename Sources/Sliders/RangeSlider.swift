@@ -29,7 +29,8 @@ public struct RangeSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
                     .gesture(
                         DragGesture()
                             .onChanged { value in
-                                let newLowerBound = V(value.location.x / (geometry.size.width - self.style.knobSize.width * 2))
+                                let relativeValue: CGFloat = value.location.x / (geometry.size.width - self.style.knobSize.width * 2)
+                                let newLowerBound = V(CGFloat(self.bounds.lowerBound) + (relativeValue * CGFloat(self.bounds.upperBound - self.bounds.lowerBound)))
                                 let steppedNewLowerBound = round(newLowerBound / self.step) * self.step
                                 let validatedLowerBound = max(self.bounds.lowerBound, steppedNewLowerBound)
                                 let validatedUpperBound = max(validatedLowerBound, self.range.wrappedValue.upperBound)
@@ -46,7 +47,8 @@ public struct RangeSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
                     .gesture(
                         DragGesture()
                             .onChanged { value in
-                                let newUpperBound = V((value.location.x - self.style.knobSize.width) / (geometry.size.width - self.style.knobSize.width * 2))
+                                let relativeValue: CGFloat = (value.location.x - self.style.knobSize.width) / (geometry.size.width - self.style.knobSize.width * 2)
+                                let newUpperBound = V(CGFloat(self.bounds.lowerBound) + (relativeValue * CGFloat(self.bounds.upperBound - self.bounds.lowerBound)))
                                 let steppedNewUpperBound = round(newUpperBound / self.step) * self.step
                                 let validatedUpperBound = min(self.bounds.upperBound, steppedNewUpperBound)
                                 let validatedLowerBound = min(validatedUpperBound, self.range.wrappedValue.lowerBound)
@@ -73,11 +75,11 @@ public struct RangeSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
     }
     
     func xForLowerBound(width: CGFloat) -> CGFloat {
-        (width - self.style.knobSize.width * 2) * CGFloat(self.range.wrappedValue.lowerBound)
+        (width - self.style.knobSize.width * 2) * (CGFloat(self.range.wrappedValue.lowerBound - bounds.lowerBound) / CGFloat(bounds.upperBound - bounds.lowerBound))
     }
     
     func xForUpperBound(width: CGFloat) -> CGFloat {
-        (width - self.style.knobSize.width * 2) * CGFloat(self.range.wrappedValue.upperBound)
+        (width - self.style.knobSize.width * 2) * (CGFloat(self.range.wrappedValue.upperBound - bounds.lowerBound) / CGFloat(bounds.upperBound - bounds.lowerBound))
     }
 }
 
