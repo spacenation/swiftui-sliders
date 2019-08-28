@@ -15,7 +15,7 @@ struct RangeSliderExamplesView: View {
                 Text("\(range1.description)")
                     .foregroundColor(.secondary)
             }
-            RangeSlider(range: $range1)
+            RangeSlider(range: $range1, step: 0.01)
             RangeSlider(range: $range2, in: 1000...2000)
                 .clippedValue(false)
             RangeSlider(range: $range3)

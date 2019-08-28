@@ -17,7 +17,7 @@ struct ValueSliderExamplesView: View {
                 Text("\(value1)")
                     .foregroundColor(.secondary)
             }
-            ValueSlider(value: $value1)
+            ValueSlider(value: $value1, step: 0.01)
             ValueSlider(value: $value2, in: 25...125)
                 .clippedValue(false)
             ValueSlider(value: $value3)
