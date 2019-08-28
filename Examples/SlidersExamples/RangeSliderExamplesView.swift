@@ -9,6 +9,12 @@ struct RangeSliderExamplesView: View {
     
     var body: some View {
         ScrollView {
+            HStack {
+                Text("Range")
+                Spacer()
+                Text("\(range1.description)")
+                    .foregroundColor(.secondary)
+            }
             RangeSlider(range: $range1)
             RangeSlider(range: $range2, in: 1000...2000)
                 .clippedValue(false)

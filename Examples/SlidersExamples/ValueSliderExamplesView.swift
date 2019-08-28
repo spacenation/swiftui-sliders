@@ -10,7 +10,13 @@ struct ValueSliderExamplesView: View {
     
     var body: some View {
         ScrollView {
-            Slider(value: $nativeValue, in: 1000...2000)
+            //Slider(value: $nativeValue, in: 1000...2000)
+            HStack {
+                Text("Value")
+                Spacer()
+                Text("\(value1)")
+                    .foregroundColor(.secondary)
+            }
             ValueSlider(value: $value1)
             ValueSlider(value: $value2, in: 25...125)
                 .clippedValue(false)

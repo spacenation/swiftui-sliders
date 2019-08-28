@@ -11,7 +11,6 @@ extension RangeSlider {
     /// `onEditingChanged` will be called when editing begins and ends. For
     /// example, on iOS, a `RangeSlider` is considered to be actively editing while
     /// the user is touching the knob and sliding it around the track.
-    @available(tvOS, unavailable)
     public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0...1, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         assert(range.wrappedValue.lowerBound >= bounds.lowerBound, "Range value \(range.wrappedValue) is out of bounds \(bounds)")
         assert(range.wrappedValue.upperBound <= bounds.upperBound, "Range value \(range.wrappedValue) is out of bounds \(bounds)")
@@ -32,7 +31,6 @@ extension RangeSlider {
     /// `onEditingChanged` will be called when editing begins and ends. For
     /// example, on iOS, a `RangeSlider` is considered to be actively editing while
     /// the user is touching the knob and sliding it around the track.
-    @available(tvOS, unavailable)
     public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V>, step: V.Stride = 1, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         assert(range.wrappedValue.lowerBound >= bounds.lowerBound, "Range value \(range) is out of bounds \(bounds)")
         assert(range.wrappedValue.upperBound <= bounds.upperBound, "Range value \(range) is out of bounds \(bounds)")
