@@ -7,6 +7,8 @@ public struct RangeSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
     let bounds: ClosedRange<V>
     let step: V
     let onEditingChanged: (Bool) -> Void
+    
+    @State private var dragOffsetX: CGFloat? = nil
 
     public var body: some View {
         GeometryReader { geometry in
@@ -50,7 +52,10 @@ public struct RangeSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
                     .gesture(
                         DragGesture()
                             .onChanged { value in
-                                let relativeValue: CGFloat = value.location.x / (geometry.size.width - self.style.knobSize.width * 2)
+                                if self.dragOffsetX == nil {
+                                    self.dragOffsetX = value.startLocation.x - self.xForLowerBound(width: geometry.size.width)
+                                }
+                                let relativeValue: CGFloat = (value.location.x - (self.dragOffsetX ?? 0)) / (geometry.size.width - self.style.knobSize.width * 2)
                                 let newLowerBound = V(CGFloat(self.bounds.lowerBound) + (relativeValue * CGFloat(self.bounds.upperBound - self.bounds.lowerBound)))
                                 let steppedNewLowerBound = round(newLowerBound / self.step) * self.step
                                 let validatedLowerBound = max(self.bounds.lowerBound, steppedNewLowerBound)
@@ -59,6 +64,7 @@ public struct RangeSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
                                 self.onEditingChanged(true)
                             }
                             .onEnded { _ in
+                                self.dragOffsetX = nil
                                 self.onEditingChanged(false)
                             }
                     )
@@ -76,7 +82,10 @@ public struct RangeSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
                     .gesture(
                         DragGesture()
                             .onChanged { value in
-                                let relativeValue: CGFloat = (value.location.x - self.style.knobSize.width) / (geometry.size.width - self.style.knobSize.width * 2)
+                                if self.dragOffsetX == nil {
+                                    self.dragOffsetX = self.style.knobSize.width - (value.startLocation.x - self.xForUpperBound(width: geometry.size.width))
+                                }
+                                let relativeValue: CGFloat = ((value.location.x - self.style.knobSize.width) + (self.dragOffsetX ?? 0)) / (geometry.size.width - self.style.knobSize.width * 2)
                                 let newUpperBound = V(CGFloat(self.bounds.lowerBound) + (relativeValue * CGFloat(self.bounds.upperBound - self.bounds.lowerBound)))
                                 let steppedNewUpperBound = round(newUpperBound / self.step) * self.step
                                 let validatedUpperBound = min(self.bounds.upperBound, steppedNewUpperBound)
@@ -85,6 +94,7 @@ public struct RangeSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
                                 self.onEditingChanged(true)
                             }
                             .onEnded { _ in
+                                self.dragOffsetX = nil
                                 self.onEditingChanged(false)
                             }
                     )

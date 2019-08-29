@@ -8,6 +8,8 @@ public struct ValueSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
     let step: V
     let onEditingChanged: (Bool) -> Void
 
+    @State private var dragOffsetX: CGFloat? = nil
+    
     public var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .init(horizontal: .leading, vertical: .center)) {
@@ -49,7 +51,10 @@ public struct ValueSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
                     .gesture(
                         DragGesture()
                             .onChanged { value in
-                                let relativeValue: CGFloat = value.location.x / (geometry.size.width - self.style.knobSize.width)
+                                if self.dragOffsetX == nil {
+                                    self.dragOffsetX = value.startLocation.x - self.xForValue(width: geometry.size.width)
+                                }
+                                let relativeValue: CGFloat = (value.location.x - (self.dragOffsetX ?? 0)) / (geometry.size.width - self.style.knobSize.width)
                                 let newValue = V(CGFloat(self.bounds.lowerBound) + (relativeValue * CGFloat(self.bounds.upperBound - self.bounds.lowerBound)))
                                 let steppedNewValue = round(newValue / self.step) * self.step
                                 let validatedValue = min(self.bounds.upperBound, max(self.bounds.lowerBound, steppedNewValue))
@@ -57,6 +62,7 @@ public struct ValueSlider<V>: View where V : BinaryFloatingPoint, V.Stride : Bin
                                 self.onEditingChanged(true)
                             }
                             .onEnded { _ in
+                                self.dragOffsetX = nil
                                 self.onEditingChanged(false)
                             }
                     )
