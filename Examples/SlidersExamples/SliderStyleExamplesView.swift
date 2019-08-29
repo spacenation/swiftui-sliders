@@ -46,7 +46,16 @@ struct SliderStyleExamplesView: View {
             
             Group {
                 RangeSlider(range: $range1, step: 0.01)
+                    .knobBorderWidth(3)
+                    .knobBorderColor(.purple)
+                    .knobShadowColor(.clear)
+                    .clippedValue(false)
+                    .valueColor(.purple)
+                
                 RangeSlider(range: $range2)
+                    .knobColor(.blue)
+                    .knobShadowColor(.blue)
+                    .knobShadowRadius(4)
                     .clippedValue(false)
                 RangeSlider(range: $range3)
                     .clippedValue(false)
@@ -64,7 +73,10 @@ struct SliderStyleExamplesView: View {
                 RangeSlider(range: $range5)
                     .knobCornerRadius(2)
                 RangeSlider(range: $range6)
-                    .thickness(27)
+                    .thickness(28)
+                    .knobSize(CGSize(width: 26, height: 26))
+                    .trackBorderColor(Color.gray)
+                    .trackBorderWidth(1)
                     .sliderStyle(
                         GradientSliderStyle()
                     )
@@ -84,6 +96,7 @@ struct SliderStyleExamplesView: View {
                     .sliderStyle(
                         GradientSliderStyle(colors: [.yellow, .orange, .red])
                     )
+                    .padding(.horizontal, 32)
             }
         }
         .padding()
