@@ -10,7 +10,7 @@ struct ValueSliderExamplesView: View {
     
     var body: some View {
         ScrollView {
-            Slider(value: $nativeValue, in: 1000...2000)
+            // Slider(value: $nativeValue, in: 1000...2000)
             HStack {
                 Text("Value")
                 Spacer()

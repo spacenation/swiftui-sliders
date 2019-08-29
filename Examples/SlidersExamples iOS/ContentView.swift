@@ -33,6 +33,15 @@ struct ContentView: View {
                 }
                 .tag(2)
                 .frame(minWidth: 300)
+            SliderBuilderView()
+                .tabItem {
+                    VStack {
+                        Image(systemName: "rectangle.3.offgrid.fill")
+                        Text("Builder")
+                    }
+                }
+                .tag(3)
+                .frame(minWidth: 300)
         }
         .accentColor(.blue)
     }

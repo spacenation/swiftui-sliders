@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SliderStyleKey: EnvironmentKey {
-    static let defaultValue: SliderStyle = DefaultSliderStyle()
+    static let defaultValue: SliderStyle = CustomSliderStyle()
 }
 
 extension View {

@@ -27,17 +27,3 @@ public protocol SliderStyle {
     var valueView: AnyView { get }
     var trackView: AnyView { get }
 }
-
-extension SliderStyle {
-    public var knobView: AnyView {
-        AnyView(Rectangle())
-    }
-    
-    public var valueView: AnyView {
-        AnyView(Rectangle())
-    }
-    
-    public var trackView: AnyView {
-        AnyView(Rectangle())
-    }
-}

@@ -87,14 +87,30 @@ struct SliderStyleExamplesView: View {
                     .sliderStyle(
                         GradientSliderStyle(colors: [.blue, .red])
                     )
+                
                 RangeSlider(range: $range8)
-                    .height(72)
-                    .thickness(64)
-                    .knobCornerRadius(4)
-                    .trackCornerRadius(4)
-                    .knobSize(CGSize(width: 32, height: 64))
                     .sliderStyle(
-                        GradientSliderStyle(colors: [.yellow, .orange, .red])
+                        CustomSliderStyle(
+                            height: 72,
+                            thickness: 64,
+                            knobSize: CGSize(width: 32, height: 64),
+                            knobColor: .white,
+                            knobCornerRadius: 4,
+                            knobBorderColor: .gray,
+                            knobBorderWidth: 1,
+                            knobShadowColor: .clear,
+                            knobShadowRadius: 0,
+                            knobShadowX: 0,
+                            knobShadowY: 0,
+                            trackColor: Color.black.opacity(0.6),
+                            trackCornerRadius: 4,
+                            trackBorderColor: .clear,
+                            trackBorderWidth: 0,
+                            clippedValue: true,
+                            knobView: AnyView(Rectangle()),
+                            valueView: AnyView(LinearGradient(gradient: Gradient(colors: [.yellow, .orange, .red]), startPoint: .leading, endPoint: .trailing)),
+                            trackView: AnyView(Rectangle())
+                        )
                     )
                     .padding(.horizontal, 32)
             }

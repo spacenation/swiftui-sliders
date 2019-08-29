@@ -13,6 +13,8 @@
 		FA346D24231471290030DEF0 /* RangeSliderExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA346D22231471290030DEF0 /* RangeSliderExamplesView.swift */; };
 		FA346D26231472190030DEF0 /* SliderStyleExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA346D25231472190030DEF0 /* SliderStyleExamplesView.swift */; };
 		FA346D27231472190030DEF0 /* SliderStyleExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA346D25231472190030DEF0 /* SliderStyleExamplesView.swift */; };
+		FA4DD2C32317586100AB7BDD /* SliderBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4DD2C22317586100AB7BDD /* SliderBuilderView.swift */; };
+		FA4DD2C42317586100AB7BDD /* SliderBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4DD2C22317586100AB7BDD /* SliderBuilderView.swift */; };
 		FA61E9B6231365E3006A5B6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61E9B5231365E3006A5B6B /* AppDelegate.swift */; };
 		FA61E9B8231365E3006A5B6B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61E9B7231365E3006A5B6B /* ContentView.swift */; };
 		FA61E9BA231365E5006A5B6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA61E9B9231365E5006A5B6B /* Assets.xcassets */; };
@@ -34,6 +36,7 @@
 		FA346D22231471290030DEF0 /* RangeSliderExamplesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderExamplesView.swift; sourceTree = "<group>"; };
 		FA346D25231472190030DEF0 /* SliderStyleExamplesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderStyleExamplesView.swift; sourceTree = "<group>"; };
 		FA411AC823136E2200A4A792 /* SlidersExamples iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SlidersExamples iOS.entitlements"; sourceTree = "<group>"; };
+		FA4DD2C22317586100AB7BDD /* SliderBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderBuilderView.swift; sourceTree = "<group>"; };
 		FA61E9B3231365E3006A5B6B /* SlidersExamples macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SlidersExamples macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA61E9B5231365E3006A5B6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA61E9B7231365E3006A5B6B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -80,6 +83,7 @@
 				FA346D1F23146FFC0030DEF0 /* ValueSliderExamplesView.swift */,
 				FA346D22231471290030DEF0 /* RangeSliderExamplesView.swift */,
 				FA346D25231472190030DEF0 /* SliderStyleExamplesView.swift */,
+				FA4DD2C22317586100AB7BDD /* SliderBuilderView.swift */,
 			);
 			path = SlidersExamples;
 			sourceTree = "<group>";
@@ -273,6 +277,7 @@
 				FA346D27231472190030DEF0 /* SliderStyleExamplesView.swift in Sources */,
 				FA346D24231471290030DEF0 /* RangeSliderExamplesView.swift in Sources */,
 				FA61E9B6231365E3006A5B6B /* AppDelegate.swift in Sources */,
+				FA4DD2C42317586100AB7BDD /* SliderBuilderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +288,7 @@
 				FA346D26231472190030DEF0 /* SliderStyleExamplesView.swift in Sources */,
 				FAF1C03722ED3B7D00F92FEA /* AppDelegate.swift in Sources */,
 				FAF1C03922ED3B7D00F92FEA /* SceneDelegate.swift in Sources */,
+				FA4DD2C32317586100AB7BDD /* SliderBuilderView.swift in Sources */,
 				FA346D2023146FFC0030DEF0 /* ValueSliderExamplesView.swift in Sources */,
 				FA346D23231471290030DEF0 /* RangeSliderExamplesView.swift in Sources */,
 				FAF1C03B22ED3B7D00F92FEA /* ContentView.swift in Sources */,

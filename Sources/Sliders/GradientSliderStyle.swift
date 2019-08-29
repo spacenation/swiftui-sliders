@@ -14,7 +14,7 @@ public struct GradientSliderStyle: SliderStyle {
     public var knobShadowX: CGFloat = 0
     public var knobShadowY: CGFloat = 1.5
     
-    public var valueColor: Color = .accentColor
+    public var valueColor: Color = .blue
     
     public var trackColor: Color = Color.secondary.opacity(0.25)
     public var trackCornerRadius: CGFloat? = nil
@@ -22,18 +22,16 @@ public struct GradientSliderStyle: SliderStyle {
     public var trackBorderWidth: CGFloat = 0
 
     public var clippedValue: Bool = true
-    
-    private let gradient: LinearGradient
-    
+        
     public init(gradient: LinearGradient = .init(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing)) {
-        self.gradient = gradient
+        self.valueView = AnyView(gradient)
     }
     
     public init(colors: [Color]) {
-        self.gradient = LinearGradient(gradient: Gradient(colors: colors), startPoint: .leading, endPoint: .trailing)
+        self.valueView = AnyView(LinearGradient(gradient: Gradient(colors: colors), startPoint: .leading, endPoint: .trailing))
     }
-
-    public var valueView: AnyView {
-        AnyView(gradient)
-    }
+    
+    public var knobView: AnyView = AnyView(Rectangle())
+    public var valueView: AnyView
+    public var trackView: AnyView = AnyView(Rectangle())
 }

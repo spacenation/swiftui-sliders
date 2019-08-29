@@ -79,6 +79,9 @@ RangeSlider(range: $range)
     )
 ```
 
+### CustomSliderStyle
+
+
 ### Create your own app-wide style with SliderStyle protocol
 ```swift
 public protocol SliderStyle {
@@ -108,6 +111,12 @@ public protocol SliderStyle {
     var valueView: AnyView { get }
     var trackView: AnyView { get }
 }
+
+/// Apply app-wide slider style
+contentView
+    .sliderStyle(
+        YourSliderStyle()
+    )
 ```
 
 
