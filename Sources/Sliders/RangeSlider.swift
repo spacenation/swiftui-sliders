@@ -5,7 +5,7 @@ public struct RangeSlider<V, TrackView: InsettableShape, ValueView: View, ThumbV
     
     let range: Binding<ClosedRange<V>>
     let bounds: ClosedRange<V>
-    let step: V
+    let step: V.Stride
     
     let trackView: TrackView
     let valueView: ValueView
@@ -101,11 +101,11 @@ public struct RangeSlider<V, TrackView: InsettableShape, ValueView: View, ThumbV
                                     self.dragOffsetX = value.startLocation.x - self.xForLowerBound(width: geometry.size.width)
                                 }
                                 let relativeValue: CGFloat = (value.location.x - (self.dragOffsetX ?? 0)) / (geometry.size.width - self.thumbSize.width * 2)
-                                let newLowerBound = V(CGFloat(self.bounds.lowerBound) + (relativeValue * CGFloat(self.bounds.upperBound - self.bounds.lowerBound)))
-                                let steppedNewLowerBound = round(newLowerBound / self.step) * self.step
-                                let validatedLowerBound = max(self.bounds.lowerBound, steppedNewLowerBound)
-                                let validatedUpperBound = max(validatedLowerBound, self.range.wrappedValue.upperBound)
-                                self.range.wrappedValue = (validatedLowerBound...validatedUpperBound).clamped(to: self.bounds)
+                                let newLowerBound = CGFloat(self.bounds.lowerBound) + (relativeValue * CGFloat(self.bounds.upperBound - self.bounds.lowerBound))
+                                let steppedNewLowerBound = round(newLowerBound / CGFloat(self.step)) * CGFloat(self.step)
+                                let validatedLowerBound = max(CGFloat(self.bounds.lowerBound), steppedNewLowerBound)
+                                let validatedUpperBound = max(validatedLowerBound, CGFloat(self.range.wrappedValue.upperBound))
+                                self.range.wrappedValue = (V(validatedLowerBound)...V(validatedUpperBound)).clamped(to: self.bounds)
                                 self.onEditingChanged(true)
                             }
                             .onEnded { _ in
@@ -134,11 +134,11 @@ public struct RangeSlider<V, TrackView: InsettableShape, ValueView: View, ThumbV
                                     self.dragOffsetX = self.thumbSize.width - (value.startLocation.x - self.xForUpperBound(width: geometry.size.width))
                                 }
                                 let relativeValue: CGFloat = ((value.location.x - self.thumbSize.width) + (self.dragOffsetX ?? 0)) / (geometry.size.width - self.thumbSize.width * 2)
-                                let newUpperBound = V(CGFloat(self.bounds.lowerBound) + (relativeValue * CGFloat(self.bounds.upperBound - self.bounds.lowerBound)))
-                                let steppedNewUpperBound = round(newUpperBound / self.step) * self.step
-                                let validatedUpperBound = min(self.bounds.upperBound, steppedNewUpperBound)
-                                let validatedLowerBound = min(validatedUpperBound, self.range.wrappedValue.lowerBound)
-                                self.range.wrappedValue = (validatedLowerBound...validatedUpperBound).clamped(to: self.bounds)
+                                let newUpperBound = CGFloat(self.bounds.lowerBound) + (relativeValue * CGFloat(self.bounds.upperBound - self.bounds.lowerBound))
+                                let steppedNewUpperBound = round(newUpperBound / CGFloat(self.step)) * CGFloat(self.step)
+                                let validatedUpperBound = min(CGFloat(self.bounds.upperBound), steppedNewUpperBound)
+                                let validatedLowerBound = min(validatedUpperBound, CGFloat(self.range.wrappedValue.lowerBound))
+                                self.range.wrappedValue = (V(validatedLowerBound)...V(validatedUpperBound)).clamped(to: self.bounds)
                                 self.onEditingChanged(true)
                             }
                             .onEnded { _ in

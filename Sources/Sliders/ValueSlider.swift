@@ -5,7 +5,7 @@ public struct ValueSlider<V, TrackView: InsettableShape, ValueView: View, ThumbV
     
     let value: Binding<V>
     let bounds: ClosedRange<V>
-    let step: V
+    let step: V.Stride
 
     let trackView: TrackView
     let valueView: ValueView
@@ -103,10 +103,10 @@ public struct ValueSlider<V, TrackView: InsettableShape, ValueView: View, ThumbV
                                     self.dragOffsetX = value.startLocation.x - self.xForValue(width: geometry.size.width)
                                 }
                                 let relativeValue: CGFloat = (value.location.x - (self.dragOffsetX ?? 0)) / (geometry.size.width - self.thumbSize.width)
-                                let newValue = V(CGFloat(self.bounds.lowerBound) + (relativeValue * CGFloat(self.bounds.upperBound - self.bounds.lowerBound)))
-                                let steppedNewValue = round(newValue / self.step) * self.step
-                                let validatedValue = min(self.bounds.upperBound, max(self.bounds.lowerBound, steppedNewValue))
-                                self.value.wrappedValue = validatedValue
+                                let newValue = CGFloat(self.bounds.lowerBound) + (relativeValue * CGFloat(self.bounds.upperBound - self.bounds.lowerBound))
+                                let steppedNewValue = round(newValue / CGFloat(self.step)) * CGFloat(self.step)
+                                let validatedValue = min(CGFloat(self.bounds.upperBound), max(CGFloat(self.bounds.lowerBound), steppedNewValue))
+                                self.value.wrappedValue = V(validatedValue)
                                 self.onEditingChanged(true)
                             }
                             .onEnded { _ in

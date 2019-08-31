@@ -14,7 +14,7 @@ extension ValueSlider {
     public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, trackView: TrackView, valueView: ValueView, thumbView: ThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         self.value = value
         self.bounds = bounds
-        self.step = V(step)
+        self.step = step
         
         self.trackView = trackView
         self.valueView = valueView

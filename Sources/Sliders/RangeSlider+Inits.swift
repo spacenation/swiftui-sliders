@@ -15,7 +15,7 @@ extension RangeSlider {
     public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0...1, step: V.Stride = 0.001, trackView: TrackView, valueView: ValueView, thumbView: ThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         self.range = range
         self.bounds = bounds
-        self.step = V(step)
+        self.step = step
         
         self.trackView = trackView
         self.valueView = valueView
