@@ -4,91 +4,91 @@ import SwiftUI
 public extension RangeSlider {
     @inlinable func height(_ length: CGFloat?) -> Self {
         var copy = self
-        copy.preferredHeight = length
+        copy.preferences.height = length
         return copy
     }
     
     @inlinable func thickness(_ length: CGFloat?) -> Self {
         var copy = self
-        copy.preferredThickness = length
+        copy.preferences.thickness = length
         return copy
     }
     
     @inlinable func thumbSize(_ size: CGSize?) -> Self {
         var copy = self
-        copy.preferredThumbSize = size
+        copy.preferences.thumbSize = size
         return copy
     }
     
     @inlinable func thumbColor(_ color: Color?) -> Self {
         var copy = self
-        copy.preferredThumbColor = color
+        copy.preferences.thumbColor = color
         return copy
     }
     
     @inlinable func thumbBorderColor(_ color: Color?) -> Self {
         var copy = self
-        copy.preferredThumbBorderColor = color
+        copy.preferences.thumbBorderColor = color
         return copy
     }
     
     @inlinable func thumbBorderWidth(_ width: CGFloat?) -> Self {
         var copy = self
-        copy.preferredThumbBorderWidth = width
+        copy.preferences.thumbBorderWidth = width
         return copy
     }
     
     @inlinable func thumbShadowColor(_ color: Color?) -> Self {
         var copy = self
-        copy.preferredThumbShadowColor = color
+        copy.preferences.thumbShadowColor = color
         return copy
     }
 
     @inlinable func thumbShadowRadius(_ radius: CGFloat?) -> Self {
         var copy = self
-        copy.preferredThumbShadowRadius = radius
+        copy.preferences.thumbShadowRadius = radius
         return copy
     }
 
     @inlinable func thumbShadowX(_ offset: CGFloat?) -> Self {
         var copy = self
-        copy.preferredThumbShadowX = offset
+        copy.preferences.thumbShadowX = offset
         return copy
     }
 
     @inlinable func thumbShadowY(_ offset: CGFloat?) -> Self {
         var copy = self
-        copy.preferredThumbShadowY = offset
+        copy.preferences.thumbShadowY = offset
         return copy
     }
     
     @inlinable func valueColor(_ color: Color?) -> Self {
         var copy = self
-        copy.preferredValueColor = color
+        copy.preferences.valueColor = color
         return copy
     }
     
     @inlinable func trackColor(_ color: Color?) -> Self {
         var copy = self
-        copy.preferredTrackColor = color
+        copy.preferences.trackColor = color
         return copy
     }
 
     @inlinable func trackBorderColor(_ color: Color?) -> Self {
         var copy = self
-        copy.preferredTrackBorderColor = color
+        copy.preferences.trackBorderColor = color
         return copy
     }
 
     @inlinable func trackBorderWidth(_ length: CGFloat?) -> Self {
         var copy = self
-        copy.preferredTrackBorderWidth = length
+        copy.preferences.trackBorderWidth = length
         return copy
     }
     
     @inlinable func clippedValue(_ isClipped: Bool?) -> Self {
         var copy = self
-        copy.preferClippedValue = isClipped
+        copy.preferences.clippedValue = isClipped
         return copy
     }
 }
