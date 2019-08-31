@@ -33,93 +33,95 @@ struct ContentView: View {
 ```
 For more examples open `/Examples/SlidersExamples.xcodeproj`
 
-## Fully customizable
+## Customizable at every level
+
+### Local modifiers
 ```swift
-RangeSlider(range: $range)
-    .height(60)
-    .thickness(8)
-    /// Knob
-    .knobSize(CGSize(width: 16, height: 24))
-    .knobColor(.red)
-    .knobCornerRadius(8)
-    .knobBorderColor(.white)
-    .knobBorderWidth(1)
-    .knobShadowColor(.black)
-    .knobShadowRadius(3)
-    .knobShadowX(1)
-    .knobShadowY(0)
-    /// Value
-    .valueColor(.blue)
-    .clippedValue(false)
-    /// Track
-    .trackColor(.black)
-    .trackCornerRadius(2)
-    .trackBorderColor(.yellow)
-    .trackBorderWidth(1)
-    /// Style
-    .sliderStyle(
-        GradientSliderStyle()
-    )
+RangeSlider(
+    range: $range,
+    trackView: RoundedRectangle(cornerRadius: 16),
+    valueView: LinearGradient(gradient: Gradient(colors: [.yellow, .orange, .red]), startPoint: .leading, endPoint: .trailing),
+    thumbView: HalfCapsule()
+)
+.height(60)
+.thickness(8)
+/// Thumb
+.thumbSize(CGSize(width: 16, height: 24))
+.thumbColor(.red)
+.thumbCornerRadius(8)
+.thumbBorderColor(.white)
+.thumbBorderWidth(1)
+.thumbShadowColor(.black)
+.thumbShadowRadius(3)
+.thumbShadowX(1)
+.thumbShadowY(0)
+/// Value
+.valueColor(.blue)
+.clippedValue(false)
+/// Track
+.trackColor(.black)
+.trackBorderColor(.yellow)
+.trackBorderWidth(1)
+/// Style
+.sliderStyle(
+    PlainSliderStyle()
+)
 ```
 
-## Styles
-### GradientSliderStyle
+### Apply scope-wide styles
 ```swift
-ValueSlider(value: $value)
-    .clippedValue(false)
-    .sliderStyle(
-        GradientSliderStyle()
-    )
-```
-```swift
-RangeSlider(range: $range)
-    .thickness(6)
-    .sliderStyle(
-        GradientSliderStyle(colors: [.green, .yellow, .red])
-    )
-```
-
-### CustomSliderStyle
-
-
-### Create your own app-wide style with SliderStyle protocol
-```swift
-public protocol SliderStyle {
-    var height: CGFloat { get set }
-    var thickness: CGFloat { get set }
-    
-    var knobSize: CGSize { get set }
-    var knobColor: Color { get set }
-    var knobCornerRadius: CGFloat { get set }
-    var knobBorderColor: Color { get set }
-    var knobBorderWidth: CGFloat { get set }
-    var knobShadowColor: Color { get set }
-    var knobShadowRadius: CGFloat { get set }
-    var knobShadowX: CGFloat { get set }
-    var knobShadowY: CGFloat { get set }
-    
-    var valueColor: Color { get set }
-    
-    var trackColor: Color { get set }
-    var trackCornerRadius: CGFloat? { get set }
-    var trackBorderColor: Color { get set }
-    var trackBorderWidth: CGFloat { get set }
-        
-    var clippedValue: Bool { get set }
-    
-    var knobView: AnyView { get }
-    var valueView: AnyView { get }
-    var trackView: AnyView { get }
-}
-
-/// Apply app-wide slider style
-contentView
+manySlidersView
     .sliderStyle(
         YourSliderStyle()
     )
 ```
 
+### Environment Values
+```swift
+view.environment(\.sliderStyle.height, 44)
+view.environment(\.sliderStyle.thickness, 3)
+view.environment(\.sliderStyle.thumbSize, CGSize(width: 16, height: 24))
+view.environment(\.sliderStyle.thumbColor, .red)
+view.environment(\.sliderStyle.thumbBorderColor, .blue)
+view.environment(\.sliderStyle.thumbBorderWidth, 1)
+view.environment(\.sliderStyle.thumbShadowColor, .black)
+view.environment(\.sliderStyle.thumbShadowRadius, 2)
+view.environment(\.sliderStyle.thumbShadowX, 1.5)
+view.environment(\.sliderStyle.thumbShadowY, 1.5)
+view.environment(\.sliderStyle.valueColor, .blue)
+view.environment(\.sliderStyle.trackColor, .green)
+view.environment(\.sliderStyle.trackBorderColor, .grey)
+view.environment(\.sliderStyle.trackBorderWidth, 2)
+view.environment(\.sliderStyle.clippedValue, true)
 
+view.environment(\.sliderStyle, PlainSliderStyle())
+```
+
+### Create your own style with SliderStyle protocol
+```swift
+public protocol SliderStyle {
+    var height: CGFloat { get set }
+    var thickness: CGFloat { get set }
+    
+    var thumbSize: CGSize { get set }
+    var thumbColor: Color { get set }
+    var thumbCornerRadius: CGFloat { get set }
+    var thumbBorderColor: Color { get set }
+    var thumbBorderWidth: CGFloat { get set }
+    var thumbShadowColor: Color { get set }
+    var thumbShadowRadius: CGFloat { get set }
+    var thumbShadowX: CGFloat { get set }
+    var thumbShadowY: CGFloat { get set }
+    
+    var valueColor: Color { get set }
+    
+    var trackColor: Color { get set }
+    var trackBorderColor: Color { get set }
+    var trackBorderWidth: CGFloat { get set }
+        
+    var clippedValue: Bool { get set }
+}
+```
 
 ## SDKs
 - iOS 13+

@@ -1,3 +1,4 @@
+
 import SwiftUI
 import Sliders
 
@@ -10,25 +11,19 @@ struct ValueSliderExamplesView: View {
     
     var body: some View {
         ScrollView {
-            // Slider(value: $nativeValue, in: 1000...2000)
-            HStack {
-                Text("Value")
-                Spacer()
-                Text("\(value1)")
-                    .foregroundColor(.secondary)
-            }
-            ValueSlider(value: $value1, step: 0.01)
+            //Text("\(nativeValue)")
+            //Slider(value: $nativeValue, in: 1000...2000)
+            ValueSlider(value: $value1, step: 0.001)
+
             ValueSlider(value: $value2, in: 25...125)
                 .clippedValue(false)
-            ValueSlider(value: $value3)
-                .sliderStyle(
-                    GradientSliderStyle(colors: [.green, .yellow, .red])
-                )
-            ValueSlider(value: $value4)
-                .clippedValue(false)
-                .sliderStyle(
-                    GradientSliderStyle()
-                )
+            ValueSlider(value: $value3, valueView:
+                LinearGradient(gradient: Gradient(colors: [.green, .yellow, .red]), startPoint: .leading, endPoint: .trailing)
+            )
+            ValueSlider(value: $value4, valueView:
+                LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing)
+            )
+            .clippedValue(false)
         }
         .padding()
     }

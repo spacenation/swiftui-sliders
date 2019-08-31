@@ -15,109 +15,121 @@ struct SliderStyleExamplesView: View {
     @State var range6 = 0.1...0.9
     @State var range7 = 0.1...0.9
     @State var range8 = 0.1...0.9
+    @State var range9 = 0.1...0.9
     
     var body: some View {
         ScrollView {
             Group {
                 ValueSlider(value: $value1, step: 0.01)
-                ValueSlider(value: $value2)
-                    .clippedValue(false)
-                    .sliderStyle(
-                        GradientSliderStyle()
-                    )
+                
+                ValueSlider(
+                    value: $value2,
+                    valueView: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing)
+                )
+                .clippedValue(false)
+                
                 ValueSlider(value: $value3)
+                    .thumbSize(CGSize(width: 16, height: 16))
                     .thickness(6)
-                    .knobSize(CGSize(width: 16, height: 16))
-                ValueSlider(value: $value4)
-                    .thickness(6)
-                    .clippedValue(false)
-                    .knobSize(CGSize(width: 48, height: 16))
-                    .sliderStyle(
-                        GradientSliderStyle(colors: [.white, .blue])
-                    )
-                ValueSlider(value: $value5)
-                    .thickness(6)
-                    .clippedValue(false)
-                    .knobSize(CGSize(width: 16, height: 24))
-                    .sliderStyle(
-                        GradientSliderStyle(colors: [.black, .blue])
-                    )
+                
+                ValueSlider(
+                    value: $value4,
+                    valueView: LinearGradient(gradient: Gradient(colors: [.white, .blue]), startPoint: .leading, endPoint: .trailing)
+                )
+                .thumbSize(CGSize(width: 48, height: 16))
+                .thickness(6)
+                .clippedValue(false)
+                
+                ValueSlider(
+                    value: $value5,
+                    valueView: LinearGradient(gradient: Gradient(colors: [.gray, .blue]), startPoint: .leading, endPoint: .trailing)
+                )
+                .thumbSize(CGSize(width: 16, height: 24))
+                .thickness(6)
+                .clippedValue(false)
             }
             
             Group {
                 RangeSlider(range: $range1, step: 0.01)
-                    .knobBorderWidth(3)
-                    .knobBorderColor(.purple)
-                    .knobShadowColor(.clear)
-                    .clippedValue(false)
-                    .valueColor(.purple)
+                    .sliderStyle(
+                        PlainSliderStyle(valueColor: .purple)
+                    )
                 
                 RangeSlider(range: $range2)
-                    .knobColor(.blue)
-                    .knobShadowColor(.blue)
-                    .knobShadowRadius(4)
-                    .clippedValue(false)
-                RangeSlider(range: $range3)
-                    .clippedValue(false)
+                    .thumbBorderWidth(8)
+                    .thumbBorderColor(.white)
                     .sliderStyle(
-                        GradientSliderStyle()
-                    )
-
-                RangeSlider(range: $range4)
-                    .thickness(8)
-                    .knobCornerRadius(8)
-                    .knobSize(CGSize(width: 16, height: 24))
-                    .sliderStyle(
-                        GradientSliderStyle(colors: [.green, .yellow, .red])
-                    )
-                RangeSlider(range: $range5)
-                    .knobCornerRadius(2)
-                RangeSlider(range: $range6)
-                    .thickness(28)
-                    .knobSize(CGSize(width: 26, height: 26))
-                    .trackBorderColor(Color.gray)
-                    .trackBorderWidth(1)
-                    .sliderStyle(
-                        GradientSliderStyle()
-                    )
-                RangeSlider(range: $range7)
-                    .thickness(8)
-                    .knobCornerRadius(8)
-                    .knobSize(CGSize(width: 48, height: 24))
-                    .sliderStyle(
-                        GradientSliderStyle(colors: [.blue, .red])
+                        PlainSliderStyle(valueColor: .blue)
                     )
                 
-                RangeSlider(range: $range8)
-                    .sliderStyle(
-                        CustomSliderStyle(
-                            height: 72,
-                            thickness: 64,
-                            knobSize: CGSize(width: 32, height: 64),
-                            knobColor: .white,
-                            knobCornerRadius: 4,
-                            knobBorderColor: .gray,
-                            knobBorderWidth: 1,
-                            knobShadowColor: .clear,
-                            knobShadowRadius: 0,
-                            knobShadowX: 0,
-                            knobShadowY: 0,
-                            trackColor: Color.black.opacity(0.6),
-                            trackCornerRadius: 4,
-                            trackBorderColor: .clear,
-                            trackBorderWidth: 0,
-                            clippedValue: true,
-                            knobView: AnyView(Rectangle()),
-                            valueView: AnyView(LinearGradient(gradient: Gradient(colors: [.yellow, .orange, .red]), startPoint: .leading, endPoint: .trailing)),
-                            trackView: AnyView(Rectangle())
-                        )
-                    )
-                    .padding(.horizontal, 32)
+                RangeSlider(
+                    range: $range3,
+                    valueView: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing),
+                    thumbView: RoundedRectangle(cornerRadius: 8).rotation(Angle(degrees: 45))
+                )
+                .thumbSize(CGSize(width: 32, height: 32))
+                .clippedValue(false)
+
+                RangeSlider(
+                    range: $range4,
+                    valueView: LinearGradient(gradient: Gradient(colors: [.green, .yellow, .red]), startPoint: .leading, endPoint: .trailing),
+                    thumbView: Capsule()
+                )
+                .thumbSize(CGSize(width: 16, height: 24))
+                .thickness(8)
+                
+                RangeSlider(
+                    range: $range5,
+                    trackView: Rectangle(),
+                    thumbView: RoundedRectangle(cornerRadius: 4)
+                )
+                
+                RangeSlider(
+                    range: $range6,
+                    valueView: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing),
+                    thumbView: HalfCapsule()
+                )
+                .thumbSize(CGSize(width: 26, height: 26))
+                .thickness(28)
+                .trackBorderColor(.gray)
+                .trackBorderWidth(1)
+                
+                RangeSlider(
+                    range: $range7,
+                    valueView: LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .leading, endPoint: .trailing)
+                )
+                .thumbSize(CGSize(width: 48, height: 24))
+                .thickness(8)
+                    
+                
+                RangeSlider(
+                    range: $range8,
+                    trackView: RoundedRectangle(cornerRadius: 16),
+                    valueView: LinearGradient(gradient: Gradient(colors: [.yellow, .orange, .red]), startPoint: .leading, endPoint: .trailing),
+                    thumbView: HalfCapsule()
+                )
+                .height(72)
+                .thickness(64)
+                .thumbSize(CGSize(width: 32, height: 64))
+                .thumbBorderColor(Color.black.opacity(0.3))
+                .thumbBorderWidth(2)
+                
+                RangeSlider(
+                    range: $range9,
+                    trackView: Ellipse(),
+                    valueView: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .leading, endPoint: .trailing)
+                )
+                .height(64)
+                .thickness(48)
+                .thumbSize(CGSize(width: 16, height: 56))
+                .trackBorderColor(Color.white.opacity(0.3))
+                .trackBorderWidth(2)
             }
         }
         .padding()
     }
 }
+
 
 struct SliderStyleExamplesView_Previews: PreviewProvider {
     static var previews: some View {

@@ -1,19 +1,10 @@
 import SwiftUI
 
-struct SliderStyleKey: EnvironmentKey {
-    static let defaultValue: SliderStyle = CustomSliderStyle()
+public struct SliderStyleKey: EnvironmentKey {
+    public static let defaultValue: SliderStyle = CustomSliderStyle()
 }
 
-extension View {
-
-    /// Sets the style for `Slider` within the environment of `self`.
-    public func sliderStyle<S>(_ style: S) -> some View where S : SliderStyle {
-        self.environment(\.sliderStyle, style)
-    }
-
-}
-
-extension EnvironmentValues {
+public extension EnvironmentValues {
     var sliderStyle: SliderStyle {
         get {
             return self[SliderStyleKey.self]
@@ -21,5 +12,12 @@ extension EnvironmentValues {
         set {
             self[SliderStyleKey.self] = newValue
         }
+    }
+}
+
+extension View {
+    /// Sets the style for `Slider` within the environment of `self`.
+    public func sliderStyle<S>(_ style: S) -> some View where S : SliderStyle {
+        self.environment(\.sliderStyle, style)
     }
 }
