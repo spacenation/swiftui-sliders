@@ -13,14 +13,14 @@ struct ValueSliderExamplesView: View {
         ScrollView {
             //Text("\(nativeValue)")
             //Slider(value: $nativeValue, in: 1000...2000)
-            ValueSlider(value: $value1, step: 0.001)
+            HorizontalValueSlider(value: $value1, step: 0.001)
 
-            ValueSlider(value: $value2, in: 25...125)
+            HorizontalValueSlider(value: $value2, in: 25...125)
                 .clippedValue(false)
-            ValueSlider(value: $value3, valueView:
+            HorizontalValueSlider(value: $value3, valueView:
                 LinearGradient(gradient: Gradient(colors: [.green, .yellow, .red]), startPoint: .leading, endPoint: .trailing)
             )
-            ValueSlider(value: $value4, valueView:
+            HorizontalValueSlider(value: $value4, valueView:
                 LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing)
             )
             .clippedValue(false)

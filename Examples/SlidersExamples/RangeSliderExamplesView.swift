@@ -10,21 +10,21 @@ struct RangeSliderExamplesView: View {
 
     var body: some View {
         ScrollView {
-            RangeSlider(range: $range1, step: 0.01)
+            HorizontalRangeSlider(range: $range1, step: 0.01)
             
-            RangeSlider(range: $range2, in: 1000...2000)
+            HorizontalRangeSlider(range: $range2, in: 1000...2000)
                 .clippedValue(false)
             
-            RangeSlider(range: $range3, valueView:
+            HorizontalRangeSlider(range: $range3, valueView:
                     LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .leading, endPoint: .trailing)
                 )
             
-            RangeSlider(range: $range4, valueView:
+            HorizontalRangeSlider(range: $range4, valueView:
                     LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing)
                 )
                 .clippedValue(false)
             
-            RangeSlider(
+            HorizontalRangeSlider(
                 range: $range5,
                 trackView: Rectangle(),
                 valueView:

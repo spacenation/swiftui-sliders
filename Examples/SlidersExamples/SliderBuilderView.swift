@@ -8,7 +8,7 @@ struct SliderBuilderView: View {
     
     var body: some View {
         VStack {
-            RangeSlider(range: $range)
+            HorizontalRangeSlider(range: $range)
                 .sliderStyle(style)
 
             ScrollView {
@@ -20,7 +20,7 @@ struct SliderBuilderView: View {
                         }
                         .font(.footnote)
                         .frame(width: 100)
-                        ValueSlider(value: $style.height, in: 44...300, step: 1)
+                        HorizontalValueSlider(value: $style.height, in: 44...300, step: 1)
                     }
 
                     HStack {
@@ -30,7 +30,7 @@ struct SliderBuilderView: View {
                         }
                         .font(.footnote)
                         .frame(width: 100)
-                        ValueSlider(value: $style.thickness, in: 1...300, step: 1)
+                        HorizontalValueSlider(value: $style.thickness, in: 1...300, step: 1)
                     }
                 }
 
@@ -42,7 +42,7 @@ struct SliderBuilderView: View {
                         }
                         .font(.footnote)
                         .frame(width: 100)
-                        ValueSlider(value: $style.thumbSize.width, in: 1...300, step: 1)
+                        HorizontalValueSlider(value: $style.thumbSize.width, in: 1...300, step: 1)
                     }
 
                     HStack {
@@ -52,7 +52,7 @@ struct SliderBuilderView: View {
                         }
                         .font(.footnote)
                         .frame(width: 100)
-                        ValueSlider(value: $style.thumbSize.height, in: 1...300, step: 1)
+                        HorizontalValueSlider(value: $style.thumbSize.height, in: 1...300, step: 1)
                     }
                 }
             }

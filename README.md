@@ -25,8 +25,8 @@ struct ContentView: View {
     
     var body: some View {
         Group {
-            ValueSlider(value: $value)
-            RangeSlider(range: $range)
+            HorizontalValueSlider(value: $value)
+            HorizontalRangeSlider(range: $range)
         }
     }
 }
@@ -37,7 +37,7 @@ For more examples open `/Examples/SlidersExamples.xcodeproj`
 
 ### Local modifiers
 ```swift
-RangeSlider(
+HorizontalRangeSlider(
     range: $range,
     trackView: RoundedRectangle(cornerRadius: 16),
     valueView: LinearGradient(gradient: Gradient(colors: [.yellow, .orange, .red]), startPoint: .leading, endPoint: .trailing),

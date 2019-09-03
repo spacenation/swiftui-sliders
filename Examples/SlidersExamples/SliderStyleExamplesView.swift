@@ -20,19 +20,19 @@ struct SliderStyleExamplesView: View {
     var body: some View {
         ScrollView {
             Group {
-                ValueSlider(value: $value1, step: 0.01)
+                HorizontalValueSlider(value: $value1, step: 0.01)
                 
-                ValueSlider(
+                HorizontalValueSlider(
                     value: $value2,
                     valueView: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing)
                 )
                 .clippedValue(false)
                 
-                ValueSlider(value: $value3)
+                HorizontalValueSlider(value: $value3)
                     .thumbSize(CGSize(width: 16, height: 16))
                     .thickness(6)
                 
-                ValueSlider(
+                HorizontalValueSlider(
                     value: $value4,
                     valueView: LinearGradient(gradient: Gradient(colors: [.white, .blue]), startPoint: .leading, endPoint: .trailing)
                 )
@@ -40,7 +40,7 @@ struct SliderStyleExamplesView: View {
                 .thickness(6)
                 .clippedValue(false)
                 
-                ValueSlider(
+                HorizontalValueSlider(
                     value: $value5,
                     valueView: LinearGradient(gradient: Gradient(colors: [.gray, .blue]), startPoint: .leading, endPoint: .trailing)
                 )
@@ -50,19 +50,19 @@ struct SliderStyleExamplesView: View {
             }
             
             Group {
-                RangeSlider(range: $range1, step: 0.01)
+                HorizontalRangeSlider(range: $range1, step: 0.01)
                     .sliderStyle(
                         PlainSliderStyle(valueColor: .purple)
                     )
                 
-                RangeSlider(range: $range2)
+                HorizontalRangeSlider(range: $range2)
                     .thumbBorderWidth(8)
                     .thumbBorderColor(.white)
                     .sliderStyle(
                         PlainSliderStyle(valueColor: .blue)
                     )
                 
-                RangeSlider(
+                HorizontalRangeSlider(
                     range: $range3,
                     valueView: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing),
                     thumbView: RoundedRectangle(cornerRadius: 8).rotation(Angle(degrees: 45))
@@ -70,7 +70,7 @@ struct SliderStyleExamplesView: View {
                 .thumbSize(CGSize(width: 32, height: 32))
                 .clippedValue(false)
 
-                RangeSlider(
+                HorizontalRangeSlider(
                     range: $range4,
                     valueView: LinearGradient(gradient: Gradient(colors: [.green, .yellow, .red]), startPoint: .leading, endPoint: .trailing),
                     thumbView: Capsule()
@@ -78,13 +78,13 @@ struct SliderStyleExamplesView: View {
                 .thumbSize(CGSize(width: 16, height: 24))
                 .thickness(8)
                 
-                RangeSlider(
+                HorizontalRangeSlider(
                     range: $range5,
                     trackView: Rectangle(),
                     thumbView: RoundedRectangle(cornerRadius: 4)
                 )
                 
-                RangeSlider(
+                HorizontalRangeSlider(
                     range: $range6,
                     valueView: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing),
                     thumbView: HalfCapsule()
@@ -94,7 +94,7 @@ struct SliderStyleExamplesView: View {
                 .trackBorderColor(.gray)
                 .trackBorderWidth(1)
                 
-                RangeSlider(
+                HorizontalRangeSlider(
                     range: $range7,
                     valueView: LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .leading, endPoint: .trailing)
                 )
@@ -102,7 +102,7 @@ struct SliderStyleExamplesView: View {
                 .thickness(8)
                     
                 
-                RangeSlider(
+                HorizontalRangeSlider(
                     range: $range8,
                     trackView: RoundedRectangle(cornerRadius: 16),
                     valueView: LinearGradient(gradient: Gradient(colors: [.yellow, .orange, .red]), startPoint: .leading, endPoint: .trailing),
@@ -114,7 +114,7 @@ struct SliderStyleExamplesView: View {
                 .thumbBorderColor(Color.black.opacity(0.3))
                 .thumbBorderWidth(2)
                 
-                RangeSlider(
+                HorizontalRangeSlider(
                     range: $range9,
                     trackView: Ellipse(),
                     valueView: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .leading, endPoint: .trailing)
