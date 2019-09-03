@@ -44,11 +44,10 @@ struct VerticalSliderExamplesView: View {
                     
                     VerticalValueSlider(
                         value: $value5,
-                        valueView: LinearGradient(gradient: Gradient(colors: [.gray, .blue]), startPoint: .bottom, endPoint: .top)
+                        valueView: LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .bottom, endPoint: .top)
                     )
-                    .thumbSize(CGSize(width: 24, height: 16))
-                    .thickness(6)
-                    .clippedValue(false)
+                    .thumbSize(.zero)
+                    .thickness(30)
                 }
                 
                 Group {

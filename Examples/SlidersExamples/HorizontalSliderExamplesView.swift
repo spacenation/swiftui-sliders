@@ -43,11 +43,10 @@ struct HorizontalSliderExamplesView: View {
                 
                 HorizontalValueSlider(
                     value: $value5,
-                    valueView: LinearGradient(gradient: Gradient(colors: [.gray, .blue]), startPoint: .leading, endPoint: .trailing)
+                    valueView: LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .leading, endPoint: .trailing)
                 )
-                .thumbSize(CGSize(width: 16, height: 24))
-                .thickness(6)
-                .clippedValue(false)
+                .thumbSize(.zero)
+                .thickness(30)
             }
             
             Group {

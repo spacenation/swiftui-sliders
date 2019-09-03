@@ -26,6 +26,20 @@ public struct HorizontalValueSlider<V, TrackView: InsettableShape, ValueView: Vi
         GeometryReader { geometry in
             ZStack(alignment: .init(horizontal: .leading, vertical: .center)) {
                 self.generatedValueTrackView(geometry: geometry, valueView: self.valueView, trackView: self.trackView)
+                .gesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged { value in
+                            let relativeValue: CGFloat = (value.location.x - self.thumbSize.width / 2) / (geometry.size.width - self.thumbSize.width)
+                            let bounds = CGFloat(self.bounds.lowerBound)...CGFloat(self.bounds.upperBound)
+                            let computedValue = valueFrom(relativeValue: relativeValue, bounds: bounds, step: CGFloat(self.step))
+                            self.value.wrappedValue = V(computedValue)
+                            print(computedValue)
+                            self.onEditingChanged(true)
+                        }
+                        .onEnded { _ in
+                            self.onEditingChanged(false)
+                        }
+                )
 
                 self.generatedThumbView(view: self.thumbView)
                     .offset(x: self.xForValue(width: geometry.size.width))
