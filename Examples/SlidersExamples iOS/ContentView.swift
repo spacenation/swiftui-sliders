@@ -6,33 +6,25 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selection) {
-            ValueSliderExamplesView()
+            HorizontalSliderExamplesView()
                 .tabItem {
                     VStack {
-                        Image(systemName: "square.fill")
-                        Text("Value")
+                        Image(systemName: "square.split.1x2.fill")
+                        Text("Horizontal")
                     }
                 }
                 .tag(0)
                 .frame(minWidth: 300)
-            RangeSliderExamplesView()
+            VerticalSliderExamplesView()
                 .tabItem {
                     VStack {
                         Image(systemName: "square.split.2x1.fill")
-                        Text("Range")
+                        Text("Vertical")
                     }
                 }
                 .tag(1)
                 .frame(minWidth: 300)
-            SliderStyleExamplesView()
-                .tabItem {
-                    VStack {
-                        Image(systemName: "square.split.2x2.fill")
-                        Text("Styles")
-                    }
-                }
-                .tag(2)
-                .frame(minWidth: 300)
+
             SliderBuilderView()
                 .tabItem {
                     VStack {
@@ -40,7 +32,7 @@ struct ContentView: View {
                         Text("Builder")
                     }
                 }
-                .tag(3)
+                .tag(2)
                 .frame(minWidth: 300)
         }
         .accentColor(.blue)

@@ -7,12 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FA346D2023146FFC0030DEF0 /* ValueSliderExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA346D1F23146FFC0030DEF0 /* ValueSliderExamplesView.swift */; };
-		FA346D2123146FFC0030DEF0 /* ValueSliderExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA346D1F23146FFC0030DEF0 /* ValueSliderExamplesView.swift */; };
-		FA346D23231471290030DEF0 /* RangeSliderExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA346D22231471290030DEF0 /* RangeSliderExamplesView.swift */; };
-		FA346D24231471290030DEF0 /* RangeSliderExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA346D22231471290030DEF0 /* RangeSliderExamplesView.swift */; };
-		FA346D26231472190030DEF0 /* SliderStyleExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA346D25231472190030DEF0 /* SliderStyleExamplesView.swift */; };
-		FA346D27231472190030DEF0 /* SliderStyleExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA346D25231472190030DEF0 /* SliderStyleExamplesView.swift */; };
+		FA0D8A36231E221300434037 /* HorizontalSliderExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0D8A35231E221300434037 /* HorizontalSliderExamplesView.swift */; };
+		FA0D8A37231E221300434037 /* HorizontalSliderExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0D8A35231E221300434037 /* HorizontalSliderExamplesView.swift */; };
+		FA0D8A39231E231D00434037 /* VerticalSliderExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0D8A38231E231D00434037 /* VerticalSliderExamplesView.swift */; };
+		FA0D8A3A231E231D00434037 /* VerticalSliderExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0D8A38231E231D00434037 /* VerticalSliderExamplesView.swift */; };
 		FA4DD2C32317586100AB7BDD /* SliderBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4DD2C22317586100AB7BDD /* SliderBuilderView.swift */; };
 		FA4DD2C42317586100AB7BDD /* SliderBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4DD2C22317586100AB7BDD /* SliderBuilderView.swift */; };
 		FA5592562319EDD700FD07E2 /* HalfCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5592552319EDD700FD07E2 /* HalfCapsule.swift */; };
@@ -34,9 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		FA346D1F23146FFC0030DEF0 /* ValueSliderExamplesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSliderExamplesView.swift; sourceTree = "<group>"; };
-		FA346D22231471290030DEF0 /* RangeSliderExamplesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSliderExamplesView.swift; sourceTree = "<group>"; };
-		FA346D25231472190030DEF0 /* SliderStyleExamplesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderStyleExamplesView.swift; sourceTree = "<group>"; };
+		FA0D8A35231E221300434037 /* HorizontalSliderExamplesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalSliderExamplesView.swift; sourceTree = "<group>"; };
+		FA0D8A38231E231D00434037 /* VerticalSliderExamplesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalSliderExamplesView.swift; sourceTree = "<group>"; };
 		FA411AC823136E2200A4A792 /* SlidersExamples iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SlidersExamples iOS.entitlements"; sourceTree = "<group>"; };
 		FA4DD2C22317586100AB7BDD /* SliderBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderBuilderView.swift; sourceTree = "<group>"; };
 		FA5592552319EDD700FD07E2 /* HalfCapsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfCapsule.swift; sourceTree = "<group>"; };
@@ -83,9 +80,8 @@
 		FA346D1E23146FBC0030DEF0 /* SlidersExamples */ = {
 			isa = PBXGroup;
 			children = (
-				FA346D1F23146FFC0030DEF0 /* ValueSliderExamplesView.swift */,
-				FA346D22231471290030DEF0 /* RangeSliderExamplesView.swift */,
-				FA346D25231472190030DEF0 /* SliderStyleExamplesView.swift */,
+				FA0D8A35231E221300434037 /* HorizontalSliderExamplesView.swift */,
+				FA0D8A38231E231D00434037 /* VerticalSliderExamplesView.swift */,
 				FA4DD2C22317586100AB7BDD /* SliderBuilderView.swift */,
 				FA5592552319EDD700FD07E2 /* HalfCapsule.swift */,
 			);
@@ -276,11 +272,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA346D2123146FFC0030DEF0 /* ValueSliderExamplesView.swift in Sources */,
+				FA0D8A37231E221300434037 /* HorizontalSliderExamplesView.swift in Sources */,
+				FA0D8A3A231E231D00434037 /* VerticalSliderExamplesView.swift in Sources */,
 				FA61E9B8231365E3006A5B6B /* ContentView.swift in Sources */,
-				FA346D27231472190030DEF0 /* SliderStyleExamplesView.swift in Sources */,
 				FA5592572319EDD700FD07E2 /* HalfCapsule.swift in Sources */,
-				FA346D24231471290030DEF0 /* RangeSliderExamplesView.swift in Sources */,
 				FA61E9B6231365E3006A5B6B /* AppDelegate.swift in Sources */,
 				FA4DD2C42317586100AB7BDD /* SliderBuilderView.swift in Sources */,
 			);
@@ -290,13 +285,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA346D26231472190030DEF0 /* SliderStyleExamplesView.swift in Sources */,
+				FA0D8A39231E231D00434037 /* VerticalSliderExamplesView.swift in Sources */,
 				FAF1C03722ED3B7D00F92FEA /* AppDelegate.swift in Sources */,
 				FAF1C03922ED3B7D00F92FEA /* SceneDelegate.swift in Sources */,
 				FA4DD2C32317586100AB7BDD /* SliderBuilderView.swift in Sources */,
 				FA5592562319EDD700FD07E2 /* HalfCapsule.swift in Sources */,
-				FA346D2023146FFC0030DEF0 /* ValueSliderExamplesView.swift in Sources */,
-				FA346D23231471290030DEF0 /* RangeSliderExamplesView.swift in Sources */,
+				FA0D8A36231E221300434037 /* HorizontalSliderExamplesView.swift in Sources */,
 				FAF1C03B22ED3B7D00F92FEA /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

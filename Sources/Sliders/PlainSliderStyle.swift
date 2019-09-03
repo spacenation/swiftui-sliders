@@ -2,6 +2,7 @@ import SwiftUI
 
 public struct PlainSliderStyle: SliderStyle {
     public var height: CGFloat = 44
+    public var width: CGFloat = 44
     public var thickness: CGFloat = 3
     
     public var thumbSize: CGSize = CGSize(width: 27, height: 27)

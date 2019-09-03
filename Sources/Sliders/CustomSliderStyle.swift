@@ -2,6 +2,7 @@ import SwiftUI
 
 public struct CustomSliderStyle: SliderStyle {
     public var height: CGFloat
+    public var width: CGFloat
     public var thickness: CGFloat
     
     public var thumbSize: CGSize
@@ -23,6 +24,7 @@ public struct CustomSliderStyle: SliderStyle {
     
     public init(
         height: CGFloat = 44,
+        width: CGFloat = 44,
         thickness: CGFloat = 3,
         thumbSize: CGSize = CGSize(width: 27, height: 27),
         thumbColor: Color = .white,
@@ -40,6 +42,7 @@ public struct CustomSliderStyle: SliderStyle {
         clippedValue: Bool = true
     ) {
         self.height = height
+        self.width = width
         self.thickness = thickness
         self.thumbSize = thumbSize
         self.thumbColor = thumbColor

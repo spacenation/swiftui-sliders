@@ -6,6 +6,9 @@ struct SliderPreferences {
     var height: CGFloat? = nil
     
     @usableFromInline
+    var width: CGFloat? = nil
+    
+    @usableFromInline
     var thickness: CGFloat? = nil
     
     @usableFromInline

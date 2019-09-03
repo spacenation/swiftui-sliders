@@ -1,6 +1,6 @@
-## SwiftUI Sliders
+## SwiftUI horizontal and vertical sliders for value and range.
 
-SwiftUI Sliders with custom styles for iOS, macOS and Mac Catalyst
+SwiftUI Sliders with custom styles for iOS, macOS and Mac Catalyst.
 
 <center>
 <img src="Resources/sliders.png"/>
@@ -26,7 +26,7 @@ struct ContentView: View {
     var body: some View {
         Group {
             HorizontalValueSlider(value: $value)
-            HorizontalRangeSlider(range: $range)
+            VerticalRangeSlider(range: $range)
         }
     }
 }

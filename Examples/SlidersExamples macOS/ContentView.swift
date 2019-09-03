@@ -6,23 +6,17 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selection) {
-            ValueSliderExamplesView()
+            HorizontalSliderExamplesView()
                 .tabItem {
-                    Text("Value")
+                    Text("Horizontal")
                 }
                 .tag(0)
                 .frame(minWidth: 300)
-            RangeSliderExamplesView()
+            VerticalSliderExamplesView()
                 .tabItem {
-                    Text("Range")
+                    Text("Vertical")
                 }
                 .tag(1)
-                .frame(minWidth: 300)
-            SliderStyleExamplesView()
-                .tabItem {
-                    Text("Styles")
-                }
-                .tag(2)
                 .frame(minWidth: 300)
             SliderBuilderView()
                 .tabItem {

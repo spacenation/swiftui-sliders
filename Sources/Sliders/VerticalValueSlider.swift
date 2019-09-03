@@ -1,8 +1,8 @@
 import SwiftUI
 
-public typealias HSlider = HorizontalValueSlider
+public typealias VSlider = VerticalValueSlider
 
-public struct HorizontalValueSlider<V, TrackView: InsettableShape, ValueView: View, ThumbView : InsettableShape>: View where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
+public struct VerticalValueSlider<V, TrackView: InsettableShape, ValueView: View, ThumbView : InsettableShape>: View where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
     @Environment(\.sliderStyle)
     var style
     
@@ -20,69 +20,69 @@ public struct HorizontalValueSlider<V, TrackView: InsettableShape, ValueView: Vi
     let onEditingChanged: (Bool) -> Void
     
     @State
-    private var dragOffsetX: CGFloat? = nil
+    private var dragOffsetY: CGFloat? = nil
     
     public var body: some View {
         GeometryReader { geometry in
-            ZStack(alignment: .init(horizontal: .leading, vertical: .center)) {
+            ZStack(alignment: .init(horizontal: .center, vertical: .bottom)) {
                 self.generatedValueTrackView(geometry: geometry, valueView: self.valueView, trackView: self.trackView)
 
                 self.generatedThumbView(view: self.thumbView)
-                    .offset(x: self.xForValue(width: geometry.size.width))
+                    .offset(y: -self.yForValue(height: geometry.size.height))
                     .gesture(
                         DragGesture()
                             .onChanged { value in
-                                if self.dragOffsetX == nil {
-                                    self.dragOffsetX = value.startLocation.x - self.xForValue(width: geometry.size.width)
+                                if self.dragOffsetY == nil {
+                                    self.dragOffsetY = value.startLocation.y + self.yForValue(height: geometry.size.height)
                                 }
-                                let relativeValue: CGFloat = (value.location.x - (self.dragOffsetX ?? 0)) / (geometry.size.width - self.thumbSize.width)
+                                let relativeValue: CGFloat = (value.location.y - (self.dragOffsetY ?? 0)) / (geometry.size.height - self.thumbSize.height)
                                 let bounds = CGFloat(self.bounds.lowerBound)...CGFloat(self.bounds.upperBound)
-                                let computedValue = valueFrom(relativeValue: relativeValue, bounds: bounds, step: CGFloat(self.step))
+                                let computedValue = valueFrom(relativeValue: -relativeValue, bounds: bounds, step: CGFloat(self.step))
                                 self.value.wrappedValue = V(computedValue)
                                 self.onEditingChanged(true)
                             }
                             .onEnded { _ in
-                                self.dragOffsetX = nil
+                                self.dragOffsetY = nil
                                 self.onEditingChanged(false)
                             }
                     )
             }
-            .frame(height: self.height)
+            .frame(width: self.width)
         }
-        .frame(height: self.height)
-        
+        .frame(width: self.width)
+        //.background(Color.red)
         /// Enabling this draws incorrect gradient on value change, fix it before enabling metal randering
         //.drawingGroup()
     }
     
-    func valueOffset(overallWidth: CGFloat) -> CGFloat {
-        return (xForValue(width: overallWidth) - overallWidth) / 2
+    func valueOffset(overallHeight: CGFloat) -> CGFloat {
+        return (yForValue(height: overallHeight) - overallHeight) / 2
     }
     
-    func valueWidth(overallWidth: CGFloat) -> CGFloat {
-        self.xForValue(width: overallWidth)
+    func valueHeight(overallHeight: CGFloat) -> CGFloat {
+        self.yForValue(height: overallHeight)
     }
     
-    func xForValue(width: CGFloat) -> CGFloat {
-        (width - self.thumbSize.width) * (CGFloat(self.value.wrappedValue - bounds.lowerBound) / CGFloat(bounds.upperBound - bounds.lowerBound))
+    func yForValue(height: CGFloat) -> CGFloat {
+        (height - self.thumbSize.height) * (CGFloat(self.value.wrappedValue - bounds.lowerBound) / CGFloat(bounds.upperBound - bounds.lowerBound))
     }
 }
 
 // MARK: Views
 
-extension HorizontalValueSlider {
+extension VerticalValueSlider {
     func generatedValueTrackView<ValueView: View, TrackView: InsettableShape>(geometry: GeometryProxy, valueView: ValueView, trackView: TrackView) -> some View {
         valueView
             .foregroundColor(self.valueColor)
-            .frame(width: geometry.size.width, height: self.thickness)
+            .frame(width: self.thickness, height: geometry.size.height)
             .mask(
                 Rectangle()
                     .frame(
-                        width: self.clippedValue ? (self.valueWidth(overallWidth: geometry.size.width) + self.thumbSize.width) : geometry.size.width,
-                        height: self.thickness
+                        width: self.thickness,
+                        height: self.clippedValue ? (self.valueHeight(overallHeight: geometry.size.height) + self.thumbSize.height) : geometry.size.height
                     )
                     .fixedSize()
-                    .offset(x: self.clippedValue ? self.valueOffset(overallWidth: geometry.size.width) : 0)
+                    .offset(y: self.clippedValue ? -self.valueOffset(overallHeight: geometry.size.height) : 0)
             )
             .overlay(
                 trackView
@@ -90,7 +90,7 @@ extension HorizontalValueSlider {
             )
             .background(self.trackColor)
                 .mask(
-                    trackView.frame(width: geometry.size.width, height: self.thickness)
+                    trackView.frame(width: self.thickness, height: geometry.size.height)
             )
     }
     
@@ -107,7 +107,7 @@ extension HorizontalValueSlider {
 
 // MARK: Inits
 
-extension HorizontalValueSlider {
+extension VerticalValueSlider {
     /// Creates an instance that selects a value from within a range.
     ///
     /// - Parameters:
@@ -131,44 +131,44 @@ extension HorizontalValueSlider {
     }
 }
 
-extension HorizontalValueSlider where TrackView == Capsule {
+extension VerticalValueSlider where TrackView == Capsule {
     public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, valueView: ValueView, thumbView: ThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         self.init(value: value, in: bounds, step: step, trackView: Capsule(), valueView: valueView, thumbView: thumbView, onEditingChanged: onEditingChanged)
     }
 }
 
-extension HorizontalValueSlider where ValueView == Rectangle {
+extension VerticalValueSlider where ValueView == Rectangle {
     public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, trackView: TrackView, thumbView: ThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         self.init(value: value, in: bounds, step: step, trackView: trackView, valueView: Rectangle(), thumbView: thumbView, onEditingChanged: onEditingChanged)
     }
 }
 
-extension HorizontalValueSlider where ThumbView == Capsule {
+extension VerticalValueSlider where ThumbView == Capsule {
     public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, trackView: TrackView, valueView: ValueView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         self.init(value: value, in: bounds, step: step, trackView: trackView, valueView: valueView, thumbView: Capsule(), onEditingChanged: onEditingChanged)
     }
 }
 
-extension HorizontalValueSlider where ThumbView == Capsule, ValueView == Rectangle {
+extension VerticalValueSlider where ThumbView == Capsule, ValueView == Rectangle {
     public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, trackView: TrackView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         self.init(value: value, in: bounds, step: step, trackView: trackView, valueView: Rectangle(), thumbView: Capsule(), onEditingChanged: onEditingChanged)
     }
 }
 
 
-extension HorizontalValueSlider where TrackView == Capsule, ValueView == Rectangle {
+extension VerticalValueSlider where TrackView == Capsule, ValueView == Rectangle {
     public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, thumbView: ThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         self.init(value: value, in: bounds, step: step, trackView: Capsule(), valueView: Rectangle(), thumbView: thumbView, onEditingChanged: onEditingChanged)
     }
 }
 
-extension HorizontalValueSlider where TrackView == Capsule, ThumbView == Capsule {
+extension VerticalValueSlider where TrackView == Capsule, ThumbView == Capsule {
     public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, valueView: ValueView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         self.init(value: value, in: bounds, step: step, trackView: Capsule(), valueView: valueView, thumbView: Capsule(), onEditingChanged: onEditingChanged)
     }
 }
 
-extension HorizontalValueSlider where TrackView == Capsule, ValueView == Rectangle, ThumbView == Capsule {
+extension VerticalValueSlider where TrackView == Capsule, ValueView == Rectangle, ThumbView == Capsule {
     public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         self.init(value: value, in: bounds, step: step, trackView: Capsule(), valueView: Rectangle(), thumbView: Capsule(), onEditingChanged: onEditingChanged)
     }
@@ -176,9 +176,9 @@ extension HorizontalValueSlider where TrackView == Capsule, ValueView == Rectang
 
 // MARK: Values
 
-extension HorizontalValueSlider {
-    var height: CGFloat {
-        preferences.height ?? style.height
+extension VerticalValueSlider {
+    var width: CGFloat {
+        preferences.width ?? style.width
     }
     
     var thickness: CGFloat {
@@ -240,10 +240,10 @@ extension HorizontalValueSlider {
 
 // MARK: Modifiers
 
-public extension HorizontalValueSlider {
-    @inlinable func height(_ length: CGFloat?) -> Self {
+public extension VerticalValueSlider {
+    @inlinable func width(_ length: CGFloat?) -> Self {
         var copy = self
-        copy.preferences.height = length
+        copy.preferences.width = length
         return copy
     }
     
@@ -334,11 +334,11 @@ public extension HorizontalValueSlider {
 
 
 #if DEBUG
-struct  HorizontalValueSlider_Previews: PreviewProvider {
+struct VerticalValueSlider_Previews: PreviewProvider {
     
     static var previews: some View {
-        HorizontalValueSlider(value: .constant(0.5), thumbView: Rectangle())
-            .height(100)
+        VerticalValueSlider(value: .constant(0.5), thumbView: Rectangle())
+            .width(100)
             .thumbColor(.blue)
             .thumbBorderWidth(4)
             .thumbBorderColor(.red)

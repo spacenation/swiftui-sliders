@@ -2,6 +2,7 @@ import SwiftUI
 
 public protocol SliderStyle {
     var height: CGFloat { get set }
+    var width: CGFloat { get set }
     var thickness: CGFloat { get set }
     
     var thumbSize: CGSize { get set }

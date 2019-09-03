@@ -1,7 +1,7 @@
 import SwiftUI
 import Sliders
 
-struct SliderStyleExamplesView: View {
+struct HorizontalSliderExamplesView: View {
     @State var value1 = 0.5
     @State var value2 = 0.5
     @State var value3 = 0.5
@@ -16,6 +16,7 @@ struct SliderStyleExamplesView: View {
     @State var range7 = 0.1...0.9
     @State var range8 = 0.1...0.9
     @State var range9 = 0.1...0.9
+    @State var range10 = 0.3...0.7
     
     var body: some View {
         ScrollView {
@@ -124,6 +125,22 @@ struct SliderStyleExamplesView: View {
                 .thumbSize(CGSize(width: 16, height: 56))
                 .trackBorderColor(Color.white.opacity(0.3))
                 .trackBorderWidth(2)
+                
+                HorizontalRangeSlider(
+                    range: $range10,
+                    trackView: Rectangle(),
+                    valueView:
+                        ZStack {
+                            LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .leading, endPoint: .trailing)
+                            VStack {
+                                Text("Any View").font(.largeTitle).foregroundColor(.white)
+                                Text("Place any view here and it will be masked to a selected value range").font(.title).foregroundColor(Color.white.opacity(0.5))
+                            }
+                        }
+                )
+                .height(128)
+                .thickness(128)
+                .thumbSize(CGSize(width: 8, height: 64))
             }
         }
         .padding()
@@ -131,8 +148,8 @@ struct SliderStyleExamplesView: View {
 }
 
 
-struct SliderStyleExamplesView_Previews: PreviewProvider {
+struct HorizontalSliderExamplesView_Previews: PreviewProvider {
     static var previews: some View {
-        SliderStyleExamplesView()
+        HorizontalSliderExamplesView()
     }
 }
