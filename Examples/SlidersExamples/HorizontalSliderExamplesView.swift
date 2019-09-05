@@ -57,8 +57,6 @@ struct HorizontalSliderExamplesView: View {
             }
             
             Group {
-                HRangeTrack(range: range1, in: 0.0...1.0)
-
                 HorizontalRangeSlider(range: $range1)
                     .thumbSize(CGSize(width: 40, height: 27))
                     .sliderStyle(
@@ -93,13 +91,13 @@ struct HorizontalSliderExamplesView: View {
                         range: $range6,
                         valueView: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing)
                     ),
-                    thumbView: HalfCapsule()
+                    lowerThumbView: HalfCapsule(),
+                    upperThumbView: HalfCapsule().rotation(Angle(degrees: 180))
                 )
                 .thumbSize(CGSize(width: 26, height: 26))
                 .thickness(28)
                 .trackBorderColor(.gray)
                 .trackBorderWidth(1)
-
 
                 HorizontalRangeSlider(
                     range: $range7,
@@ -118,7 +116,8 @@ struct HorizontalSliderExamplesView: View {
                         valueView: LinearGradient(gradient: Gradient(colors: [.yellow, .orange, .red]), startPoint: .leading, endPoint: .trailing),
                         trackShape: RoundedRectangle(cornerRadius: 16)
                     ),
-                    thumbView: HalfCapsule()
+                    lowerThumbView: HalfCapsule(),
+                    upperThumbView: HalfCapsule().rotation(Angle(degrees: 180))
                 )
                 .height(72)
                 .thickness(64)

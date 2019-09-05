@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct VerticalRangeSlider<V, TrackView: View, ThumbView : InsettableShape>: View where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
+public struct VerticalRangeSlider<V, TrackView: View, LowerThumbView : InsettableShape, UpperThumbView: InsettableShape>: View where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
     @Environment(\.sliderStyle)
     var style
     
@@ -12,7 +12,8 @@ public struct VerticalRangeSlider<V, TrackView: View, ThumbView : InsettableShap
     let step: V.Stride
     
     let trackView: TrackView
-    let thumbView: ThumbView
+    let lowerThumbView: LowerThumbView
+    let upperThumbView: UpperThumbView
     
     let onEditingChanged: (Bool) -> Void
     
@@ -37,9 +38,9 @@ public struct VerticalRangeSlider<V, TrackView: View, ThumbView : InsettableShap
                         )
                     )
                 
-                self.thumbView
+                self.lowerThumbView
                     .overlay(
-                        self.thumbView.strokeBorder(self.thumbBorderColor, lineWidth: self.thumbBorderWidth)
+                        self.lowerThumbView.strokeBorder(self.thumbBorderColor, lineWidth: self.thumbBorderWidth)
                     )
                     .frame(width: self.thumbSize.width, height: self.thumbSize.height)
                     .foregroundColor(self.thumbColor)
@@ -81,15 +82,13 @@ public struct VerticalRangeSlider<V, TrackView: View, ThumbView : InsettableShap
                             }
                     )
 
-                self.thumbView
+                self.upperThumbView
                     .overlay(
-                        self.thumbView.strokeBorder(self.thumbBorderColor, lineWidth: self.thumbBorderWidth)
+                        self.upperThumbView.strokeBorder(self.thumbBorderColor, lineWidth: self.thumbBorderWidth)
                     )
                     .frame(width: self.thumbSize.width, height: self.thumbSize.height)
                     .foregroundColor(self.thumbColor)
                     .shadow(color:self.thumbShadowColor, radius: self.thumbShadowRadius, x: self.thumbShadowX, y: self.thumbShadowY)
-                    .rotation3DEffect(Angle(degrees: 180), axis: (x: 1, y: 0, z: 0))
-                    .rotationEffect(Angle(degrees: 180))
                     .offset(y: offsetFromCenterToValue(
                         overallLength: geometry.size.height - self.thumbSize.height,
                         value: CGFloat(self.range.wrappedValue.upperBound),
@@ -151,35 +150,50 @@ extension VerticalRangeSlider {
     /// `onEditingChanged` will be called when editing begins and ends. For
     /// example, on iOS, a `RangeSlider` is considered to be actively editing while
     /// the user is touching the thumb and sliding it around the track.
-    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0...1, step: V.Stride = 0.001, trackView: TrackView, thumbView: ThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0...1, step: V.Stride = 0.001, trackView: TrackView, lowerThumbView: LowerThumbView, upperThumbView: UpperThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         self.range = range
         self.bounds = bounds
         self.step = step
         
         self.trackView = trackView
-        self.thumbView = thumbView
+        self.lowerThumbView = lowerThumbView
+        self.upperThumbView = upperThumbView
         
         self.onEditingChanged = onEditingChanged
     }
 }
 
 extension VerticalRangeSlider where TrackView == VerticalRangeTrack<V, Capsule, Capsule> {
-    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, thumbView: ThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        let horizontalTrackView = VerticalRangeTrack(range: range, in: bounds)
-        self.init(range: range, in: bounds, step: step, trackView: horizontalTrackView, thumbView: thumbView, onEditingChanged: onEditingChanged)
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, lowerThumbView: LowerThumbView, upperThumbView: UpperThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        let trackView = VerticalRangeTrack(range: range, in: bounds)
+        self.init(range: range, in: bounds, step: step, trackView: trackView, lowerThumbView: lowerThumbView, upperThumbView: upperThumbView, onEditingChanged: onEditingChanged)
     }
 }
 
-extension VerticalRangeSlider where ThumbView == Capsule {
+extension VerticalRangeSlider where LowerThumbView == Capsule, UpperThumbView == Capsule {
     public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, trackView: TrackView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        self.init(range: range, in: bounds, step: step, trackView: trackView, thumbView: Capsule(), onEditingChanged: onEditingChanged)
+        self.init(range: range, in: bounds, step: step, trackView: trackView, lowerThumbView: Capsule(), upperThumbView: Capsule(), onEditingChanged: onEditingChanged)
     }
 }
 
-extension VerticalRangeSlider where TrackView == VerticalRangeTrack<V, Capsule, Capsule>, ThumbView == Capsule {
+extension VerticalRangeSlider where TrackView == VerticalRangeTrack<V, Capsule, Capsule>, LowerThumbView == Capsule, UpperThumbView == Capsule {
     public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        let horizontalTrackView = VerticalRangeTrack(range: range, in: bounds)
-        self.init(range: range, in: bounds, step: step, trackView: horizontalTrackView, thumbView: Capsule(), onEditingChanged: onEditingChanged)
+        let trackView = VerticalRangeTrack(range: range, in: bounds)
+        self.init(range: range, in: bounds, step: step, trackView: trackView, lowerThumbView: Capsule(), upperThumbView: Capsule(), onEditingChanged: onEditingChanged)
+    }
+}
+
+// MARK: Inits for same LowerThumbView and UpperThumbView
+extension VerticalRangeSlider where LowerThumbView == UpperThumbView {
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, trackView: TrackView, thumbView: LowerThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        self.init(range: range, in: bounds, step: step, trackView: trackView, lowerThumbView: thumbView, upperThumbView: thumbView, onEditingChanged: onEditingChanged)
+    }
+}
+
+extension VerticalRangeSlider where TrackView == VerticalRangeTrack<V, Capsule, Capsule>, LowerThumbView == UpperThumbView {
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, thumbView: LowerThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        let trackView = VerticalRangeTrack(range: range, in: bounds)
+        self.init(range: range, in: bounds, step: step, trackView: trackView, lowerThumbView: thumbView, upperThumbView: thumbView, onEditingChanged: onEditingChanged)
     }
 }
 
