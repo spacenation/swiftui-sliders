@@ -2,7 +2,7 @@ import SwiftUI
 
 public typealias HSlider = HorizontalValueSlider
 
-public struct HorizontalValueSlider<V, TrackView: InsettableShape, ValueView: View, ThumbView : InsettableShape>: View where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
+public struct HorizontalValueSlider<V, TrackView: View, ThumbView : InsettableShape>: View where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
     @Environment(\.sliderStyle)
     var style
     
@@ -14,7 +14,6 @@ public struct HorizontalValueSlider<V, TrackView: InsettableShape, ValueView: Vi
     let step: V.Stride
 
     let trackView: TrackView
-    let valueView: ValueView
     let thumbView: ThumbView
     
     let onEditingChanged: (Bool) -> Void
@@ -24,33 +23,50 @@ public struct HorizontalValueSlider<V, TrackView: InsettableShape, ValueView: Vi
     
     public var body: some View {
         GeometryReader { geometry in
-            ZStack(alignment: .init(horizontal: .leading, vertical: .center)) {
-                self.generatedValueTrackView(geometry: geometry, valueView: self.valueView, trackView: self.trackView)
-                .gesture(
-                    DragGesture(minimumDistance: 0)
-                        .onChanged { value in
-                            let relativeValue: CGFloat = (value.location.x - self.thumbSize.width / 2) / (geometry.size.width - self.thumbSize.width)
-                            let bounds = CGFloat(self.bounds.lowerBound)...CGFloat(self.bounds.upperBound)
-                            let computedValue = valueFrom(relativeValue: relativeValue, bounds: bounds, step: CGFloat(self.step))
-                            self.value.wrappedValue = V(computedValue)
-                            print(computedValue)
-                            self.onEditingChanged(true)
-                        }
-                        .onEnded { _ in
-                            self.onEditingChanged(false)
-                        }
-                )
-
-                self.generatedThumbView(view: self.thumbView)
-                    .offset(x: self.xForValue(width: geometry.size.width))
+            ZStack {
+                self.trackView
+                    .frame(width: geometry.size.width, height: self.thickness)
+                    .trackStyle(
+                        CustomTrackStyle(
+                            valueColor: self.valueColor,
+                            backgroundColor: self.trackColor,
+                            borderColor: self.trackBorderColor,
+                            borderWidth: self.trackBorderWidth,
+                            startOffset: self.thumbSize.width / 2,
+                            endOffset: self.thumbSize.width / 2
+                        )
+                    )
+                
+                self.thumbView
+                    .overlay(
+                        self.thumbView.strokeBorder(self.thumbBorderColor, lineWidth: self.thumbBorderWidth)
+                    )
+                    .frame(width: self.thumbSize.width, height: self.thumbSize.height)
+                    .fixedSize()
+                    .foregroundColor(self.thumbColor)
+                    .shadow(color:self.thumbShadowColor, radius: self.thumbShadowRadius, x: self.thumbShadowX, y: self.thumbShadowY)
+                    .offset(x: offsetFromCenterToValue(
+                        overallLength: geometry.size.width - self.thumbSize.width,
+                        value: CGFloat(self.value.wrappedValue),
+                        bounds: CGFloat(self.bounds.lowerBound)...CGFloat(self.bounds.upperBound)
+                    ))
                     .gesture(
                         DragGesture()
                             .onChanged { value in
-                                if self.dragOffsetX == nil {
-                                    self.dragOffsetX = value.startLocation.x - self.xForValue(width: geometry.size.width)
-                                }
-                                let relativeValue: CGFloat = (value.location.x - (self.dragOffsetX ?? 0)) / (geometry.size.width - self.thumbSize.width)
                                 let bounds = CGFloat(self.bounds.lowerBound)...CGFloat(self.bounds.upperBound)
+                                let availableLength = geometry.size.width - self.thumbSize.width
+                                
+                                if self.dragOffsetX == nil {
+                                    let computedValueOffset = offsetFromCenterToValue(
+                                        overallLength: availableLength,
+                                        value: CGFloat(self.value.wrappedValue),
+                                        bounds: bounds
+                                    )
+                                    self.dragOffsetX = value.startLocation.x - computedValueOffset
+                                }
+                                
+                                let locationOffset = value.location.x - (self.dragOffsetX ?? 0)
+                                let relativeValue = relativeValueFrom(overallLength: availableLength, centerOffset: locationOffset)
                                 let computedValue = valueFrom(relativeValue: relativeValue, bounds: bounds, step: CGFloat(self.step))
                                 self.value.wrappedValue = V(computedValue)
                                 self.onEditingChanged(true)
@@ -62,60 +78,27 @@ public struct HorizontalValueSlider<V, TrackView: InsettableShape, ValueView: Vi
                     )
             }
             .frame(height: self.height)
+            /// If opacity is zero gesture is never called.
+            .background(Color.white.opacity(0.00000000001))
+            .gesture(
+                DragGesture(minimumDistance: 0)
+                    .onChanged { value in
+                        /// Coordinates here are not offset from center.
+                        let relativeValue: CGFloat = (value.location.x - self.thumbSize.width / 2) / (geometry.size.width - self.thumbSize.width)
+                        let bounds = CGFloat(self.bounds.lowerBound)...CGFloat(self.bounds.upperBound)
+                        let computedValue = valueFrom(relativeValue: relativeValue, bounds: bounds, step: CGFloat(self.step))
+                        self.value.wrappedValue = V(computedValue)
+                        self.onEditingChanged(true)
+                    }
+                    .onEnded { _ in
+                        self.onEditingChanged(false)
+                    }
+            )
         }
         .frame(height: self.height)
         
         /// Enabling this draws incorrect gradient on value change, fix it before enabling metal randering
         //.drawingGroup()
-    }
-    
-    func valueOffset(overallWidth: CGFloat) -> CGFloat {
-        return (xForValue(width: overallWidth) - overallWidth) / 2
-    }
-    
-    func valueWidth(overallWidth: CGFloat) -> CGFloat {
-        self.xForValue(width: overallWidth)
-    }
-    
-    func xForValue(width: CGFloat) -> CGFloat {
-        (width - self.thumbSize.width) * (CGFloat(self.value.wrappedValue - bounds.lowerBound) / CGFloat(bounds.upperBound - bounds.lowerBound))
-    }
-}
-
-// MARK: Views
-
-extension HorizontalValueSlider {
-    func generatedValueTrackView<ValueView: View, TrackView: InsettableShape>(geometry: GeometryProxy, valueView: ValueView, trackView: TrackView) -> some View {
-        valueView
-            .foregroundColor(self.valueColor)
-            .frame(width: geometry.size.width, height: self.thickness)
-            .mask(
-                Rectangle()
-                    .frame(
-                        width: self.clippedValue ? (self.valueWidth(overallWidth: geometry.size.width) + self.thumbSize.width) : geometry.size.width,
-                        height: self.thickness
-                    )
-                    .fixedSize()
-                    .offset(x: self.clippedValue ? self.valueOffset(overallWidth: geometry.size.width) : 0)
-            )
-            .overlay(
-                trackView
-                    .strokeBorder(self.trackBorderColor, lineWidth: self.trackBorderWidth)
-            )
-            .background(self.trackColor)
-                .mask(
-                    trackView.frame(width: geometry.size.width, height: self.thickness)
-            )
-    }
-    
-    func generatedThumbView<ThumbView: InsettableShape>(view: ThumbView) -> some View {
-        view
-            .overlay(
-                view.strokeBorder(self.thumbBorderColor, lineWidth: self.thumbBorderWidth)
-            )
-            .frame(width: self.thumbSize.width, height:self.thumbSize.height)
-            .foregroundColor(self.thumbColor)
-            .shadow(color:self.thumbShadowColor, radius: self.thumbShadowRadius, x: self.thumbShadowX, y: self.thumbShadowY)
     }
 }
 
@@ -132,59 +115,38 @@ extension HorizontalValueSlider {
     /// `onEditingChanged` will be called when editing begins and ends. For
     /// example, on iOS, a `RangeSlider` is considered to be actively editing while
     /// the user is touching the thumb and sliding it around the track.
-    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, trackView: TrackView, valueView: ValueView, thumbView: ThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, trackView: TrackView, thumbView: ThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         self.value = value
         self.bounds = bounds
         self.step = step
         
         self.trackView = trackView
-        self.valueView = valueView
+        
+        //self.trackShape = trackShape
+        //self.valueView = valueView
         self.thumbView = thumbView
         
         self.onEditingChanged = onEditingChanged
     }
 }
 
-extension HorizontalValueSlider where TrackView == Capsule {
-    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, valueView: ValueView, thumbView: ThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        self.init(value: value, in: bounds, step: step, trackView: Capsule(), valueView: valueView, thumbView: thumbView, onEditingChanged: onEditingChanged)
-    }
-}
-
-extension HorizontalValueSlider where ValueView == Rectangle {
-    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, trackView: TrackView, thumbView: ThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        self.init(value: value, in: bounds, step: step, trackView: trackView, valueView: Rectangle(), thumbView: thumbView, onEditingChanged: onEditingChanged)
+extension HorizontalValueSlider where TrackView == HorizontalValueTrack<V, Capsule, Capsule> {
+    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, thumbView: ThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        let horizontalTrackView = HorizontalValueTrack(value: value.wrappedValue, in: bounds)
+        self.init(value: value, in: bounds, step: step, trackView: horizontalTrackView, thumbView: thumbView, onEditingChanged: onEditingChanged)
     }
 }
 
 extension HorizontalValueSlider where ThumbView == Capsule {
-    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, trackView: TrackView, valueView: ValueView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        self.init(value: value, in: bounds, step: step, trackView: trackView, valueView: valueView, thumbView: Capsule(), onEditingChanged: onEditingChanged)
-    }
-}
-
-extension HorizontalValueSlider where ThumbView == Capsule, ValueView == Rectangle {
     public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, trackView: TrackView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        self.init(value: value, in: bounds, step: step, trackView: trackView, valueView: Rectangle(), thumbView: Capsule(), onEditingChanged: onEditingChanged)
+        self.init(value: value, in: bounds, step: step, trackView: trackView, thumbView: Capsule(), onEditingChanged: onEditingChanged)
     }
 }
 
-
-extension HorizontalValueSlider where TrackView == Capsule, ValueView == Rectangle {
-    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, thumbView: ThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        self.init(value: value, in: bounds, step: step, trackView: Capsule(), valueView: Rectangle(), thumbView: thumbView, onEditingChanged: onEditingChanged)
-    }
-}
-
-extension HorizontalValueSlider where TrackView == Capsule, ThumbView == Capsule {
-    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, valueView: ValueView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        self.init(value: value, in: bounds, step: step, trackView: Capsule(), valueView: valueView, thumbView: Capsule(), onEditingChanged: onEditingChanged)
-    }
-}
-
-extension HorizontalValueSlider where TrackView == Capsule, ValueView == Rectangle, ThumbView == Capsule {
+extension HorizontalValueSlider where TrackView == HorizontalValueTrack<V, Capsule, Capsule>, ThumbView == Capsule {
     public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        self.init(value: value, in: bounds, step: step, trackView: Capsule(), valueView: Rectangle(), thumbView: Capsule(), onEditingChanged: onEditingChanged)
+        let horizontalTrackView = HorizontalValueTrack(value: value.wrappedValue, in: bounds)
+        self.init(value: value, in: bounds, step: step, trackView: horizontalTrackView, thumbView: Capsule(), onEditingChanged: onEditingChanged)
     }
 }
 
@@ -245,10 +207,6 @@ extension HorizontalValueSlider {
     
     var trackBorderWidth: CGFloat {
         preferences.trackBorderWidth ?? style.trackBorderWidth
-    }
-    
-    var clippedValue: Bool {
-        preferences.clippedValue ?? style.clippedValue
     }
 }
 
@@ -336,12 +294,6 @@ public extension HorizontalValueSlider {
     @inlinable func trackBorderWidth(_ length: CGFloat?) -> Self {
         var copy = self
         copy.preferences.trackBorderWidth = length
-        return copy
-    }
-    
-    @inlinable func clippedValue(_ isClipped: Bool?) -> Self {
-        var copy = self
-        copy.preferences.clippedValue = isClipped
         return copy
     }
 }

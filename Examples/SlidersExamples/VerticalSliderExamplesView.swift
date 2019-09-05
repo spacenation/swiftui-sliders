@@ -23,33 +23,38 @@ struct VerticalSliderExamplesView: View {
             HStack {
                 Group {
                     VerticalValueSlider(value: $value1, step: 0.01)
-                    
+
                     VerticalValueSlider(
                         value: $value2,
-                        valueView: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .bottom, endPoint: .top)
+                        trackView: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .bottom, endPoint: .top)
                     )
-                    .clippedValue(false)
-                    
-                    VerticalValueSlider(value: $value3)
-                        .thumbSize(CGSize(width: 16, height: 16))
-                        .thickness(6)
-                    
+
+                    VSlider(
+                        value: $value3,
+                        trackView:
+                            VTrack(value: value3, in: 0.0...1.0)
+                                .frame(width: 8)
+                                .animation(.spring(response: 0.7, dampingFraction: 0.4))
+                    )
+                    .thumbSize(CGSize(width: 16, height: 16))
+                    .trackBorderColor(Color.white.opacity(0.2))
+                    .trackBorderWidth(1)
+                    .thickness(6)
+
                     VerticalValueSlider(
                         value: $value4,
-                        valueView: LinearGradient(gradient: Gradient(colors: [.white, .blue]), startPoint: .bottom, endPoint: .top)
+                        trackView: LinearGradient(gradient: Gradient(colors: [.white, .blue]), startPoint: .bottom, endPoint: .top)
                     )
                     .thumbSize(CGSize(width: 16, height: 48))
                     .thickness(6)
-                    .clippedValue(false)
-                    
+
                     VerticalValueSlider(
                         value: $value5,
-                        valueView: LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .bottom, endPoint: .top)
+                        trackView: LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .bottom, endPoint: .top)
                     )
                     .thumbSize(.zero)
-                    .thickness(30)
                 }
-                
+
                 Group {
                     VerticalRangeSlider(range: $range1, step: 0.01)
                         .sliderStyle(
@@ -65,15 +70,14 @@ struct VerticalSliderExamplesView: View {
 
                     VerticalRangeSlider(
                         range: $range3,
-                        valueView: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .bottom, endPoint: .top),
-                        thumbView: RoundedRectangle(cornerRadius: 8).rotation(Angle(degrees: 45))
+                        trackView: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .bottom, endPoint: .top),
+                        thumbView: RoundedRectangle(cornerRadius: 8)
                     )
                     .thumbSize(CGSize(width: 32, height: 32))
-                    .clippedValue(false)
 
                     VerticalRangeSlider(
                         range: $range4,
-                        valueView: LinearGradient(gradient: Gradient(colors: [.green, .yellow, .red]), startPoint: .bottom, endPoint: .top),
+                        trackView: LinearGradient(gradient: Gradient(colors: [.green, .yellow, .red]), startPoint: .bottom, endPoint: .top),
                         thumbView: Capsule()
                     )
                     .thumbSize(CGSize(width: 16, height: 24))
@@ -81,14 +85,16 @@ struct VerticalSliderExamplesView: View {
 
                     VerticalRangeSlider(
                         range: $range5,
-                        trackView: Rectangle(),
                         thumbView: RoundedRectangle(cornerRadius: 4)
                     )
 
                     VerticalRangeSlider(
                         range: $range6,
-                        valueView: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .bottom, endPoint: .top),
-                        thumbView: HalfCapsule().rotation(Angle(degrees: 270))
+                        trackView: VRangeTrack(
+                            range: range6,
+                            valueView: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .bottom, endPoint: .top)
+                        ),
+                        thumbView: Capsule()
                     )
                     .thumbSize(CGSize(width: 26, height: 26))
                     .thickness(28)
@@ -97,17 +103,19 @@ struct VerticalSliderExamplesView: View {
 
                     VerticalRangeSlider(
                         range: $range7,
-                        valueView: LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .bottom, endPoint: .top)
+                        trackView: LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .bottom, endPoint: .top)
                     )
                     .thumbSize(CGSize(width: 48, height: 24))
                     .thickness(8)
-
+                    .width(56)
 
                     VerticalRangeSlider(
                         range: $range8,
-                        trackView: RoundedRectangle(cornerRadius: 16),
-                        valueView: LinearGradient(gradient: Gradient(colors: [.yellow, .orange, .red]), startPoint: .bottom, endPoint: .top),
-                        thumbView: Capsule()
+                        trackView: VerticalRangeTrack(
+                            range: range8,
+                            valueView: LinearGradient(gradient: Gradient(colors: [.yellow, .orange, .red]), startPoint: .bottom, endPoint: .top),
+                            trackShape: RoundedRectangle(cornerRadius: 16)
+                        )
                     )
                     .width(72)
                     .thickness(64)
@@ -117,30 +125,16 @@ struct VerticalSliderExamplesView: View {
 
                     VerticalRangeSlider(
                         range: $range9,
-                        trackView: Ellipse(),
-                        valueView: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .bottom, endPoint: .top)
+                        trackView: VerticalRangeTrack(
+                            range: range9,
+                            valueView: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .bottom, endPoint: .top), trackShape: Ellipse()
+                        )
                     )
-                    .width(64)
+                    .width(72)
                     .thickness(48)
                     .thumbSize(CGSize(width: 56, height: 16))
                     .trackBorderColor(Color.white.opacity(0.3))
                     .trackBorderWidth(2)
-
-                    VerticalRangeSlider(
-                        range: $range10,
-                        trackView: Rectangle(),
-                        valueView:
-                            ZStack {
-                                LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .bottom, endPoint: .top)
-                                VStack {
-                                    Text("Any View").font(.largeTitle).foregroundColor(.white)
-                                    Text("Place any view here and it will be masked to a selected value range").font(.title).foregroundColor(Color.white.opacity(0.5))
-                                }
-                            }
-                    )
-                    .width(128)
-                    .thickness(128)
-                    .thumbSize(CGSize(width: 64, height: 8))
                 }
             }
 

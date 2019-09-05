@@ -46,7 +46,4 @@ struct SliderPreferences {
     
     @usableFromInline
     var trackBorderWidth: CGFloat? = nil
-    
-    @usableFromInline
-    var clippedValue: Bool? = nil
 }

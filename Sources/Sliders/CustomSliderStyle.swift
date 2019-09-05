@@ -19,8 +19,6 @@ public struct CustomSliderStyle: SliderStyle {
     public var trackColor: Color
     public var trackBorderColor: Color
     public var trackBorderWidth: CGFloat
-
-    public var clippedValue: Bool
     
     public init(
         height: CGFloat = 44,
@@ -38,8 +36,7 @@ public struct CustomSliderStyle: SliderStyle {
         valueColor: Color = .accentColor,
         trackColor: Color = Color.secondary.opacity(0.25),
         trackBorderColor: Color = .clear,
-        trackBorderWidth: CGFloat = 0,
-        clippedValue: Bool = true
+        trackBorderWidth: CGFloat = 0
     ) {
         self.height = height
         self.width = width
@@ -56,6 +53,5 @@ public struct CustomSliderStyle: SliderStyle {
         self.trackColor = trackColor
         self.trackBorderColor = trackBorderColor
         self.trackBorderWidth = trackBorderWidth
-        self.clippedValue = clippedValue
     }
 }

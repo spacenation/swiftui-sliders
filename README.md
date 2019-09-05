@@ -33,7 +33,7 @@ struct ContentView: View {
 ```
 For more examples open `/Examples/SlidersExamples.xcodeproj`
 
-## Customizable at every level
+## Customizations
 
 ### Local modifiers
 ```swift
@@ -57,7 +57,6 @@ HorizontalRangeSlider(
 .thumbShadowY(0)
 /// Value
 .valueColor(.blue)
-.clippedValue(false)
 /// Track
 .trackColor(.black)
 .trackBorderColor(.yellow)
@@ -92,35 +91,8 @@ view.environment(\.sliderStyle.valueColor, .blue)
 view.environment(\.sliderStyle.trackColor, .green)
 view.environment(\.sliderStyle.trackBorderColor, .grey)
 view.environment(\.sliderStyle.trackBorderWidth, 2)
-view.environment(\.sliderStyle.clippedValue, true)
 
 view.environment(\.sliderStyle, PlainSliderStyle())
-```
-
-### Create your own style with SliderStyle protocol
-```swift
-public protocol SliderStyle {
-    var height: CGFloat { get set }
-    var thickness: CGFloat { get set }
-    
-    var thumbSize: CGSize { get set }
-    var thumbColor: Color { get set }
-    var thumbCornerRadius: CGFloat { get set }
-    var thumbBorderColor: Color { get set }
-    var thumbBorderWidth: CGFloat { get set }
-    var thumbShadowColor: Color { get set }
-    var thumbShadowRadius: CGFloat { get set }
-    var thumbShadowX: CGFloat { get set }
-    var thumbShadowY: CGFloat { get set }
-    
-    var valueColor: Color { get set }
-    
-    var trackColor: Color { get set }
-    var trackBorderColor: Color { get set }
-    var trackBorderWidth: CGFloat { get set }
-        
-    var clippedValue: Bool { get set }
-}
 ```
 
 ## SDKs

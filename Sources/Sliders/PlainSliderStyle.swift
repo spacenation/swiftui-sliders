@@ -19,8 +19,6 @@ public struct PlainSliderStyle: SliderStyle {
     public var trackColor: Color
     public var trackBorderColor: Color = .clear
     public var trackBorderWidth: CGFloat = 0
-
-    public var clippedValue: Bool = true
     
     public init(valueColor: Color = .accentColor, trackColor: Color = Color.secondary.opacity(0.25)) {
         self.valueColor = valueColor

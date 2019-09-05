@@ -9,14 +9,10 @@ let package = Package(
         .iOS(.v13), .macOS(.v10_15)
     ],
     products: [
-        .library(
-            name: "Sliders",
-            targets: ["Sliders"]),
+        .library(name: "Sliders", targets: ["Sliders"])
     ],
     targets: [
-        .target(
-            name: "Sliders",
-            exclude: ["Examples", "Resources"]
-        )
+        .target(name: "Sliders", exclude: ["Examples", "Resources"]),
+        .testTarget(name: "SlidersTests", dependencies: ["Sliders"])
     ]
 )
