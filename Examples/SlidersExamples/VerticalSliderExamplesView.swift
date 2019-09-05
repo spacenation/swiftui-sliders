@@ -32,7 +32,7 @@ struct VerticalSliderExamplesView: View {
                     VSlider(
                         value: $value3,
                         trackView:
-                            VTrack(value: value3, in: 0.0...1.0)
+                            VTrack(value: $value3, in: 0.0...1.0)
                                 .frame(width: 8)
                                 .animation(.spring(response: 0.7, dampingFraction: 0.4))
                     )
@@ -91,7 +91,7 @@ struct VerticalSliderExamplesView: View {
                     VerticalRangeSlider(
                         range: $range6,
                         trackView: VRangeTrack(
-                            range: range6,
+                            range: $range6,
                             valueView: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .bottom, endPoint: .top)
                         ),
                         thumbView: Capsule()
@@ -112,7 +112,7 @@ struct VerticalSliderExamplesView: View {
                     VerticalRangeSlider(
                         range: $range8,
                         trackView: VerticalRangeTrack(
-                            range: range8,
+                            range: $range8,
                             valueView: LinearGradient(gradient: Gradient(colors: [.yellow, .orange, .red]), startPoint: .bottom, endPoint: .top),
                             trackShape: RoundedRectangle(cornerRadius: 16)
                         )
@@ -126,7 +126,7 @@ struct VerticalSliderExamplesView: View {
                     VerticalRangeSlider(
                         range: $range9,
                         trackView: VerticalRangeTrack(
-                            range: range9,
+                            range: $range9,
                             valueView: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .bottom, endPoint: .top), trackShape: Ellipse()
                         )
                     )

@@ -9,7 +9,7 @@ public struct VerticalRangeTrack<V, ValueView: View, TrackShape: InsettableShape
     @usableFromInline
     var preferences = TrackPreferences()
     
-    let range: ClosedRange<V>
+    let range: Binding<ClosedRange<V>>
     let bounds: ClosedRange<V>
     let valueView: ValueView
     let trackShape: TrackShape
@@ -25,7 +25,7 @@ public struct VerticalRangeTrack<V, ValueView: View, TrackShape: InsettableShape
                             width: geometry.size.width,
                             height: rangeDistance(
                                 overallLength: geometry.size.height,
-                                range: CGFloat(self.range.lowerBound)...CGFloat(self.range.upperBound),
+                                range: CGFloat(self.range.wrappedValue.lowerBound)...CGFloat(self.range.wrappedValue.upperBound),
                                 bounds: CGFloat(self.bounds.lowerBound)...CGFloat(self.bounds.upperBound),
                                 lowerStartOffset: self.lowerStartOffset,
                                 lowerEndOffset: self.lowerEndOffset,
@@ -37,7 +37,7 @@ public struct VerticalRangeTrack<V, ValueView: View, TrackShape: InsettableShape
                         .offset(
                             y: offsetFromCenterToRangeCenter(
                                 overallLength: geometry.size.height,
-                                range: CGFloat(self.range.lowerBound)...CGFloat(self.range.upperBound),
+                                range: CGFloat(self.range.wrappedValue.lowerBound)...CGFloat(self.range.wrappedValue.upperBound),
                                 bounds: CGFloat(self.bounds.lowerBound)...CGFloat(self.bounds.upperBound),
                                 lowerStartOffset: self.lowerStartOffset,
                                 lowerEndOffset: self.lowerEndOffset,
@@ -60,29 +60,45 @@ public struct VerticalRangeTrack<V, ValueView: View, TrackShape: InsettableShape
 }
 
 extension VerticalRangeTrack {
-    public init(range: ClosedRange<V>, in bounds: ClosedRange<V> = 0.0...1.0, valueView: ValueView, trackShape: TrackShape) {
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, valueView: ValueView, trackShape: TrackShape) {
         self.range = range
         self.bounds = bounds
         self.valueView = valueView
         self.trackShape = trackShape
     }
+    
+    public init(range: ClosedRange<V>, in bounds: ClosedRange<V> = 0.0...1.0, valueView: ValueView, trackShape: TrackShape) {
+        self.init(range: .constant(range), in: bounds, valueView: valueView, trackShape: trackShape)
+    }
 }
 
 extension VerticalRangeTrack where TrackShape == Capsule {
-    public init(range: ClosedRange<V>, in bounds: ClosedRange<V> = 0.0...1.0, valueView: ValueView) {
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, valueView: ValueView) {
         self.init(range: range, in: bounds, valueView: valueView, trackShape: Capsule())
+    }
+    
+    public init(range: ClosedRange<V>, in bounds: ClosedRange<V> = 0.0...1.0, valueView: ValueView) {
+        self.init(range: .constant(range), in: bounds, valueView: valueView, trackShape: Capsule())
     }
 }
 
 extension VerticalRangeTrack where ValueView == Capsule {
-    public init(range: ClosedRange<V>, in bounds: ClosedRange<V> = 0.0...1.0, trackShape: TrackShape) {
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, trackShape: TrackShape) {
         self.init(range: range, in: bounds, valueView: Capsule(), trackShape: trackShape)
+    }
+    
+    public init(range: ClosedRange<V>, in bounds: ClosedRange<V> = 0.0...1.0, trackShape: TrackShape) {
+        self.init(range: .constant(range), in: bounds, valueView: Capsule(), trackShape: trackShape)
     }
 }
 
 extension VerticalRangeTrack where TrackShape == Capsule, ValueView == Capsule {
-    public init(range: ClosedRange<V>, in bounds: ClosedRange<V> = 0.0...1.0) {
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0) {
         self.init(range: range, in: bounds, valueView: Capsule(), trackShape: Capsule())
+    }
+    
+    public init(range: ClosedRange<V>, in bounds: ClosedRange<V> = 0.0...1.0) {
+        self.init(range: .constant(range), in: bounds, valueView: Capsule(), trackShape: Capsule())
     }
 }
 

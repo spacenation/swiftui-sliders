@@ -70,7 +70,6 @@ public struct VerticalValueSlider<V, TrackView: View, ThumbView : InsettableShap
                                 let relativeValue = relativeValueFrom(overallLength: availableLength, centerOffset: -locationOffset)
                                 let computedValue = valueFrom(relativeValue: relativeValue, bounds: bounds, step: CGFloat(self.step))
                                 self.value.wrappedValue = V(computedValue)
-                                print(computedValue)
                                 self.onEditingChanged(true)
                             }
                             .onEnded { _ in
@@ -123,9 +122,6 @@ extension VerticalValueSlider {
         self.step = step
         
         self.trackView = trackView
-        
-        //self.trackShape = trackShape
-        //self.valueView = valueView
         self.thumbView = thumbView
         
         self.onEditingChanged = onEditingChanged
@@ -134,7 +130,7 @@ extension VerticalValueSlider {
 
 extension VerticalValueSlider where TrackView == VerticalValueTrack<V, Capsule, Capsule> {
     public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, thumbView: ThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        let horizontalTrackView = VerticalValueTrack(value: value.wrappedValue, in: bounds)
+        let horizontalTrackView = VerticalValueTrack(value: value, in: bounds)
         self.init(value: value, in: bounds, step: step, trackView: horizontalTrackView, thumbView: thumbView, onEditingChanged: onEditingChanged)
     }
 }
@@ -147,7 +143,7 @@ extension VerticalValueSlider where ThumbView == Capsule {
 
 extension VerticalValueSlider where TrackView == VerticalValueTrack<V, Capsule, Capsule>, ThumbView == Capsule {
     public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        let horizontalTrackView = VerticalValueTrack(value: value.wrappedValue, in: bounds)
+        let horizontalTrackView = VerticalValueTrack(value: value, in: bounds)
         self.init(value: value, in: bounds, step: step, trackView: horizontalTrackView, thumbView: Capsule(), onEditingChanged: onEditingChanged)
     }
 }

@@ -121,9 +121,6 @@ extension HorizontalValueSlider {
         self.step = step
         
         self.trackView = trackView
-        
-        //self.trackShape = trackShape
-        //self.valueView = valueView
         self.thumbView = thumbView
         
         self.onEditingChanged = onEditingChanged
@@ -132,7 +129,7 @@ extension HorizontalValueSlider {
 
 extension HorizontalValueSlider where TrackView == HorizontalValueTrack<V, Capsule, Capsule> {
     public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, thumbView: ThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        let horizontalTrackView = HorizontalValueTrack(value: value.wrappedValue, in: bounds)
+        let horizontalTrackView = HorizontalValueTrack(value: value, in: bounds)
         self.init(value: value, in: bounds, step: step, trackView: horizontalTrackView, thumbView: thumbView, onEditingChanged: onEditingChanged)
     }
 }
@@ -145,7 +142,7 @@ extension HorizontalValueSlider where ThumbView == Capsule {
 
 extension HorizontalValueSlider where TrackView == HorizontalValueTrack<V, Capsule, Capsule>, ThumbView == Capsule {
     public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        let horizontalTrackView = HorizontalValueTrack(value: value.wrappedValue, in: bounds)
+        let horizontalTrackView = HorizontalValueTrack(value: value, in: bounds)
         self.init(value: value, in: bounds, step: step, trackView: horizontalTrackView, thumbView: Capsule(), onEditingChanged: onEditingChanged)
     }
 }

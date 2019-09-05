@@ -165,7 +165,7 @@ extension HorizontalRangeSlider {
 
 extension HorizontalRangeSlider where TrackView == HorizontalRangeTrack<V, Capsule, Capsule> {
     public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, thumbView: ThumbView, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        let horizontalTrackView = HorizontalRangeTrack(range: range.wrappedValue, in: bounds)
+        let horizontalTrackView = HorizontalRangeTrack(range: range, in: bounds)
         self.init(range: range, in: bounds, step: step, trackView: horizontalTrackView, thumbView: thumbView, onEditingChanged: onEditingChanged)
     }
 }
@@ -178,7 +178,7 @@ extension HorizontalRangeSlider where ThumbView == Capsule {
 
 extension HorizontalRangeSlider where TrackView == HorizontalRangeTrack<V, Capsule, Capsule>, ThumbView == Capsule {
     public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        let horizontalTrackView = HorizontalRangeTrack(range: range.wrappedValue, in: bounds)
+        let horizontalTrackView = HorizontalRangeTrack(range: range, in: bounds)
         self.init(range: range, in: bounds, step: step, trackView: horizontalTrackView, thumbView: Capsule(), onEditingChanged: onEditingChanged)
     }
 }
