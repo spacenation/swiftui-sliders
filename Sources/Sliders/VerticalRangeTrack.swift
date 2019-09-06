@@ -54,6 +54,7 @@ public struct VerticalRangeTrack<V, ValueView: View, TrackShape: InsettableShape
                     .mask(
                         self.trackShape.frame(width: geometry.size.width, height: geometry.size.height)
                 )
+                .drawingGroup()
         }
 
     }

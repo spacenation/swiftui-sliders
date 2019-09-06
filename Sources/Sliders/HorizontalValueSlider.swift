@@ -6,6 +6,9 @@ public struct HorizontalValueSlider<V, TrackView: View, ThumbView : InsettableSh
     @Environment(\.sliderStyle)
     var style
     
+    @Environment(\.isEnabled)
+    var isEnabled
+    
     @usableFromInline
     var preferences = SliderPreferences()
     
@@ -96,9 +99,8 @@ public struct HorizontalValueSlider<V, TrackView: View, ThumbView : InsettableSh
             )
         }
         .frame(height: self.height)
-        
-        /// Enabling this draws incorrect gradient on value change, fix it before enabling metal randering
-        //.drawingGroup()
+        .drawingGroup()
+        .opacity(self.isEnabled ? 1.0 : 0.5)
     }
 }
 

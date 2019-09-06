@@ -21,6 +21,10 @@ struct HorizontalSliderExamplesView: View {
     var body: some View {
         ScrollView {
             Group {
+                
+                Slider(value: $value1)
+                HSlider(value: $value1)
+                
                 HSlider(
                     value: $value2,
                     trackView: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing)
@@ -40,7 +44,7 @@ struct HorizontalSliderExamplesView: View {
 
                 HorizontalValueSlider(
                     value: $value4,
-                    trackView: LinearGradient(gradient: Gradient(colors: [.white, .blue]), startPoint: .leading, endPoint: .trailing)
+                    trackView: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .leading, endPoint: .trailing)
                 )
                 .thumbSize(CGSize(width: 48, height: 16))
                 .thickness(6)
@@ -49,7 +53,7 @@ struct HorizontalSliderExamplesView: View {
                     value: $value5,
                     trackView: HorizontalValueTrack(
                         value: $value5,
-                        valueView: LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .leading, endPoint: .trailing)
+                        valueView: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .leading, endPoint: .trailing)
                     )
                 )
                 .thumbSize(.zero)
@@ -103,8 +107,8 @@ struct HorizontalSliderExamplesView: View {
                     range: $range7,
                     trackView: HorizontalRangeTrack(
                         range: $range7,
-                        valueView: LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .leading, endPoint: .trailing)
-                    ).animation(.spring())
+                        valueView: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .leading, endPoint: .trailing)
+                    )
                 )
                 .thumbSize(CGSize(width: 48, height: 24))
                 .thickness(8)
@@ -160,6 +164,7 @@ struct HorizontalSliderExamplesView: View {
             }
         }
         .padding()
+        //.environment(\.isEnabled, false)
     }
 }
 

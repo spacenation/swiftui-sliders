@@ -43,15 +43,20 @@ struct VerticalSliderExamplesView: View {
 
                     VerticalValueSlider(
                         value: $value4,
-                        trackView: LinearGradient(gradient: Gradient(colors: [.white, .blue]), startPoint: .bottom, endPoint: .top)
+                        trackView: LinearGradient(gradient: Gradient(colors: [.white, .blue, .white]), startPoint: .bottom, endPoint: .top)
                     )
                     .thumbSize(CGSize(width: 16, height: 48))
                     .thickness(6)
 
                     VerticalValueSlider(
                         value: $value5,
-                        trackView: LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .bottom, endPoint: .top)
+                        trackView: VTrack(
+                            value: $value5,
+                            valueView: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .bottom, endPoint: .top),
+                            trackShape: Capsule()
+                        )
                     )
+                    .thickness(36)
                     .thumbSize(.zero)
                 }
 
@@ -103,7 +108,7 @@ struct VerticalSliderExamplesView: View {
 
                     VerticalRangeSlider(
                         range: $range7,
-                        trackView: LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .bottom, endPoint: .top)
+                        trackView: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .bottom, endPoint: .top)
                     )
                     .thumbSize(CGSize(width: 48, height: 24))
                     .thickness(8)

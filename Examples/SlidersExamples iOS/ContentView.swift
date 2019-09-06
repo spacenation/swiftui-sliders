@@ -35,7 +35,6 @@ struct ContentView: View {
                 .tag(2)
                 .frame(minWidth: 300)
         }
-        .accentColor(.blue)
     }
 }
 

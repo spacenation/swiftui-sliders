@@ -1,8 +1,13 @@
 import SwiftUI
 
+public typealias VRangeSlider = VerticalRangeSlider
+
 public struct VerticalRangeSlider<V, TrackView: View, LowerThumbView : InsettableShape, UpperThumbView: InsettableShape>: View where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
     @Environment(\.sliderStyle)
     var style
+    
+    @Environment(\.isEnabled)
+    var isEnabled
     
     @usableFromInline
     var preferences = SliderPreferences()
@@ -130,9 +135,8 @@ public struct VerticalRangeSlider<V, TrackView: View, LowerThumbView : Insettabl
             .frame(width: self.width)
         }
         .frame(width: self.width)
-        
-        /// Enabling this draws incorrect gradient in value, fix it before enabling metal randering
-        //.drawingGroup()
+        .drawingGroup()
+        .opacity(self.isEnabled ? 1.0 : 0.5)
     }
 }
 

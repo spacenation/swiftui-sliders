@@ -1,8 +1,13 @@
 import SwiftUI
 
+public typealias HRangeSlider = HorizontalRangeSlider
+
 public struct HorizontalRangeSlider<V, TrackView: View, LowerThumbView : InsettableShape, UpperThumbView: InsettableShape> : View where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
     @Environment(\.sliderStyle)
     var style
+    
+    @Environment(\.isEnabled)
+    var isEnabled
     
     @usableFromInline
     var preferences = SliderPreferences()
@@ -130,9 +135,8 @@ public struct HorizontalRangeSlider<V, TrackView: View, LowerThumbView : Insetta
             .frame(height: self.height)
         }
         .frame(height: self.height)
-        
-        /// Enabling this draws incorrect gradient in value, fix it before enabling metal randering
-        //.drawingGroup()
+        .drawingGroup()
+        .opacity(self.isEnabled ? 1.0 : 0.5)
     }
 }
 
