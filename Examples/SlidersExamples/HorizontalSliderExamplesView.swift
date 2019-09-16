@@ -22,7 +22,7 @@ struct HorizontalSliderExamplesView: View {
         ScrollView {
             Group {
                 
-                Slider(value: $value1)
+                //Slider(value: $value1)
                 HSlider(value: $value1)
                 
                 HSlider(
@@ -58,6 +58,12 @@ struct HorizontalSliderExamplesView: View {
                 )
                 .thumbSize(.zero)
                 .thickness(30)
+                
+                HorizontalValuesTrack(valueColorPairs: [
+                    .init(value: 0.9, color: Color.white.opacity(0.8)),
+                    .init(value: 0.6, color: Color.purple.opacity(0.8)),
+                    .init(value: $value5, color: Color.blue.opacity(0.8))
+                ])
             }
             
             Group {

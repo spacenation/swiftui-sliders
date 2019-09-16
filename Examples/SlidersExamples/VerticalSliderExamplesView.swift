@@ -58,6 +58,12 @@ struct VerticalSliderExamplesView: View {
                     )
                     .thickness(36)
                     .thumbSize(.zero)
+                    
+                    VerticalValuesTrack(valueColorPairs: [
+                        .init(value: 0.9, color: Color.white.opacity(0.8)),
+                        .init(value: 0.6, color: Color.purple.opacity(0.8)),
+                        .init(value: $value5, color: Color.blue.opacity(0.8))
+                    ])
                 }
 
                 Group {
