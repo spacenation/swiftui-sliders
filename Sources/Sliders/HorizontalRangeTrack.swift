@@ -67,19 +67,11 @@ extension HorizontalRangeTrack {
         self.valueView = valueView
         self.trackShape = trackShape
     }
-    
-    public init(range: ClosedRange<V>, in bounds: ClosedRange<V> = 0.0...1.0, valueView: ValueView, trackShape: TrackShape) {
-        self.init(range: .constant(range), in: bounds, valueView: valueView, trackShape: trackShape)
-    }
 }
 
 extension HorizontalRangeTrack where TrackShape == Capsule {
     public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, valueView: ValueView) {
         self.init(range: range, in: bounds, valueView: valueView, trackShape: Capsule())
-    }
-    
-    public init(range: ClosedRange<V>, in bounds: ClosedRange<V> = 0.0...1.0, valueView: ValueView) {
-        self.init(range: .constant(range), in: bounds, valueView: valueView, trackShape: Capsule())
     }
 }
 
@@ -87,19 +79,11 @@ extension HorizontalRangeTrack where ValueView == Capsule {
     public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, trackShape: TrackShape) {
         self.init(range: range, in: bounds, valueView: Capsule(), trackShape: trackShape)
     }
-    
-    public init(range: ClosedRange<V>, in bounds: ClosedRange<V> = 0.0...1.0, trackShape: TrackShape) {
-        self.init(range: .constant(range), in: bounds, valueView: Capsule(), trackShape: trackShape)
-    }
 }
 
 extension HorizontalRangeTrack where TrackShape == Capsule, ValueView == Capsule {
     public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0) {
         self.init(range: range, in: bounds, valueView: Capsule(), trackShape: Capsule())
-    }
-    
-    public init(range: ClosedRange<V>, in bounds: ClosedRange<V> = 0.0...1.0) {
-        self.init(range: .constant(range), in: bounds, valueView: Capsule(), trackShape: Capsule())
     }
 }
 
