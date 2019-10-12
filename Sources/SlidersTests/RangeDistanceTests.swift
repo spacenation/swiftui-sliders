@@ -1,7 +1,7 @@
 @testable import Sliders
 import XCTest
 
-class SliderMathRangeDistanceTests: XCTestCase {
+class RangeDistanceTests: XCTestCase {
     
     func testRangeDistance() {
         let zeroRangeDistance = rangeDistance(overallLength: 100, range: 0.5...0.5)

@@ -14,7 +14,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use a UIHostingController as window root view controller
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: ContentView())
+            let content = ContentView().environmentObject(Model())
+            window.rootViewController = UIHostingController(rootView: content)
             self.window = window
             window.makeKeyAndVisible()
         }

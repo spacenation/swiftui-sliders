@@ -18,12 +18,6 @@ struct ContentView: View {
                 }
                 .tag(1)
                 .frame(minWidth: 300)
-            SliderBuilderView()
-                .tabItem {
-                    Text("Builder")
-                }
-                .tag(3)
-                .frame(minWidth: 300)
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)

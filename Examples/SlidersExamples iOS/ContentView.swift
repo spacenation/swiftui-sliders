@@ -24,16 +24,6 @@ struct ContentView: View {
                 }
                 .tag(1)
                 .frame(minWidth: 300)
-
-            SliderBuilderView()
-                .tabItem {
-                    VStack {
-                        Image(systemName: "rectangle.3.offgrid.fill")
-                        Text("Builder")
-                    }
-                }
-                .tag(2)
-                .frame(minWidth: 300)
         }
     }
 }

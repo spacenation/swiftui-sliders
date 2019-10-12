@@ -17,7 +17,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.minSize = CGSize(width: 480, height: 300)
         window.setFrameAutosaveName("Main Window")
 
-        window.contentView = NSHostingView(rootView: ContentView())
+        let content = ContentView().environmentObject(Model())
+        window.contentView = NSHostingView(rootView: content)
 
         window.makeKeyAndOrderFront(nil)
     }

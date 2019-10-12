@@ -1,6 +1,10 @@
-## SwiftUI horizontal and vertical sliders for value and range.
+## Custom SwiftUI sliders and tracks.
+This package allows you to build highly customizable sliders and tracks for iOS, macOS and Mac Catalyst. 
 
-SwiftUI Sliders with custom styles for iOS, macOS and Mac Catalyst.
+### Features
+- Build your own sliders and tracks using composition
+- Horizontal and Vertical styles
+- Range values
 
 <center>
 <img src="Resources/sliders.png"/>
@@ -25,8 +29,8 @@ struct ContentView: View {
     
     var body: some View {
         Group {
-            HorizontalValueSlider(value: $value)
-            VerticalRangeSlider(range: $range)
+            HSlider(value: $value)
+            HRangeSlider(range: $range)
         }
     }
 }
@@ -34,66 +38,48 @@ struct ContentView: View {
 For more examples open `/Examples/SlidersExamples.xcodeproj`
 
 ## Customizations
+Use can use any SwiftUI view modifier to create custom tracks and thumbs.
 
-### Local modifiers
+### Simple gradient value slider style
 ```swift
-HorizontalRangeSlider(
-    range: $range,
-    trackView: RoundedRectangle(cornerRadius: 16),
-    valueView: LinearGradient(gradient: Gradient(colors: [.yellow, .orange, .red]), startPoint: .leading, endPoint: .trailing),
-    thumbView: HalfCapsule()
-)
-.height(60)
-.thickness(8)
-/// Thumb
-.thumbSize(CGSize(width: 16, height: 24))
-.thumbColor(.red)
-.thumbCornerRadius(8)
-.thumbBorderColor(.white)
-.thumbBorderWidth(1)
-.thumbShadowColor(.black)
-.thumbShadowRadius(3)
-.thumbShadowX(1)
-.thumbShadowY(0)
-/// Value
-.valueColor(.blue)
-/// Track
-.trackColor(.black)
-.trackBorderColor(.yellow)
-.trackBorderWidth(1)
-/// Style
-.sliderStyle(
-    PlainSliderStyle()
+HSlider(value: $value, track:
+    LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing)
+        .frame(height: 8)
+        .cornerRadius(4)
 )
 ```
 
-### Apply scope-wide styles
+### Complex range slider style
 ```swift
-manySlidersView
-    .sliderStyle(
-        YourSliderStyle()
-    )
+HRangeSlider(range: $range, in: 0.0...1.0, step: 0.01,
+    track:
+        HRangeTrack(
+            range: range,
+            view: LinearGradient(gradient: Gradient(colors: [.yellow, .orange, .red]), startPoint: .leading, endPoint: .trailing),
+            mask: Rectangle(),
+            lowerLeadingOffset: 16,
+            lowerTrailingOffset: 48,
+            upperLeadingOffset: 48,
+            upperTrailingOffset: 16
+        )
+        .background(Color.secondary.opacity(0.25))
+        .cornerRadius(16)
+        .padding(.vertical, 8)
+        .animation(.easeInOut(duration: 0.5)),
+    lowerThumb: 
+        Capsule()
+            .foregroundColor(.white),
+    upperThumb:
+        Capsule()
+            .foregroundColor(.white),
+    thumbSize: CGSize(width: 32, height: 64),
+    thumbInteractiveSize: CGSize(width: 44, height: 64),
+    onEditingChanged: { print($0) }
+)
+.frame(height: 64)
 ```
 
-### Environment Values
-```swift
-view.environment(\.sliderStyle.height, 44)
-view.environment(\.sliderStyle.thickness, 3)
-view.environment(\.sliderStyle.thumbSize, CGSize(width: 16, height: 24))
-view.environment(\.sliderStyle.thumbColor, .red)
-view.environment(\.sliderStyle.thumbBorderColor, .blue)
-view.environment(\.sliderStyle.thumbBorderWidth, 1)
-view.environment(\.sliderStyle.thumbShadowColor, .black)
-view.environment(\.sliderStyle.thumbShadowRadius, 2)
-view.environment(\.sliderStyle.thumbShadowX, 1.5)
-view.environment(\.sliderStyle.thumbShadowY, 1.5)
-view.environment(\.sliderStyle.valueColor, .blue)
-view.environment(\.sliderStyle.trackColor, .green)
-view.environment(\.sliderStyle.trackBorderColor, .grey)
-view.environment(\.sliderStyle.trackBorderWidth, 2)
-
-view.environment(\.sliderStyle, PlainSliderStyle())
-```
+###
 
 ## SDKs
 - iOS 13+
@@ -101,8 +87,10 @@ view.environment(\.sliderStyle, PlainSliderStyle())
 - macOS 10.15+
 - Xcode 11.0+
 
-## Version 1.0.0
-Stable version will be released as soon as XCode 11 GM becomes available. We will strictly follow semantic versioning moving forward.
+## Roadmap 
+
+### Version 1.1
+- Circular sliders and tracks
 
 ## Contibutions
 Feel free to contribute via fork/pull request to master branch. If you want to request a feature or report a bug please start a new issue.
