@@ -10,7 +10,11 @@ struct VerticalSliderExamplesView: View {
                 Group {
                     VSlider(value: $model.value1)
                     
-                    VSlider(value: $model.value2, thumbSize: CGSize(width: 16, height: 32))
+                    VSlider(value: $model.value2,
+                        configuration: .init(
+                            thumbSize: CGSize(width: 16, height: 32)
+                        )
+                    )
                         
                     VSlider(value: $model.value3, track:
                         LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .bottom, endPoint: .top)
@@ -26,8 +30,9 @@ struct VerticalSliderExamplesView: View {
                                 view: Rectangle()
                                     .foregroundColor(.green)
                                     .frame(width: 8),
-                                leadingOffset: 8,
-                                trailingOffset: 8
+                                configuration: .init(
+                                    offsets: 8
+                                )
                             )
                             .background(Color.white)
                             .frame(width: 8)
@@ -38,7 +43,9 @@ struct VerticalSliderExamplesView: View {
                             .animation(
                                 .spring(response: 0.7, dampingFraction: 0.4)
                             ),
-                        thumbSize: CGSize(width: 16, height: 16)
+                        configuration: .init(
+                            thumbSize: CGSize(width: 16, height: 16)
+                        )
                     )
                     
                     VSlider(
@@ -47,7 +54,9 @@ struct VerticalSliderExamplesView: View {
                             LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .bottom, endPoint: .top)
                                 .frame(width: 6)
                                 .cornerRadius(3),
-                        thumbSize: CGSize(width: 16, height: 48)
+                        configuration: .init(
+                            thumbSize: CGSize(width: 16, height: 48)
+                        )
                     )
                     
                     VSlider(
@@ -66,7 +75,9 @@ struct VerticalSliderExamplesView: View {
                             .cornerRadius(16)
                             .animation(.easeInOut(duration: 0.5)),
                         thumb: EmptyView(),
-                        thumbSize: .zero
+                        configuration: .init(
+                            thumbSize: .zero
+                        )
                     )
                 }
                 
@@ -80,16 +91,19 @@ struct VerticalSliderExamplesView: View {
                                 range: model.range2,
                                 view: Capsule().foregroundColor(.purple),
                                 mask: Rectangle(),
-                                lowerLeadingOffset: 16,
-                                lowerTrailingOffset: 48,
-                                upperLeadingOffset: 48,
-                                upperTrailingOffset: 16
+                                configuration: .init(
+                                    lowerOffset: 32,
+                                    upperOffset: 48
+                                )
                             )
                             .background(Capsule().foregroundColor(Color.purple.opacity(0.25)))
                             .frame(width: 8),
                         lowerThumb: Circle().foregroundColor(.purple),
                         upperThumb: Circle().foregroundColor(.purple),
-                        thumbSize: CGSize(width: 32, height: 32)
+                        configuration: .init(
+                            lowerThumbSize: CGSize(width: 32, height: 32),
+                            upperThumbSize: CGSize(width: 48, height: 48)
+                        )
                     )
                     
                     VRangeSlider(
@@ -97,15 +111,16 @@ struct VerticalSliderExamplesView: View {
                         track: VRangeTrack(
                             range: model.range3,
                             value: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .bottom, endPoint: .top),
-                            lowerLeadingOffset: 8,
-                            lowerTrailingOffset: 24,
-                            upperLeadingOffset: 24,
-                            upperTrailingOffset: 8
+                            configuration: .init(
+                                offsets: 16
+                            )
                         )
                         .background(LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .bottom, endPoint: .top).opacity(0.25))
                         .frame(width: 8)
                         .cornerRadius(4),
-                        thumbSize: CGSize(width: 32, height: 16)
+                        configuration: .init(
+                            thumbSize: CGSize(width: 32, height: 16)
+                        )
                     )
                     
                     VRangeSlider(
@@ -115,16 +130,17 @@ struct VerticalSliderExamplesView: View {
                                 range: model.range4,
                                 view: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .bottom, endPoint: .top),
                                 mask: Rectangle(),
-                                lowerLeadingOffset: 8,
-                                lowerTrailingOffset: 24,
-                                upperLeadingOffset: 24,
-                                upperTrailingOffset: 8
+                                configuration: .init(
+                                    offsets: 16
+                                )
                             )
                             .mask(Ellipse())
                             .background(Ellipse().foregroundColor(Color.secondary.opacity(0.25)))
                             .overlay(Ellipse().strokeBorder(Color.white.opacity(0.5), lineWidth: 1))
                             .padding(.horizontal, 8),
-                        thumbSize: CGSize(width: 64, height: 16)
+                        configuration: .init(
+                            thumbSize: CGSize(width: 64, height: 16)
+                        )
                     )
                     .frame(width: 64)
                     
@@ -135,16 +151,17 @@ struct VerticalSliderExamplesView: View {
                                 range: model.range5,
                                 view: LinearGradient(gradient: Gradient(colors: [.yellow, .orange, .red]), startPoint: .bottom, endPoint: .top),
                                 mask: Rectangle(),
-                                lowerLeadingOffset: 16,
-                                lowerTrailingOffset: 48,
-                                upperLeadingOffset: 48,
-                                upperTrailingOffset: 16
+                                configuration: .init(
+                                    offsets: 32
+                                )
                             )
                             .background(Color.secondary.opacity(0.25))
                             .cornerRadius(16),
                         lowerThumb: Capsule().foregroundColor(.white).shadow(radius: 3),
                         upperThumb: Capsule().foregroundColor(.white).shadow(radius: 3),
-                        thumbSize: CGSize(width: 64, height: 32)
+                        configuration: .init(
+                            thumbSize: CGSize(width: 64, height: 32)
+                        )
                     )
                     .frame(width: 64)
                 }

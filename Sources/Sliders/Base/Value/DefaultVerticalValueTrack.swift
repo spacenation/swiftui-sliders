@@ -3,21 +3,19 @@ import SwiftUI
 public struct DefaultVerticalValueTrack<V>: View where V: BinaryFloatingPoint, V.Stride: BinaryFloatingPoint {
     let value: V
     let bounds: ClosedRange<V>
-    let leadingOffset: CGFloat
-    let trailingOffset: CGFloat
+    let configuration: ValueTrackConfiguration
 
     public var body: some View {
-        VTrack(value: value, in: bounds, leadingOffset: leadingOffset, trailingOffset: trailingOffset)
+        VTrack(value: value, in: bounds, configuration: configuration)
             .frame(width: 3)
             .background(Color.secondary.opacity(0.25))
             .cornerRadius(1.5)
     }
     
-    public init(value: V, in bounds: ClosedRange<V> = 0.0...1.0, leadingOffset: CGFloat = 0, trailingOffset: CGFloat = 0) {
+    public init(value: V, in bounds: ClosedRange<V> = 0.0...1.0, configuration: ValueTrackConfiguration = .defaultConfiguration) {
         self.value = value
         self.bounds = bounds
-        self.leadingOffset = leadingOffset
-        self.trailingOffset = trailingOffset
+        self.configuration = configuration
     }
 }
 

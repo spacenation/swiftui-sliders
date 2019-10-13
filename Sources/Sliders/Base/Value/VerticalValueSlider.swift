@@ -8,8 +8,7 @@ public struct VerticalValueSlider<V, TrackView: View, ThumbView : View>: View wh
     let step: CGFloat
     let track: AnyView
     let thumbView: AnyView
-    let thumbSize: CGSize
-    let thumbInteractiveSize: CGSize
+    let configuration: ValueSliderConfiguration
     
     let onEditingChanged: (Bool) -> Void
     
@@ -25,17 +24,17 @@ public struct VerticalValueSlider<V, TrackView: View, ThumbView : View>: View wh
                 
                 ZStack {
                     self.thumbView
-                        .frame(width: self.thumbSize.width, height: self.thumbSize.height)
+                        .frame(width: self.configuration.thumbSize.width, height: self.configuration.thumbSize.height)
                 }
-                .frame(minWidth: self.thumbInteractiveSize.width, minHeight: self.thumbInteractiveSize.height)
+                .frame(minWidth: self.configuration.thumbInteractiveSize.width, minHeight: self.configuration.thumbInteractiveSize.height)
                 .position(
                     x: geometry.size.width / 2,
                     y: geometry.size.height - distanceFrom(
                         value: value,
                         availableDistance: geometry.size.height,
                         bounds: self.bounds,
-                        leadingOffset: self.thumbSize.height / 2,
-                        trailingOffset: self.thumbSize.height / 2
+                        leadingOffset: self.configuration.thumbSize.height / 2,
+                        trailingOffset: self.configuration.thumbSize.height / 2
                     )
                 )
                 .gesture(
@@ -46,8 +45,8 @@ public struct VerticalValueSlider<V, TrackView: View, ThumbView : View>: View wh
                                     value: value,
                                     availableDistance: geometry.size.height,
                                     bounds: self.bounds,
-                                    leadingOffset: self.thumbSize.height / 2,
-                                    trailingOffset: self.thumbSize.height / 2
+                                    leadingOffset: self.configuration.thumbSize.height / 2,
+                                    trailingOffset: self.configuration.thumbSize.height / 2
                                 ))
                             }
                             
@@ -56,8 +55,8 @@ public struct VerticalValueSlider<V, TrackView: View, ThumbView : View>: View wh
                                 availableDistance: geometry.size.height,
                                 bounds: self.bounds,
                                 step: self.step,
-                                leadingOffset: self.thumbSize.height / 2,
-                                trailingOffset: self.thumbSize.height / 2
+                                leadingOffset: self.configuration.thumbSize.height / 2,
+                                trailingOffset: self.configuration.thumbSize.height / 2
                             )
                             
                             self.value.wrappedValue = V(computedValue)
@@ -79,8 +78,8 @@ public struct VerticalValueSlider<V, TrackView: View, ThumbView : View>: View wh
                             availableDistance: geometry.size.height,
                             bounds: self.bounds,
                             step: self.step,
-                            leadingOffset: self.thumbSize.height / 2,
-                            trailingOffset: self.thumbSize.height / 2
+                            leadingOffset: self.configuration.thumbSize.height / 2,
+                            trailingOffset: self.configuration.thumbSize.height / 2
                         )
                         self.value.wrappedValue = V(computedValue)
                         self.onEditingChanged(true)
@@ -90,40 +89,34 @@ public struct VerticalValueSlider<V, TrackView: View, ThumbView : View>: View wh
                     }
             )
         }
-        .frame(minWidth: self.thumbInteractiveSize.width)
+        .frame(minWidth: self.configuration.thumbInteractiveSize.width)
     }
 }
 
 // MARK: Inits
 
 extension VerticalValueSlider {
-    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, track: TrackView, thumb: ThumbView, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, track: TrackView, thumb: ThumbView, configuration: ValueSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         self.value = value
         self.bounds = CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound)
         self.step = CGFloat(step)
         self.track = AnyView(track)
         self.thumbView = AnyView(thumb)
-        self.thumbSize = thumbSize
-        self.thumbInteractiveSize = thumbInteractiveSize
+        self.configuration = configuration
         self.onEditingChanged = onEditingChanged
     }
 }
 
 extension VerticalValueSlider where TrackView == DefaultVerticalValueTrack<V>, ThumbView == DefaultThumb {
-    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        let track = DefaultVerticalValueTrack(
-            value: value.wrappedValue,
-            in: bounds,
-            leadingOffset: thumbSize.height / 2,
-            trailingOffset: thumbSize.height / 2
-        )
-        self.init(value: value, in: bounds, step: step, track: track, thumb: DefaultThumb(), thumbSize: thumbSize, thumbInteractiveSize: thumbInteractiveSize, onEditingChanged: onEditingChanged)
+    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, configuration: ValueSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        let track = DefaultVerticalValueTrack(value: value.wrappedValue, in: bounds, configuration: configuration.verticalTrackConfiguration)
+        self.init(value: value, in: bounds, step: step, track: track, thumb: DefaultThumb(), configuration: configuration, onEditingChanged: onEditingChanged)
     }
 }
 
 extension VerticalValueSlider where ThumbView == DefaultThumb {
-    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, track: TrackView, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        self.init(value: value, in: bounds, step: step, track: track, thumb: DefaultThumb(), thumbSize: thumbSize, thumbInteractiveSize: thumbInteractiveSize, onEditingChanged: onEditingChanged)
+    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, track: TrackView, configuration: ValueSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        self.init(value: value, in: bounds, step: step, track: track, thumb: DefaultThumb(), configuration: configuration, onEditingChanged: onEditingChanged)
     }
 }
 

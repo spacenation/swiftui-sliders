@@ -19,7 +19,9 @@ struct PointSliderExamplesView: View {
                         Circle()
                             .foregroundColor(.white)
                             .shadow(radius: 3),
-                    thumbSize: CGSize(width: 48, height: 48)
+                    configuration: .init(
+                        thumbSize: CGSize(width: 48, height: 48)
+                    )
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: 24)
@@ -48,12 +50,13 @@ struct PointSliderExamplesView: View {
                             .compositingGroup()
                             .rotationEffect(Angle(radians: model.pointX2 * 10))
                             .shadow(radius: 3),
-                        thumbSize: CGSize(width: 48, height: 48)
+                        configuration: .init(
+                            thumbSize: CGSize(width: 48, height: 48)
+                        )
                     )
                     .frame(height: 256)
                     .shadow(radius: 3)
                     .padding()
-                    
                     
                     XYSlider(
                         x: $model.pointX3,
@@ -75,18 +78,19 @@ struct PointSliderExamplesView: View {
                             Capsule()
                                 .foregroundColor(.white)
                                 .shadow(radius: 3),
-                        thumbSize: CGSize(width: 96, height: 48)
+                        configuration: .init(
+                            thumbSize: CGSize(width: 96, height: 48)
+                        )
                     )
                     .frame(height: 256)
                     .shadow(radius: 3)
                     .padding()
                 }
                 
-                 XYSlider(x: $model.pointX4, y: $model.pointY4)
+                XYSlider(x: $model.pointX4, y: $model.pointY4)
                     .frame(height: 256)
                     .padding()
                 
-
             }
 
         }

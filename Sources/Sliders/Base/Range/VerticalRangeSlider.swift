@@ -11,11 +11,7 @@ public struct VerticalRangeSlider<V, TrackView: View, LowerThumbView: View, Uppe
     let lowerThumb: AnyView
     let upperThumb: AnyView
     
-    let lowerThumbSize: CGSize
-    let upperThumbSize: CGSize
-    
-    let lowerThumbInteractiveSize: CGSize
-    let upperThumbInteractiveSize: CGSize
+    let configuration: RangeSliderConfiguration
     
     let onEditingChanged: (Bool) -> Void
     
@@ -31,17 +27,17 @@ public struct VerticalRangeSlider<V, TrackView: View, LowerThumbView: View, Uppe
                 
                 ZStack {
                     self.lowerThumb
-                        .frame(width: self.lowerThumbSize.width, height: self.lowerThumbSize.height)
+                        .frame(width: self.configuration.lowerThumbSize.width, height: self.configuration.lowerThumbSize.height)
                 }
-                .frame(minWidth: self.lowerThumbInteractiveSize.width, minHeight: self.lowerThumbInteractiveSize.height)
+                .frame(minWidth: self.configuration.lowerThumbInteractiveSize.width, minHeight: self.configuration.lowerThumbInteractiveSize.height)
                 .position(
                     x: geometry.size.width / 2,
                     y: geometry.size.height - distanceFrom(
                         value: range.lowerBound,
-                        availableDistance: geometry.size.height - self.upperThumbSize.height,
+                        availableDistance: geometry.size.height - self.configuration.upperThumbSize.height,
                         bounds: self.bounds,
-                        leadingOffset: self.lowerThumbSize.height / 2,
-                        trailingOffset: self.lowerThumbSize.height / 2
+                        leadingOffset: self.configuration.lowerThumbSize.height / 2,
+                        trailingOffset: self.configuration.lowerThumbSize.height / 2
                     )
                 )
                 .gesture(
@@ -50,20 +46,20 @@ public struct VerticalRangeSlider<V, TrackView: View, LowerThumbView: View, Uppe
                             if self.dragOffset == nil {
                                 self.dragOffset = gestureValue.startLocation.y - (geometry.size.height - distanceFrom(
                                     value: range.lowerBound,
-                                    availableDistance: geometry.size.height - self.upperThumbSize.height,
+                                    availableDistance: geometry.size.height - self.configuration.upperThumbSize.height,
                                     bounds: self.bounds,
-                                    leadingOffset: self.lowerThumbSize.height / 2,
-                                    trailingOffset: self.lowerThumbSize.height / 2
+                                    leadingOffset: self.configuration.lowerThumbSize.height / 2,
+                                    trailingOffset: self.configuration.lowerThumbSize.height / 2
                                 ))
                             }
                             
                             let computedLowerBound = valueFrom(
                                 distance: geometry.size.height - (gestureValue.location.y - (self.dragOffset ?? 0)),
-                                availableDistance: geometry.size.height - self.upperThumbSize.height,
+                                availableDistance: geometry.size.height - self.configuration.upperThumbSize.height,
                                 bounds: self.bounds,
                                 step: self.step,
-                                leadingOffset: self.lowerThumbSize.height / 2,
-                                trailingOffset: self.lowerThumbSize.height / 2
+                                leadingOffset: self.configuration.lowerThumbSize.height / 2,
+                                trailingOffset: self.configuration.lowerThumbSize.height / 2
                             )
                             
                             let computedUpperBound = max(computedLowerBound, CGFloat(self.range.wrappedValue.upperBound))
@@ -78,17 +74,17 @@ public struct VerticalRangeSlider<V, TrackView: View, LowerThumbView: View, Uppe
 
                 ZStack {
                     self.upperThumb
-                        .frame(width: self.upperThumbSize.width, height: self.upperThumbSize.height)
+                        .frame(width: self.configuration.upperThumbSize.width, height: self.configuration.upperThumbSize.height)
                 }
-                .frame(minWidth: self.upperThumbInteractiveSize.width, minHeight: self.upperThumbInteractiveSize.height)
+                .frame(minWidth: self.configuration.upperThumbInteractiveSize.width, minHeight: self.configuration.upperThumbInteractiveSize.height)
                 .position(
                     x: geometry.size.width / 2,
                     y: geometry.size.height - distanceFrom(
                         value: range.upperBound,
                         availableDistance: geometry.size.height,
                         bounds: self.bounds,
-                        leadingOffset: self.lowerThumbSize.height + self.upperThumbSize.height / 2,
-                        trailingOffset: self.upperThumbSize.height / 2
+                        leadingOffset: self.configuration.lowerThumbSize.height + self.configuration.upperThumbSize.height / 2,
+                        trailingOffset: self.configuration.upperThumbSize.height / 2
                     )
                 )
                 .gesture(
@@ -99,8 +95,8 @@ public struct VerticalRangeSlider<V, TrackView: View, LowerThumbView: View, Uppe
                                     value: range.upperBound,
                                     availableDistance: geometry.size.height,
                                     bounds: self.bounds,
-                                    leadingOffset: self.lowerThumbSize.height + self.upperThumbSize.height / 2,
-                                    trailingOffset: self.upperThumbSize.height / 2
+                                    leadingOffset: self.configuration.lowerThumbSize.height + self.configuration.upperThumbSize.height / 2,
+                                    trailingOffset: self.configuration.upperThumbSize.height / 2
                                 ))
                             }
                             
@@ -109,8 +105,8 @@ public struct VerticalRangeSlider<V, TrackView: View, LowerThumbView: View, Uppe
                                 availableDistance: geometry.size.height,
                                 bounds: self.bounds,
                                 step: self.step,
-                                leadingOffset: self.lowerThumbSize.height + self.upperThumbSize.height / 2,
-                                trailingOffset: self.upperThumbSize.height / 2
+                                leadingOffset: self.configuration.lowerThumbSize.height + self.configuration.upperThumbSize.height / 2,
+                                trailingOffset: self.configuration.upperThumbSize.height / 2
                             )
                             
                             let computedLowerBound = min(computedUpperBound, CGFloat(self.range.wrappedValue.lowerBound))
@@ -124,14 +120,14 @@ public struct VerticalRangeSlider<V, TrackView: View, LowerThumbView: View, Uppe
                 )
             }
         }
-        .frame(minWidth: max(self.lowerThumbInteractiveSize.width, self.upperThumbInteractiveSize.width))
+        .frame(minWidth: max(self.configuration.lowerThumbInteractiveSize.width, self.configuration.upperThumbInteractiveSize.width))
     }
 }
 
 // MARK: Inits
 
 extension VerticalRangeSlider {
-    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0...1, step: V.Stride = 0.001, track: TrackView, lowerThumb: LowerThumbView, upperThumb: UpperThumbView, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0...1, step: V.Stride = 0.001, track: TrackView, lowerThumb: LowerThumbView, upperThumb: UpperThumbView, configuration: RangeSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         self.range = range
         self.bounds = CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound)
         self.step = CGFloat(step)
@@ -140,75 +136,46 @@ extension VerticalRangeSlider {
         self.lowerThumb = AnyView(lowerThumb)
         self.upperThumb = AnyView(upperThumb)
         
-        self.lowerThumbSize = thumbSize
-        self.upperThumbSize = thumbSize
-        
-        self.lowerThumbInteractiveSize = thumbInteractiveSize
-        self.upperThumbInteractiveSize = thumbInteractiveSize
+        self.configuration = configuration
 
         self.onEditingChanged = onEditingChanged
     }
 }
 
 extension VerticalRangeSlider where TrackView == DefaultVerticalRangeTrack<V> {
-    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, lowerThumb: LowerThumbView, upperThumb: UpperThumbView, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, lowerThumb: LowerThumbView, upperThumb: UpperThumbView, configuration: RangeSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         
-        let track = DefaultVerticalRangeTrack(
-            range: range.wrappedValue,
-            in: bounds,
-            lowerLeadingOffset: thumbSize.height / 2,
-            lowerTrailingOffset: thumbSize.height / 2 + thumbSize.height,
-            upperLeadingOffset: thumbSize.height + thumbSize.height / 2,
-            upperTrailingOffset: thumbSize.height / 2
-        )
+        let track = DefaultVerticalRangeTrack(range: range.wrappedValue, in: bounds, configuration: configuration.verticalTrackConfiguration)
         
-        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: lowerThumb, upperThumb: upperThumb, thumbSize: thumbSize, thumbInteractiveSize: thumbInteractiveSize, onEditingChanged: onEditingChanged)
+        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: lowerThumb, upperThumb: upperThumb, configuration: configuration, onEditingChanged: onEditingChanged)
     }
 }
 
 extension VerticalRangeSlider where LowerThumbView == DefaultThumb, UpperThumbView == DefaultThumb {
-    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, track: TrackView, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: DefaultThumb(), upperThumb: DefaultThumb(), thumbSize: thumbSize, thumbInteractiveSize: thumbInteractiveSize, onEditingChanged: onEditingChanged)
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, track: TrackView, configuration: RangeSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: DefaultThumb(), upperThumb: DefaultThumb(), configuration: configuration, onEditingChanged: onEditingChanged)
     }
 }
 
 extension VerticalRangeSlider where TrackView == DefaultVerticalRangeTrack<V>, LowerThumbView == DefaultThumb, UpperThumbView == DefaultThumb {
-    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        
-        let track = DefaultVerticalRangeTrack(
-            range: range.wrappedValue,
-            in: bounds,
-            lowerLeadingOffset: thumbSize.height / 2,
-            lowerTrailingOffset: thumbSize.height / 2 + thumbSize.height,
-            upperLeadingOffset: thumbSize.height + thumbSize.height / 2,
-            upperTrailingOffset: thumbSize.height / 2
-        )
-        
-        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: DefaultThumb(), upperThumb: DefaultThumb(), thumbSize: thumbSize, thumbInteractiveSize: thumbInteractiveSize, onEditingChanged: onEditingChanged)
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, configuration: RangeSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        let track = DefaultVerticalRangeTrack(range: range.wrappedValue, in: bounds, configuration: configuration.verticalTrackConfiguration)
+        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: DefaultThumb(), upperThumb: DefaultThumb(), configuration: configuration, onEditingChanged: onEditingChanged)
     }
 }
 
 // MARK: Inits for same LowerThumbView and UpperThumbView
 
 extension VerticalRangeSlider where LowerThumbView == UpperThumbView {
-    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, track: TrackView, thumb: LowerThumbView, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: thumb, upperThumb: thumb, thumbSize: thumbSize, thumbInteractiveSize: thumbInteractiveSize, onEditingChanged: onEditingChanged)
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, track: TrackView, thumb: LowerThumbView, configuration: RangeSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: thumb, upperThumb: thumb, configuration: configuration, onEditingChanged: onEditingChanged)
     }
 }
 
 extension VerticalRangeSlider where TrackView == DefaultVerticalRangeTrack<V>, LowerThumbView == UpperThumbView {
-    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, thumb: LowerThumbView, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        
-        let track = DefaultVerticalRangeTrack(
-            range: range.wrappedValue,
-            in: bounds,
-            lowerLeadingOffset: thumbSize.height / 2,
-            lowerTrailingOffset: thumbSize.height / 2 + thumbSize.height,
-            upperLeadingOffset: thumbSize.height + thumbSize.height / 2,
-            upperTrailingOffset: thumbSize.height / 2
-        )
-        
-        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: thumb, upperThumb: thumb, thumbSize: thumbSize, thumbInteractiveSize: thumbInteractiveSize, onEditingChanged: onEditingChanged)
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, thumb: LowerThumbView, configuration: RangeSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        let track = DefaultVerticalRangeTrack(range: range.wrappedValue, in: bounds, configuration: configuration.verticalTrackConfiguration)
+        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: thumb, upperThumb: thumb, configuration: configuration, onEditingChanged: onEditingChanged)
     }
 }
 

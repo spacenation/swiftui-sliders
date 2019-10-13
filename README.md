@@ -60,10 +60,9 @@ HRangeSlider(range: $range, in: 0.0...1.0, step: 0.01,
             range: range,
             view: LinearGradient(gradient: Gradient(colors: [.yellow, .orange, .red]), startPoint: .leading, endPoint: .trailing),
             mask: Rectangle(),
-            lowerLeadingOffset: 16,
-            lowerTrailingOffset: 48,
-            upperLeadingOffset: 48,
-            upperTrailingOffset: 16
+            configuration: .init(
+                offsets: 32
+            )
         )
         .background(Color.secondary.opacity(0.25))
         .cornerRadius(16)
@@ -75,8 +74,10 @@ HRangeSlider(range: $range, in: 0.0...1.0, step: 0.01,
     upperThumb:
         Capsule()
             .foregroundColor(.white),
-    thumbSize: CGSize(width: 32, height: 64),
-    thumbInteractiveSize: CGSize(width: 44, height: 64),
+    configuration: .init(
+        thumbSize: CGSize(width: 32, height: 64),
+        thumbInteractiveSize: CGSize(width: 44, height: 64)
+    ),
     onEditingChanged: { print($0) }
 )
 .frame(height: 64)
@@ -84,9 +85,7 @@ HRangeSlider(range: $range, in: 0.0...1.0, step: 0.01,
 
 ### Complex point slider style
 ```swift
-XYSlider(
-    x: $x,
-    y: $y,
+XYSlider(x: $x, y: $y,
     track:
         RoundedRectangle(cornerRadius: 24)
             .foregroundColor(
@@ -100,7 +99,9 @@ XYSlider(
         .compositingGroup()
         .rotationEffect(Angle(radians: x * 10))
         .shadow(radius: 3),
-    thumbSize: CGSize(width: 48, height: 48)
+    configuration: .init(
+        thumbSize: CGSize(width: 48, height: 48)
+    )
 )
 .frame(height: 256)
 .shadow(radius: 3)

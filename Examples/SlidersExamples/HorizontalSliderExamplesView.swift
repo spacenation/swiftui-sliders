@@ -9,7 +9,11 @@ struct HorizontalSliderExamplesView: View {
             Group {
                 HSlider(value: $model.value1)
                 
-                HSlider(value: $model.value2, thumbSize: CGSize(width: 16, height: 32))
+                HSlider(value: $model.value2,
+                    configuration: .init(
+                        thumbSize: CGSize(width: 16, height: 32)
+                    )
+                )
                                     
                 HSlider(value: $model.value3, track:
                     LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing)
@@ -25,8 +29,9 @@ struct HorizontalSliderExamplesView: View {
                             view: Rectangle()
                                 .foregroundColor(.green)
                                 .frame(height: 8),
-                            leadingOffset: 8,
-                            trailingOffset: 8
+                            configuration: .init(
+                                offsets: 8
+                            )
                         )
                         .background(Color.white)
                         .frame(height: 8)
@@ -37,18 +42,23 @@ struct HorizontalSliderExamplesView: View {
                         .animation(
                             .spring(response: 0.7, dampingFraction: 0.4)
                         ),
-                    thumbSize: CGSize(width: 16, height: 16)
+                    configuration: .init(
+                        thumbSize: CGSize(width: 16, height: 16)
+                    )
+                    
                 )
-                
+
                 HSlider(
                     value: $model.value5,
                     track:
                         LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .leading, endPoint: .trailing)
                             .frame(height: 6)
                             .cornerRadius(3),
-                    thumbSize: CGSize(width: 48, height: 16)
+                    configuration: .init(
+                        thumbSize: CGSize(width: 48, height: 16)
+                    )
                 )
-                
+
                 HSlider(
                     value: $model.value6,
                     track:
@@ -65,7 +75,9 @@ struct HorizontalSliderExamplesView: View {
                         .cornerRadius(16)
                         .animation(.easeInOut(duration: 0.5)),
                     thumb: EmptyView(),
-                    thumbSize: .zero
+                    configuration: .init(
+                        thumbSize: .zero
+                    )
                 )
             }
 
@@ -79,16 +91,18 @@ struct HorizontalSliderExamplesView: View {
                             range: model.range2,
                             view: Capsule().foregroundColor(.purple),
                             mask: Rectangle(),
-                            lowerLeadingOffset: 16,
-                            lowerTrailingOffset: 48,
-                            upperLeadingOffset: 48,
-                            upperTrailingOffset: 16
+                            configuration: .init(
+                                lowerOffset: 32,
+                                upperOffset: 48
+                            )
                         )
                         .background(Capsule().foregroundColor(Color.purple.opacity(0.25)))
                         .frame(height: 8),
                     lowerThumb: Circle().foregroundColor(.purple),
                     upperThumb: Circle().foregroundColor(.purple),
-                    thumbSize: CGSize(width: 32, height: 32)
+                    configuration: .init(
+                        thumbSize: CGSize(width: 32, height: 32)
+                    )
                 )
                 
                 HRangeSlider(
@@ -96,17 +110,18 @@ struct HorizontalSliderExamplesView: View {
                     track: HRangeTrack(
                         range: model.range3,
                         view: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing),
-                        lowerLeadingOffset: 16,
-                        lowerTrailingOffset: 48,
-                        upperLeadingOffset: 48,
-                        upperTrailingOffset: 16
+                        configuration: .init(
+                            offsets: 32
+                        )
                     )
                     .background(LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing).opacity(0.25))
                     .frame(height: 32)
                     .cornerRadius(16),
                     lowerThumb: HalfCapsule().foregroundColor(.white).shadow(radius: 3),
                     upperThumb: HalfCapsule().rotation(Angle(degrees: 180)).foregroundColor(.white).shadow(radius: 3),
-                    thumbSize: CGSize(width: 32, height: 32)
+                    configuration: .init(
+                        thumbSize: CGSize(width: 32, height: 32)
+                    )
                 )
                 
                 HRangeSlider(
@@ -116,16 +131,17 @@ struct HorizontalSliderExamplesView: View {
                             range: model.range4,
                             view: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .leading, endPoint: .trailing),
                             mask: Rectangle(),
-                            lowerLeadingOffset: 8,
-                            lowerTrailingOffset: 24,
-                            upperLeadingOffset: 24,
-                            upperTrailingOffset: 8
+                            configuration: .init(
+                                offsets: 16
+                            )
                         )
                         .mask(Ellipse())
                         .background(Ellipse().foregroundColor(Color.secondary.opacity(0.25)))
                         .overlay(Ellipse().strokeBorder(Color.white.opacity(0.5), lineWidth: 1))
                         .padding(.vertical, 8),
-                    thumbSize: CGSize(width: 16, height: 64)
+                    configuration: .init(
+                        thumbSize: CGSize(width: 16, height: 64)
+                    )
                 )
                 .frame(height: 64)
                 
@@ -138,16 +154,18 @@ struct HorizontalSliderExamplesView: View {
                             range: model.range5,
                             view: LinearGradient(gradient: Gradient(colors: [.yellow, .orange, .red]), startPoint: .leading, endPoint: .trailing),
                             mask: Rectangle(),
-                            lowerLeadingOffset: 16,
-                            lowerTrailingOffset: 48,
-                            upperLeadingOffset: 48,
-                            upperTrailingOffset: 16
+                            configuration: .init(
+                                offsets: 32
+                            )
                         )
                         .background(Color.secondary.opacity(0.25))
                         .cornerRadius(16),
                     lowerThumb: HalfCapsule().foregroundColor(.white).shadow(radius: 3),
                     upperThumb: HalfCapsule().rotation(Angle(degrees: 180)).foregroundColor(.white).shadow(radius: 3),
-                    thumbSize: CGSize(width: 32, height: 64)
+                    configuration: .init(
+                        thumbSize: CGSize(width: 32, height: 64)
+                    )
+                    
                 )
                 .frame(height: 64)
                 
@@ -168,13 +186,14 @@ struct HorizontalSliderExamplesView: View {
                                   }
                             },
                         mask: RoundedRectangle(cornerRadius: 10),
-                        lowerLeadingOffset: 4,
-                        lowerTrailingOffset: 12,
-                        upperLeadingOffset: 12,
-                        upperTrailingOffset: 4
+                        configuration: .init(
+                            offsets: 8
+                        )
                     )
                     .background(Color.secondary.opacity(0.25)),
-                    thumbSize: CGSize(width: 8, height: 64)
+                    configuration: .init(
+                        thumbSize: CGSize(width: 8, height: 64)
+                    )
                 )
                 .cornerRadius(8)
                 .frame(height: 128)

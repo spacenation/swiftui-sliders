@@ -8,15 +8,10 @@ public struct HorizontalRangeSlider<V, TrackView: View, LowerThumbView: View, Up
     let step: CGFloat
     
     let track: AnyView
-    
     let lowerThumb: AnyView
     let upperThumb: AnyView
     
-    let lowerThumbSize: CGSize
-    let upperThumbSize: CGSize
-    
-    let lowerThumbInteractiveSize: CGSize
-    let upperThumbInteractiveSize: CGSize
+    let configuration: RangeSliderConfiguration
     
     let onEditingChanged: (Bool) -> Void
     
@@ -32,16 +27,16 @@ public struct HorizontalRangeSlider<V, TrackView: View, LowerThumbView: View, Up
                 
                 ZStack {
                     self.lowerThumb
-                        .frame(width: self.lowerThumbSize.width, height: self.lowerThumbSize.height)
+                        .frame(width: self.configuration.lowerThumbSize.width, height: self.configuration.lowerThumbSize.height)
                 }
-                .frame(minWidth: self.lowerThumbInteractiveSize.width, minHeight: self.lowerThumbInteractiveSize.height)
+                .frame(minWidth: self.configuration.lowerThumbInteractiveSize.width, minHeight: self.configuration.lowerThumbInteractiveSize.height)
                 .position(
                     x: distanceFrom(
                         value: range.lowerBound,
-                        availableDistance: geometry.size.width - self.upperThumbSize.width,
+                        availableDistance: geometry.size.width - self.configuration.upperThumbSize.width,
                         bounds: self.bounds,
-                        leadingOffset: self.lowerThumbSize.width / 2,
-                        trailingOffset: self.lowerThumbSize.width / 2
+                        leadingOffset: self.configuration.lowerThumbSize.width / 2,
+                        trailingOffset: self.configuration.lowerThumbSize.width / 2
                     ),
                     y: geometry.size.height / 2
                 )
@@ -51,20 +46,20 @@ public struct HorizontalRangeSlider<V, TrackView: View, LowerThumbView: View, Up
                             if self.dragOffset == nil {
                                 self.dragOffset = gestureValue.startLocation.x - distanceFrom(
                                     value: range.lowerBound,
-                                    availableDistance: geometry.size.width - self.upperThumbSize.width,
+                                    availableDistance: geometry.size.width - self.configuration.upperThumbSize.width,
                                     bounds: self.bounds,
-                                    leadingOffset: self.lowerThumbSize.width / 2,
-                                    trailingOffset: self.lowerThumbSize.width / 2
+                                    leadingOffset: self.configuration.lowerThumbSize.width / 2,
+                                    trailingOffset: self.configuration.lowerThumbSize.width / 2
                                 )
                             }
                             
                             let computedLowerBound = valueFrom(
                                 distance: gestureValue.location.x - (self.dragOffset ?? 0),
-                                availableDistance: geometry.size.width - self.upperThumbSize.width,
+                                availableDistance: geometry.size.width - self.configuration.upperThumbSize.width,
                                 bounds: self.bounds,
                                 step: self.step,
-                                leadingOffset: self.lowerThumbSize.width / 2,
-                                trailingOffset: self.lowerThumbSize.width / 2
+                                leadingOffset: self.configuration.lowerThumbSize.width / 2,
+                                trailingOffset: self.configuration.lowerThumbSize.width / 2
                             )
                             
                             let computedUpperBound = max(computedLowerBound, CGFloat(self.range.wrappedValue.upperBound))
@@ -79,16 +74,16 @@ public struct HorizontalRangeSlider<V, TrackView: View, LowerThumbView: View, Up
 
                 ZStack {
                     self.upperThumb
-                        .frame(width: self.upperThumbSize.width, height: self.upperThumbSize.height)
+                        .frame(width: self.configuration.upperThumbSize.width, height: self.configuration.upperThumbSize.height)
                 }
-                .frame(minWidth: self.upperThumbInteractiveSize.width, minHeight: self.upperThumbInteractiveSize.height)
+                .frame(minWidth: self.configuration.upperThumbInteractiveSize.width, minHeight: self.configuration.upperThumbInteractiveSize.height)
                 .position(
                     x: distanceFrom(
                         value: range.upperBound,
                         availableDistance: geometry.size.width,
                         bounds: self.bounds,
-                        leadingOffset: self.lowerThumbSize.width + self.upperThumbSize.width / 2,
-                        trailingOffset: self.upperThumbSize.width / 2
+                        leadingOffset: self.configuration.lowerThumbSize.width + self.configuration.upperThumbSize.width / 2,
+                        trailingOffset: self.configuration.upperThumbSize.width / 2
                     ),
                     y: geometry.size.height / 2
                 )
@@ -100,8 +95,8 @@ public struct HorizontalRangeSlider<V, TrackView: View, LowerThumbView: View, Up
                                     value: range.upperBound,
                                     availableDistance: geometry.size.width,
                                     bounds: self.bounds,
-                                    leadingOffset: self.lowerThumbSize.width + self.upperThumbSize.width / 2,
-                                    trailingOffset: self.upperThumbSize.width / 2
+                                    leadingOffset: self.configuration.lowerThumbSize.width + self.configuration.upperThumbSize.width / 2,
+                                    trailingOffset: self.configuration.upperThumbSize.width / 2
                                 )
                             }
                             
@@ -110,8 +105,8 @@ public struct HorizontalRangeSlider<V, TrackView: View, LowerThumbView: View, Up
                                 availableDistance: geometry.size.width,
                                 bounds: self.bounds,
                                 step: self.step,
-                                leadingOffset: self.lowerThumbSize.width + self.upperThumbSize.width / 2,
-                                trailingOffset: self.upperThumbSize.width / 2
+                                leadingOffset: self.configuration.lowerThumbSize.width + self.configuration.upperThumbSize.width / 2,
+                                trailingOffset: self.configuration.upperThumbSize.width / 2
                             )
                             
                             let computedLowerBound = min(computedUpperBound, CGFloat(self.range.wrappedValue.lowerBound))
@@ -125,14 +120,14 @@ public struct HorizontalRangeSlider<V, TrackView: View, LowerThumbView: View, Up
                 )
             }
         }
-        .frame(minHeight: max(self.lowerThumbInteractiveSize.height, self.upperThumbInteractiveSize.height))
+        .frame(minHeight: max(self.configuration.lowerThumbInteractiveSize.height, self.configuration.upperThumbInteractiveSize.height))
     }
 }
 
 // MARK: Inits
 
 extension HorizontalRangeSlider {
-    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0...1, step: V.Stride = 0.001, track: TrackView, lowerThumb: LowerThumbView, upperThumb: UpperThumbView, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0...1, step: V.Stride = 0.001, track: TrackView, lowerThumb: LowerThumbView, upperThumb: UpperThumbView, configuration: RangeSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         self.range = range
         self.bounds = CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound)
         self.step = CGFloat(step)
@@ -141,75 +136,44 @@ extension HorizontalRangeSlider {
         self.lowerThumb = AnyView(lowerThumb)
         self.upperThumb = AnyView(upperThumb)
         
-        self.lowerThumbSize = thumbSize
-        self.upperThumbSize = thumbSize
-        
-        self.lowerThumbInteractiveSize = thumbInteractiveSize
-        self.upperThumbInteractiveSize = thumbInteractiveSize
+        self.configuration = configuration
 
         self.onEditingChanged = onEditingChanged
     }
 }
 
 extension HorizontalRangeSlider where TrackView == DefaultHorizontalRangeTrack<V> {
-    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, lowerThumb: LowerThumbView, upperThumb: UpperThumbView, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        
-        let track = DefaultHorizontalRangeTrack(
-            range: range.wrappedValue,
-            in: bounds,
-            lowerLeadingOffset: thumbSize.width / 2,
-            lowerTrailingOffset: thumbSize.width / 2 + thumbSize.width,
-            upperLeadingOffset: thumbSize.width + thumbSize.width / 2,
-            upperTrailingOffset: thumbSize.width / 2
-        )
-        
-        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: lowerThumb, upperThumb: upperThumb, thumbSize: thumbSize, thumbInteractiveSize: thumbInteractiveSize, onEditingChanged: onEditingChanged)
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, lowerThumb: LowerThumbView, upperThumb: UpperThumbView, configuration: RangeSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        let track = DefaultHorizontalRangeTrack(range: range.wrappedValue, in: bounds, configuration: configuration.horizontalTrackConfiguration)
+        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: lowerThumb, upperThumb: upperThumb, configuration: configuration, onEditingChanged: onEditingChanged)
     }
 }
 
 extension HorizontalRangeSlider where LowerThumbView == DefaultThumb, UpperThumbView == DefaultThumb {
-    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, track: TrackView, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: DefaultThumb(), upperThumb: DefaultThumb(), thumbSize: thumbSize, thumbInteractiveSize: thumbInteractiveSize, onEditingChanged: onEditingChanged)
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, track: TrackView, configuration: RangeSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: DefaultThumb(), upperThumb: DefaultThumb(), configuration: configuration, onEditingChanged: onEditingChanged)
     }
 }
 
 extension HorizontalRangeSlider where TrackView == DefaultHorizontalRangeTrack<V>, LowerThumbView == DefaultThumb, UpperThumbView == DefaultThumb {
-    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        
-        let track = DefaultHorizontalRangeTrack(
-            range: range.wrappedValue,
-            in: bounds,
-            lowerLeadingOffset: thumbSize.width / 2,
-            lowerTrailingOffset: thumbSize.width / 2 + thumbSize.width,
-            upperLeadingOffset: thumbSize.width + thumbSize.width / 2,
-            upperTrailingOffset: thumbSize.width / 2
-        )
-        
-        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: DefaultThumb(), upperThumb: DefaultThumb(), thumbSize: thumbSize, thumbInteractiveSize: thumbInteractiveSize, onEditingChanged: onEditingChanged)
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, configuration: RangeSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        let track = DefaultHorizontalRangeTrack(range: range.wrappedValue, in: bounds, configuration: configuration.horizontalTrackConfiguration)
+        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: DefaultThumb(), upperThumb: DefaultThumb(), configuration: configuration, onEditingChanged: onEditingChanged)
     }
 }
 
 // MARK: Inits for same LowerThumbView and UpperThumbView
 
 extension HorizontalRangeSlider where LowerThumbView == UpperThumbView {
-    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, track: TrackView, thumb: LowerThumbView, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: thumb, upperThumb: thumb, thumbSize: thumbSize, thumbInteractiveSize: thumbInteractiveSize, onEditingChanged: onEditingChanged)
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, track: TrackView, thumb: LowerThumbView, configuration: RangeSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: thumb, upperThumb: thumb, configuration: configuration, onEditingChanged: onEditingChanged)
     }
 }
 
 extension HorizontalRangeSlider where TrackView == DefaultHorizontalRangeTrack<V>, LowerThumbView == UpperThumbView {
-    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, thumb: LowerThumbView, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        
-        let track = DefaultHorizontalRangeTrack(
-            range: range.wrappedValue,
-            in: bounds,
-            lowerLeadingOffset: thumbSize.width / 2,
-            lowerTrailingOffset: thumbSize.width / 2 + thumbSize.width,
-            upperLeadingOffset: thumbSize.width + thumbSize.width / 2,
-            upperTrailingOffset: thumbSize.width / 2
-        )
-        
-        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: thumb, upperThumb: thumb, thumbSize: thumbSize, thumbInteractiveSize: thumbInteractiveSize, onEditingChanged: onEditingChanged)
+    public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, thumb: LowerThumbView, configuration: RangeSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        let track = DefaultHorizontalRangeTrack(range: range.wrappedValue, in: bounds, configuration: configuration.horizontalTrackConfiguration)
+        self.init(range: range, in: bounds, step: step, track: track, lowerThumb: thumb, upperThumb: thumb, configuration: configuration, onEditingChanged: onEditingChanged)
     }
 }
 

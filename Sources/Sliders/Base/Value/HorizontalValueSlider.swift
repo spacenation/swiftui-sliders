@@ -9,8 +9,7 @@ public struct HorizontalValueSlider<V, TrackView: View, ThumbView : View>: View 
     
     let track: AnyView
     let thumb: AnyView
-    let thumbSize: CGSize
-    let thumbInteractiveSize: CGSize
+    let configuration: ValueSliderConfiguration
     
     let onEditingChanged: (Bool) -> Void
     
@@ -26,17 +25,17 @@ public struct HorizontalValueSlider<V, TrackView: View, ThumbView : View>: View 
 
                 ZStack {
                     self.thumb
-                        .frame(width: self.thumbSize.width, height: self.thumbSize.height)
+                        .frame(width: self.configuration.thumbSize.width, height: self.configuration.thumbSize.height)
                 }
-                .frame(minWidth: self.thumbInteractiveSize.width, minHeight: self.thumbInteractiveSize.height)
+                .frame(minWidth: self.configuration.thumbInteractiveSize.width, minHeight: self.configuration.thumbInteractiveSize.height)
 
                 .position(
                     x: distanceFrom(
                         value: value,
                         availableDistance: geometry.size.width,
                         bounds: self.bounds,
-                        leadingOffset: self.thumbSize.width / 2,
-                        trailingOffset: self.thumbSize.width / 2
+                        leadingOffset: self.configuration.thumbSize.width / 2,
+                        trailingOffset: self.configuration.thumbSize.width / 2
                     ),
                     y: geometry.size.height / 2
                 )
@@ -48,8 +47,8 @@ public struct HorizontalValueSlider<V, TrackView: View, ThumbView : View>: View 
                                     value: value,
                                     availableDistance: geometry.size.width,
                                     bounds: self.bounds,
-                                    leadingOffset: self.thumbSize.width / 2,
-                                    trailingOffset: self.thumbSize.width / 2
+                                    leadingOffset: self.configuration.thumbSize.width / 2,
+                                    trailingOffset: self.configuration.thumbSize.width / 2
                                 )
                             }
                             
@@ -58,8 +57,8 @@ public struct HorizontalValueSlider<V, TrackView: View, ThumbView : View>: View 
                                 availableDistance: geometry.size.width,
                                 bounds: self.bounds,
                                 step: self.step,
-                                leadingOffset: self.thumbSize.width / 2,
-                                trailingOffset: self.thumbSize.width / 2
+                                leadingOffset: self.configuration.thumbSize.width / 2,
+                                trailingOffset: self.configuration.thumbSize.width / 2
                             )
                             
                             self.value.wrappedValue = V(computedValue)
@@ -81,8 +80,8 @@ public struct HorizontalValueSlider<V, TrackView: View, ThumbView : View>: View 
                             availableDistance: geometry.size.width,
                             bounds: self.bounds,
                             step: self.step,
-                            leadingOffset: self.thumbSize.width / 2,
-                            trailingOffset: self.thumbSize.width / 2
+                            leadingOffset: self.configuration.thumbSize.width / 2,
+                            trailingOffset: self.configuration.thumbSize.width / 2
                         )
                         self.value.wrappedValue = V(computedValue)
                         self.onEditingChanged(true)
@@ -92,40 +91,34 @@ public struct HorizontalValueSlider<V, TrackView: View, ThumbView : View>: View 
                     }
             )
         }
-        .frame(minHeight: self.thumbInteractiveSize.height)
+        .frame(minHeight: self.configuration.thumbInteractiveSize.height)
     }
 }
 
 // MARK: Inits
 
 extension HorizontalValueSlider {
-    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, track: TrackView, thumb: ThumbView, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, track: TrackView, thumb: ThumbView, configuration: ValueSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         self.value = value
         self.bounds = CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound)
         self.step = CGFloat(step)
         self.track = AnyView(track)
         self.thumb = AnyView(thumb)
-        self.thumbSize = thumbSize
-        self.thumbInteractiveSize = thumbInteractiveSize
+        self.configuration = configuration
         self.onEditingChanged = onEditingChanged
     }
 }
 
 extension HorizontalValueSlider where TrackView == DefaultHorizontalValueTrack<V>, ThumbView == DefaultThumb {
-    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        let track = DefaultHorizontalValueTrack(
-            value: value.wrappedValue,
-            in: bounds,
-            leadingOffset: thumbSize.width / 2,
-            trailingOffset: thumbSize.width / 2
-        )
-        self.init(value: value, in: bounds, step: step, track: track, thumb: DefaultThumb(), thumbSize: thumbSize, thumbInteractiveSize: thumbInteractiveSize, onEditingChanged: onEditingChanged)
+    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, configuration: ValueSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        let track = DefaultHorizontalValueTrack(value: value.wrappedValue, in: bounds, configuration: configuration.horizontalTrackConfiguration)
+        self.init(value: value, in: bounds, step: step, track: track, thumb: DefaultThumb(), configuration: configuration, onEditingChanged: onEditingChanged)
     }
 }
 
 extension HorizontalValueSlider where ThumbView == DefaultThumb {
-    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, track: TrackView, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        self.init(value: value, in: bounds, step: step, track: track, thumb: DefaultThumb(), thumbSize: thumbSize, thumbInteractiveSize: thumbInteractiveSize, onEditingChanged: onEditingChanged)
+    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, track: TrackView, configuration: ValueSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        self.init(value: value, in: bounds, step: step, track: track, thumb: DefaultThumb(), configuration: configuration, onEditingChanged: onEditingChanged)
     }
 }
 
