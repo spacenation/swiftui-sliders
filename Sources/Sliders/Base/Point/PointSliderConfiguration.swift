@@ -3,12 +3,27 @@ import SwiftUI
 public struct PointSliderConfiguration {
     public static let defaultConfiguration = PointSliderConfiguration()
 
+    public let options: Options
     public let thumbSize: CGSize
     public let thumbInteractiveSize: CGSize
     
-    public init(thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize) {
+    public init(options: Options = .defaultOptions, thumbSize: CGSize = .defaultThumbSize, thumbInteractiveSize: CGSize = .defaultThumbInteractiveSize) {
+        self.options = options
         self.thumbSize = thumbSize
         self.thumbInteractiveSize = thumbInteractiveSize
+    }
+}
+
+public extension PointSliderConfiguration {
+    struct Options: OptionSet {
+        public let rawValue: Int
+
+        public static let interactiveTrack = Options(rawValue: 1 << 0)
+        public static let defaultOptions: Options = []
+        
+        public init(rawValue: Int) {
+            self.rawValue = rawValue
+        }
     }
 }
 

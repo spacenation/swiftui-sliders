@@ -26,6 +26,40 @@ public struct PointSlider<V, TrackView: View, ThumbView : View>: View where V : 
         return GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 self.track
+                    .gesture(
+                        DragGesture(minimumDistance: 0)
+                            .onChanged { gestureValue in
+                                if self.configuration.options.contains(.interactiveTrack) {
+
+                                    let computedValueX = valueFrom(
+                                        distance: gestureValue.location.x,
+                                        availableDistance: geometry.size.width,
+                                        bounds: self.xBounds,
+                                        step: self.xStep,
+                                        leadingOffset: self.configuration.thumbSize.width / 2,
+                                        trailingOffset: self.configuration.thumbSize.width / 2
+                                    )
+                                    
+                                    let computedValueY = self.yBounds.upperBound - valueFrom(
+                                        distance: gestureValue.location.y,
+                                        availableDistance: geometry.size.height,
+                                        bounds: self.yBounds,
+                                        step: self.yStep,
+                                        leadingOffset: self.configuration.thumbSize.height / 2,
+                                        trailingOffset: self.configuration.thumbSize.height / 2
+                                    )
+                                    
+                                    self.x.wrappedValue = V(computedValueX)
+                                    self.y.wrappedValue = V(computedValueY)
+                                    self.onEditingChanged(true)
+                                }
+                            }
+                            .onEnded { _ in
+                                if self.configuration.options.contains(.interactiveTrack) {
+                                    self.onEditingChanged(false)
+                                }
+                            }
+                    )
 
                 ZStack {
                     self.thumb

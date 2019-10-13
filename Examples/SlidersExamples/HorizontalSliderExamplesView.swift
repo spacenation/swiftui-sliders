@@ -76,6 +76,7 @@ struct HorizontalSliderExamplesView: View {
                         .animation(.easeInOut(duration: 0.5)),
                     thumb: EmptyView(),
                     configuration: .init(
+                        options: .interactiveTrack,
                         thumbSize: .zero
                     )
                 )

@@ -22,6 +22,28 @@ public struct HorizontalValueSlider<V, TrackView: View, ThumbView : View>: View 
         return GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 self.track
+                    .gesture(
+                        DragGesture(minimumDistance: 0)
+                            .onChanged { gestureValue in
+                                if self.configuration.options.contains(.interactiveTrack) {
+                                    let computedValue = valueFrom(
+                                        distance: gestureValue.location.x,
+                                        availableDistance: geometry.size.width,
+                                        bounds: self.bounds,
+                                        step: self.step,
+                                        leadingOffset: self.configuration.thumbSize.width / 2,
+                                        trailingOffset: self.configuration.thumbSize.width / 2
+                                    )
+                                    self.value.wrappedValue = V(computedValue)
+                                    self.onEditingChanged(true)
+                                }
+                            }
+                            .onEnded { _ in
+                                if self.configuration.options.contains(.interactiveTrack) {
+                                    self.onEditingChanged(false)
+                                }
+                            }
+                    )
 
                 ZStack {
                     self.thumb
@@ -70,26 +92,6 @@ public struct HorizontalValueSlider<V, TrackView: View, ThumbView : View>: View 
                         }
                 )
             }
-            /// If opacity is zero gesture is never called.
-            .background(Color.white.opacity(0.00000000001))
-            .gesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { gestureValue in
-                        let computedValue = valueFrom(
-                            distance: gestureValue.location.x,
-                            availableDistance: geometry.size.width,
-                            bounds: self.bounds,
-                            step: self.step,
-                            leadingOffset: self.configuration.thumbSize.width / 2,
-                            trailingOffset: self.configuration.thumbSize.width / 2
-                        )
-                        self.value.wrappedValue = V(computedValue)
-                        self.onEditingChanged(true)
-                    }
-                    .onEnded { _ in
-                        self.onEditingChanged(false)
-                    }
-            )
         }
         .frame(minHeight: self.configuration.thumbInteractiveSize.height)
     }

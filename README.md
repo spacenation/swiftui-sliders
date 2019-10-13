@@ -3,8 +3,10 @@ This package allows you to build highly customizable sliders and tracks for iOS,
 
 ### Features
 - Build your own sliders and tracks using composition
+- Highly customizable
 - Horizontal and Vertical styles
 - Range and XY values
+- Different sizes for lower and upper range thumbs
 
 <center>
 <img src="Resources/sliders.png"/>
@@ -100,6 +102,7 @@ XYSlider(x: $x, y: $y,
         .rotationEffect(Angle(radians: x * 10))
         .shadow(radius: 3),
     configuration: .init(
+        options: .interactiveTrack,
         thumbSize: CGSize(width: 48, height: 48)
     )
 )

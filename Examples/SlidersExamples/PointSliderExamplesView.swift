@@ -20,6 +20,7 @@ struct PointSliderExamplesView: View {
                             .foregroundColor(.white)
                             .shadow(radius: 3),
                     configuration: .init(
+                        options: .interactiveTrack,
                         thumbSize: CGSize(width: 48, height: 48)
                     )
                 )
@@ -51,6 +52,7 @@ struct PointSliderExamplesView: View {
                             .rotationEffect(Angle(radians: model.pointX2 * 10))
                             .shadow(radius: 3),
                         configuration: .init(
+                            options: .interactiveTrack,
                             thumbSize: CGSize(width: 48, height: 48)
                         )
                     )
@@ -79,6 +81,7 @@ struct PointSliderExamplesView: View {
                                 .foregroundColor(.white)
                                 .shadow(radius: 3),
                         configuration: .init(
+                            options: .interactiveTrack,
                             thumbSize: CGSize(width: 96, height: 48)
                         )
                     )

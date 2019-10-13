@@ -62,8 +62,14 @@ public struct HorizontalRangeSlider<V, TrackView: View, LowerThumbView: View, Up
                                 trailingOffset: self.configuration.lowerThumbSize.width / 2
                             )
                             
-                            let computedUpperBound = max(computedLowerBound, CGFloat(self.range.wrappedValue.upperBound))
-                            self.range.wrappedValue = V(computedLowerBound)...V(computedUpperBound)
+                            if self.configuration.options.contains(.forceAdjacentValue) {
+                                let computedUpperBound = max(computedLowerBound, CGFloat(self.range.wrappedValue.upperBound))
+                                self.range.wrappedValue = V(computedLowerBound)...V(computedUpperBound)
+                            } else {
+                                let computedLowerBound = min(computedLowerBound, CGFloat(self.range.wrappedValue.upperBound))
+                                self.range.wrappedValue = V(computedLowerBound)...V(self.range.wrappedValue.upperBound)
+                            }
+
                             self.onEditingChanged(true)
                         }
                         .onEnded { _ in
@@ -109,8 +115,14 @@ public struct HorizontalRangeSlider<V, TrackView: View, LowerThumbView: View, Up
                                 trailingOffset: self.configuration.upperThumbSize.width / 2
                             )
                             
-                            let computedLowerBound = min(computedUpperBound, CGFloat(self.range.wrappedValue.lowerBound))
-                            self.range.wrappedValue = V(computedLowerBound)...V(computedUpperBound)
+                            if self.configuration.options.contains(.forceAdjacentValue) {
+                                let computedLowerBound = min(computedUpperBound, CGFloat(self.range.wrappedValue.lowerBound))
+                                self.range.wrappedValue = V(computedLowerBound)...V(computedUpperBound)
+                            } else {
+                                let computedUpperBound = max(computedUpperBound, CGFloat(self.range.wrappedValue.lowerBound))
+                                self.range.wrappedValue = V(self.range.wrappedValue.lowerBound)...V(computedUpperBound)
+                            }
+
                             self.onEditingChanged(true)
                         }
                         .onEnded { _ in
