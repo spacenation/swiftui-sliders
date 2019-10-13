@@ -24,6 +24,16 @@ struct ContentView: View {
                 }
                 .tag(1)
                 .frame(minWidth: 300)
+            
+            PointSliderExamplesView()
+                .tabItem {
+                    VStack {
+                        Image(systemName: "square.split.2x2.fill")
+                        Text("Point")
+                    }
+                }
+                .tag(2)
+                .frame(minWidth: 300)
         }
     }
 }

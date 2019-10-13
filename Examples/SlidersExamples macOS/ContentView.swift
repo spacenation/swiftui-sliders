@@ -12,11 +12,19 @@ struct ContentView: View {
                 }
                 .tag(0)
                 .frame(minWidth: 300)
+            
             VerticalSliderExamplesView()
                 .tabItem {
                     Text("Vertical")
                 }
                 .tag(1)
+                .frame(minWidth: 300)
+    
+            PointSliderExamplesView()
+                .tabItem {
+                    Text("Point")
+                }
+                .tag(2)
                 .frame(minWidth: 300)
         }
         .padding()

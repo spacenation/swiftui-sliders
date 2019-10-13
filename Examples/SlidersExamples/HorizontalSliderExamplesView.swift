@@ -166,7 +166,7 @@ struct HorizontalSliderExamplesView: View {
                                           .font(.title)
                                           .foregroundColor(Color.white.opacity(0.5))
                                   }
-                              },
+                            },
                         mask: RoundedRectangle(cornerRadius: 10),
                         lowerLeadingOffset: 4,
                         lowerTrailingOffset: 12,

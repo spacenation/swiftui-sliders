@@ -4,7 +4,7 @@ This package allows you to build highly customizable sliders and tracks for iOS,
 ### Features
 - Build your own sliders and tracks using composition
 - Horizontal and Vertical styles
-- Range values
+- Range and XY values
 
 <center>
 <img src="Resources/sliders.png"/>
@@ -26,11 +26,14 @@ import SwiftUI
 struct ContentView: View {
     @State var value = 0.5
     @State var range = 0.2...0.8
+    @State var x = 0.5
+    @State var y = 0.5
     
     var body: some View {
         Group {
             HSlider(value: $value)
             HRangeSlider(range: $range)
+            XYSlider(x: $x, y: $y)
         }
     }
 }
@@ -77,6 +80,31 @@ HRangeSlider(range: $range, in: 0.0...1.0, step: 0.01,
     onEditingChanged: { print($0) }
 )
 .frame(height: 64)
+```
+
+### Complex point slider style
+```swift
+XYSlider(
+    x: $x,
+    y: $y,
+    track:
+        RoundedRectangle(cornerRadius: 24)
+            .foregroundColor(
+                Color(hue: 0.67, saturation: y, brightness: 1.0)
+            ),
+    thumb:
+        ZStack {
+            Capsule().frame(width: 12).foregroundColor(.white)
+            Capsule().frame(height: 12).foregroundColor(.white)
+        }
+        .compositingGroup()
+        .rotationEffect(Angle(radians: x * 10))
+        .shadow(radius: 3),
+    thumbSize: CGSize(width: 48, height: 48)
+)
+.frame(height: 256)
+.shadow(radius: 3)
+.padding()
 ```
 
 ###
