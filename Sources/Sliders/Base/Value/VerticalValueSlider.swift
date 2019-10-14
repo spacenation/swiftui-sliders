@@ -116,6 +116,13 @@ extension VerticalValueSlider where TrackView == DefaultVerticalValueTrack<V>, T
     }
 }
 
+extension VerticalValueSlider where TrackView == DefaultVerticalValueTrack<V> {
+    public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, thumb: ThumbView, configuration: ValueSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        let track = DefaultVerticalValueTrack(value: value.wrappedValue, in: bounds, configuration: configuration.verticalTrackConfiguration)
+        self.init(value: value, in: bounds, step: step, track: track, thumb: thumb, configuration: configuration, onEditingChanged: onEditingChanged)
+    }
+}
+
 extension VerticalValueSlider where ThumbView == DefaultThumb {
     public init(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, track: TrackView, configuration: ValueSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
         self.init(value: value, in: bounds, step: step, track: track, thumb: DefaultThumb(), configuration: configuration, onEditingChanged: onEditingChanged)
