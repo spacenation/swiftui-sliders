@@ -20,7 +20,7 @@
 		FA61E9C0231365E5006A5B6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA61E9BE231365E5006A5B6B /* Main.storyboard */; };
 		FA61E9CA23136A48006A5B6B /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = FA61E9C923136A48006A5B6B /* Sliders */; };
 		FA61E9CC23136A50006A5B6B /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = FA61E9CB23136A50006A5B6B /* Sliders */; };
-		FA61E9CF23136CDD006A5B6B /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = FA61E9CE23136CDD006A5B6B /* Sliders */; };
+		FA66B3802356586D00AB542A /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = FA66B37F2356586D00AB542A /* Sliders */; };
 		FA815111234ABFC100E3AFA3 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA815110234ABFC100E3AFA3 /* Model.swift */; };
 		FA815112234ABFC100E3AFA3 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA815110234ABFC100E3AFA3 /* Model.swift */; };
 		FAA6C40423529AD5002C8FCD /* PointSliderExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA6C40323529AD5002C8FCD /* PointSliderExamplesView.swift */; };
@@ -73,7 +73,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA61E9CA23136A48006A5B6B /* Sliders in Frameworks */,
-				FA61E9CF23136CDD006A5B6B /* Sliders in Frameworks */,
+				FA66B3802356586D00AB542A /* Sliders in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,7 +203,7 @@
 			name = "SlidersExamples iOS";
 			packageProductDependencies = (
 				FA61E9C923136A48006A5B6B /* Sliders */,
-				FA61E9CE23136CDD006A5B6B /* Sliders */,
+				FA66B37F2356586D00AB542A /* Sliders */,
 			);
 			productName = "RangeSliderExamples iOS";
 			productReference = FAF1C03322ED3B7D00F92FEA /* SlidersExamples iOS.app */;
@@ -236,7 +236,7 @@
 			);
 			mainGroup = FAF1C02722ED3AD500F92FEA;
 			packageReferences = (
-				FA61E9CD23136CDD006A5B6B /* XCRemoteSwiftPackageReference "sliders" */,
+				FA66B37E2356586D00AB542A /* XCRemoteSwiftPackageReference "Sliders" */,
 			);
 			productRefGroup = FAF1C03422ED3B7D00F92FEA /* Products */;
 			projectDirPath = "";
@@ -391,7 +391,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.spacenation.sliders.examples.macos;
+				PRODUCT_BUNDLE_IDENTIFIER = com.swiftuiextensions.sliders.examples.macos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -461,7 +461,7 @@
 				MARKETING_VERSION = 1.0.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.spacenation.sliders.examples.macos;
+				PRODUCT_BUNDLE_IDENTIFIER = com.swiftuiextensions.sliders.examples.macos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -550,7 +550,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.spacenation.sliders.examples.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.swiftuiextensions.sliders.examples.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = YES;
@@ -622,7 +622,7 @@
 				MARKETING_VERSION = 1.0.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.spacenation.sliders.examples.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.swiftuiextensions.sliders.examples.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = YES;
@@ -667,12 +667,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FA61E9CD23136CDD006A5B6B /* XCRemoteSwiftPackageReference "sliders" */ = {
+		FA66B37E2356586D00AB542A /* XCRemoteSwiftPackageReference "Sliders" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:spacenation/sliders.git";
+			repositoryURL = "git@github.com:SwiftUIExtensions/Sliders.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.9;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -686,9 +686,9 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = Sliders;
 		};
-		FA61E9CE23136CDD006A5B6B /* Sliders */ = {
+		FA66B37F2356586D00AB542A /* Sliders */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FA61E9CD23136CDD006A5B6B /* XCRemoteSwiftPackageReference "sliders" */;
+			package = FA66B37E2356586D00AB542A /* XCRemoteSwiftPackageReference "Sliders" */;
 			productName = Sliders;
 		};
 /* End XCSwiftPackageProductDependency section */

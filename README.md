@@ -14,9 +14,9 @@ This package allows you to build highly customizable sliders and tracks for iOS,
 
 ## How to use
 
-Add this swift package to  your project
+Add this swift package to your project
 ```
-git@github.com:spacenation/sliders.git
+git@github.com:SwiftUIExtensions/Sliders.git
 ```
 
 Import and use
