@@ -20,11 +20,11 @@ public struct VerticalValueSlider<V, TrackView: View, ThumbView : View>: View wh
         
         return GeometryReader { geometry in
             ZStack(alignment: .bottom) {
-                self.track
-                    .gesture(
-                        DragGesture(minimumDistance: 0)
-                            .onChanged { gestureValue in
-                                if self.configuration.options.contains(.interactiveTrack) {
+                if self.configuration.options.contains(.interactiveTrack) {
+                    self.track
+                        .gesture(
+                            DragGesture(minimumDistance: 0)
+                                .onChanged { gestureValue in
                                     let computedValue = self.bounds.upperBound - valueFrom(
                                         distance: gestureValue.location.y,
                                         availableDistance: geometry.size.height,
@@ -36,14 +36,14 @@ public struct VerticalValueSlider<V, TrackView: View, ThumbView : View>: View wh
                                     self.value.wrappedValue = V(computedValue)
                                     self.onEditingChanged(true)
                                 }
-                            }
-                            .onEnded { _ in
-                                if self.configuration.options.contains(.interactiveTrack) {
+                                .onEnded { _ in
                                     self.onEditingChanged(false)
                                 }
-                            }
-                    )
-                
+                        )
+                } else {
+                    self.track
+                }
+
                 ZStack {
                     self.thumbView
                         .frame(width: self.configuration.thumbSize.width, height: self.configuration.thumbSize.height)

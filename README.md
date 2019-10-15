@@ -54,6 +54,18 @@ HSlider(value: $value, track:
 )
 ```
 
+### Multivalue track
+```swift
+ZStack {
+    HTrack(value: value1, view: Capsule().foregroundColor(.red)).opacity(0.5)
+    HTrack(value: value2, view: Capsule().foregroundColor(.blue)).opacity(0.5)
+    HTrack(value: value3, view: Capsule().foregroundColor(.green)).opacity(0.5)
+}
+.animation(.spring())
+.frame(height: 8)
+.background(Color.secondary.opacity(0.25))
+```
+
 ### Complex range slider style
 ```swift
 HRangeSlider(range: $range, in: 0.0...1.0, step: 0.01,

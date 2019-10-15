@@ -21,11 +21,11 @@ public struct HorizontalValueSlider<V, TrackView: View, ThumbView : View>: View 
         
         return GeometryReader { geometry in
             ZStack(alignment: .leading) {
-                self.track
-                    .gesture(
-                        DragGesture(minimumDistance: 0)
-                            .onChanged { gestureValue in
-                                if self.configuration.options.contains(.interactiveTrack) {
+                if self.configuration.options.contains(.interactiveTrack) {
+                    self.track
+                        .gesture(
+                            DragGesture(minimumDistance: 0)
+                                .onChanged { gestureValue in
                                     let computedValue = valueFrom(
                                         distance: gestureValue.location.x,
                                         availableDistance: geometry.size.width,
@@ -37,13 +37,13 @@ public struct HorizontalValueSlider<V, TrackView: View, ThumbView : View>: View 
                                     self.value.wrappedValue = V(computedValue)
                                     self.onEditingChanged(true)
                                 }
-                            }
-                            .onEnded { _ in
-                                if self.configuration.options.contains(.interactiveTrack) {
+                                .onEnded { _ in
                                     self.onEditingChanged(false)
                                 }
-                            }
-                    )
+                        )
+                } else {
+                    self.track
+                }
 
                 ZStack {
                     self.thumb

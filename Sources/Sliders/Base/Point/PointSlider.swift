@@ -25,12 +25,11 @@ public struct PointSlider<V, TrackView: View, ThumbView : View>: View where V : 
         
         return GeometryReader { geometry in
             ZStack(alignment: .leading) {
-                self.track
-                    .gesture(
-                        DragGesture(minimumDistance: 0)
-                            .onChanged { gestureValue in
-                                if self.configuration.options.contains(.interactiveTrack) {
-
+                if self.configuration.options.contains(.interactiveTrack) {
+                    self.track
+                        .gesture(
+                            DragGesture(minimumDistance: 0)
+                                .onChanged { gestureValue in
                                     let computedValueX = valueFrom(
                                         distance: gestureValue.location.x,
                                         availableDistance: geometry.size.width,
@@ -53,13 +52,13 @@ public struct PointSlider<V, TrackView: View, ThumbView : View>: View where V : 
                                     self.y.wrappedValue = V(computedValueY)
                                     self.onEditingChanged(true)
                                 }
-                            }
-                            .onEnded { _ in
-                                if self.configuration.options.contains(.interactiveTrack) {
+                                .onEnded { _ in
                                     self.onEditingChanged(false)
                                 }
-                            }
-                    )
+                        )
+                } else {
+                    self.track
+                }
 
                 ZStack {
                     self.thumb

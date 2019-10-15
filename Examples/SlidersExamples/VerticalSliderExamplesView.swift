@@ -62,18 +62,26 @@ struct VerticalSliderExamplesView: View {
                     VSlider(
                         value: $model.value6,
                         track:
-                            VTrack(
-                                value: model.value6,
-                                view: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .bottom, endPoint: .top),
-                                mask: Rectangle()
-                            )
-                            .overlay(
-                                Capsule().strokeBorder(Color.white.opacity(0.5), lineWidth: 2)
-                            )
+                            ZStack {
+                                HTrack(
+                                    value: model.value6,
+                                    view: Rectangle().foregroundColor(.white).opacity(0.3),
+                                    mask: Rectangle()
+                                )
+                                
+                                HTrack(
+                                    value: model.value6,
+                                    view: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .leading, endPoint: .trailing).opacity(0.7),
+                                    mask: Rectangle()
+                                )
+                                .overlay(
+                                    Capsule().strokeBorder(Color.white.opacity(0.5), lineWidth: 2)
+                                )
+                                .animation(.easeInOut(duration: 1.0))
+                            }
                             .background(Capsule().foregroundColor(Color.secondary.opacity(0.25)))
-                            .frame(width: 32)
-                            .cornerRadius(16)
-                            .animation(.easeInOut(duration: 0.5)),
+                            .frame(height: 32)
+                            .cornerRadius(16),
                         thumb: EmptyView(),
                         configuration: .init(
                             options: .interactiveTrack,

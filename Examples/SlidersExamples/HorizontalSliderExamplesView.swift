@@ -6,7 +6,7 @@ struct HorizontalSliderExamplesView: View {
     
     var body: some View {
         ScrollView {
-            Group {
+            Group {                
                 HSlider(value: $model.value1)
                 
                 HSlider(value: $model.value2,
@@ -62,18 +62,26 @@ struct HorizontalSliderExamplesView: View {
                 HSlider(
                     value: $model.value6,
                     track:
-                        HTrack(
-                            value: model.value6,
-                            view: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .leading, endPoint: .trailing),
-                            mask: Rectangle()
-                        )
-                        .overlay(
-                            Capsule().strokeBorder(Color.white.opacity(0.5), lineWidth: 2)
-                        )
+                        ZStack {
+                            HTrack(
+                                value: model.value6,
+                                view: Rectangle().foregroundColor(.white).opacity(0.2),
+                                mask: Rectangle()
+                            )
+                            
+                            HTrack(
+                                value: model.value6,
+                                view: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .leading, endPoint: .trailing).opacity(0.8),
+                                mask: Rectangle()
+                            )
+                            .overlay(
+                                Capsule().strokeBorder(Color.white.opacity(0.5), lineWidth: 2)
+                            )
+                            .animation(.easeInOut(duration: 1.0))
+                        }
                         .background(Capsule().foregroundColor(Color.secondary.opacity(0.25)))
                         .frame(height: 32)
-                        .cornerRadius(16)
-                        .animation(.easeInOut(duration: 0.5)),
+                        .cornerRadius(16),
                     thumb: EmptyView(),
                     configuration: .init(
                         options: .interactiveTrack,
