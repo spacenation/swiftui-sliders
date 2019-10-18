@@ -132,8 +132,6 @@ XYSlider(x: $x, y: $y,
 - Xcode 11.0+
 
 ## Roadmap 
-
-### Version 1.1
 - Circular sliders and tracks
 
 ## Contibutions
