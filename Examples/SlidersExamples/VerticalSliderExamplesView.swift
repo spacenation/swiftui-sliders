@@ -63,13 +63,13 @@ struct VerticalSliderExamplesView: View {
                         value: $model.value6,
                         track:
                             ZStack {
-                                HTrack(
+                                VTrack(
                                     value: model.value6,
                                     view: Rectangle().foregroundColor(.white).opacity(0.3),
                                     mask: Rectangle()
                                 )
                                 
-                                HTrack(
+                                VTrack(
                                     value: model.value6,
                                     view: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .leading, endPoint: .trailing).opacity(0.7),
                                     mask: Rectangle()
@@ -80,7 +80,7 @@ struct VerticalSliderExamplesView: View {
                                 .animation(.easeInOut(duration: 1.0))
                             }
                             .background(Capsule().foregroundColor(Color.secondary.opacity(0.25)))
-                            .frame(height: 32)
+                            .frame(width: 32)
                             .cornerRadius(16),
                         thumb: EmptyView(),
                         configuration: .init(

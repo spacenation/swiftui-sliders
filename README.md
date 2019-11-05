@@ -131,7 +131,8 @@ XYSlider(x: $x, y: $y,
 - macOS 10.15+
 - Xcode 11.0+
 
-## Roadmap 
+## Roadmap
+- Slider styles
 - Circular sliders and tracks
 
 ## Contibutions
