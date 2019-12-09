@@ -8,17 +8,17 @@ struct HorizontalSliderExamplesView: View {
         ScrollView {
             Group {
                 
-                //HSlider(value: $model.value1)
+                HSlider(value: $model.value1)
                 
-                ValueSlider(value: $model.value1)
-                    .background(Color.yellow)
-                    .valueSliderStyle(
-                        HorizontalValueSliderStyle(
-                            track: { HorizontalValueTrack(value: $0) },
-                            thumbSize: CGSize(width: 32, height: 32),
-                            options: .interactiveTrack
-                        )
-                    )
+//                ValueSlider(value: $model.value1)
+//                    .background(Color.yellow)
+//                    .valueSliderStyle(
+//                        HorizontalValueSliderStyle(
+//                            track: { HorizontalValueTrack(value: $0) },
+//                            thumbSize: CGSize(width: 32, height: 32),
+//                            options: .interactiveTrack
+//                        )
+//                    )
 
                 
                 HSlider(value: $model.value2,
