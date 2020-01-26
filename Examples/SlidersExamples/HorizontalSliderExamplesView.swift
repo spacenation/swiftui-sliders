@@ -6,8 +6,20 @@ struct HorizontalSliderExamplesView: View {
     
     var body: some View {
         ScrollView {
-            Group {                
+            Group {
+                
                 HSlider(value: $model.value1)
+                
+//                ValueSlider(value: $model.value1)
+//                    .background(Color.yellow)
+//                    .valueSliderStyle(
+//                        HorizontalValueSliderStyle(
+//                            track: { HorizontalValueTrack(value: $0) },
+//                            thumbSize: CGSize(width: 32, height: 32),
+//                            options: .interactiveTrack
+//                        )
+//                    )
+
                 
                 HSlider(value: $model.value2,
                     configuration: .init(
@@ -116,16 +128,17 @@ struct HorizontalSliderExamplesView: View {
                 
                 HRangeSlider(
                     range: $model.range3,
-                    track: HRangeTrack(
-                        range: model.range3,
-                        view: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing),
-                        configuration: .init(
-                            offsets: 32
+                    track:
+                        HRangeTrack(
+                            range: model.range3,
+                            view: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing),
+                            configuration: .init(
+                                offsets: 32
+                            )
                         )
-                    )
-                    .background(LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing).opacity(0.25))
-                    .frame(height: 32)
-                    .cornerRadius(16),
+                        .background(LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing).opacity(0.25))
+                        .frame(height: 32)
+                        .cornerRadius(16),
                     lowerThumb: HalfCapsule().foregroundColor(.white).shadow(radius: 3),
                     upperThumb: HalfCapsule().rotation(Angle(degrees: 180)).foregroundColor(.white).shadow(radius: 3),
                     configuration: .init(

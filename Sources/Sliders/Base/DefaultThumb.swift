@@ -13,11 +13,9 @@ public extension CGSize {
     static let defaultThumbInteractiveSize : CGSize = CGSize(width: 44, height: 44)
 }
 
-#if DEBUG
 struct DefaultThumb_Previews: PreviewProvider {
     static var previews: some View {
         DefaultThumb()
             .previewLayout(.fixed(width: 100, height: 100))
     }
 }
-#endif
