@@ -11,7 +11,7 @@ public struct VerticalValueTrack<V, ValueView: View, MaskView: View>: View where
     
     public var body: some View {
         GeometryReader { geometry in
-            self.view
+            self.view.accentColor(.accentColor)
                 .mask(
                     ZStack {
                         self.mask
