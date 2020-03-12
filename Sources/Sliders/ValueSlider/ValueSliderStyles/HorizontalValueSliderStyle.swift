@@ -10,7 +10,7 @@ public struct HorizontalValueSliderStyle<Track: View>: ValueSliderStyle {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 if self.options.contains(.interactiveTrack) {
-                    self.track(configuration.value.wrappedValue)
+                    self.track(configuration.value.wrappedValue).accentColor(.accentColor)
                         .gesture(
                             DragGesture(minimumDistance: 0)
                                 .onChanged { gestureValue in
@@ -30,7 +30,7 @@ public struct HorizontalValueSliderStyle<Track: View>: ValueSliderStyle {
                                 }
                         )
                 } else {
-                    self.track(configuration.value.wrappedValue)
+                    self.track(configuration.value.wrappedValue).accentColor(.accentColor)
                 }
                 
                 ZStack {

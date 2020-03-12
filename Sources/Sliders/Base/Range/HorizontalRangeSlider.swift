@@ -23,7 +23,7 @@ public struct HorizontalRangeSlider<V, TrackView: View, LowerThumbView: View, Up
         
         return GeometryReader { geometry in
             ZStack(alignment: .leading) {
-                self.track
+                self.track.accentColor(.accentColor)
                 
                 ZStack {
                     self.lowerThumb

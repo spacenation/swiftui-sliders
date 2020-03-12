@@ -26,7 +26,7 @@ public struct PointSlider<V, TrackView: View, ThumbView : View>: View where V : 
         return GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 if self.configuration.options.contains(.interactiveTrack) {
-                    self.track
+                    self.track.accentColor(.accentColor)
                         .gesture(
                             DragGesture(minimumDistance: 0)
                                 .onChanged { gestureValue in
@@ -57,7 +57,7 @@ public struct PointSlider<V, TrackView: View, ThumbView : View>: View where V : 
                                 }
                         )
                 } else {
-                    self.track
+                    self.track.accentColor(.accentColor)
                 }
 
                 ZStack {

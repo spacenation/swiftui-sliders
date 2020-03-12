@@ -21,7 +21,7 @@ public struct VerticalValueSlider<V, TrackView: View, ThumbView : View>: View wh
         return GeometryReader { geometry in
             ZStack(alignment: .bottom) {
                 if self.configuration.options.contains(.interactiveTrack) {
-                    self.track
+                    self.track.accentColor(.accentColor)
                         .gesture(
                             DragGesture(minimumDistance: 0)
                                 .onChanged { gestureValue in
@@ -41,7 +41,7 @@ public struct VerticalValueSlider<V, TrackView: View, ThumbView : View>: View wh
                                 }
                         )
                 } else {
-                    self.track
+                    self.track.accentColor(.accentColor)
                 }
 
                 ZStack {
