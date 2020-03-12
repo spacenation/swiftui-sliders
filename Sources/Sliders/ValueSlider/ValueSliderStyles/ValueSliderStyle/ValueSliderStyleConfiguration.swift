@@ -6,7 +6,7 @@ public struct ValueSliderStyleConfiguration {
     public let step: CGFloat
     public let onEditingChanged: (Bool) -> Void
     public var dragOffset: Binding<CGFloat?>
-    public let track: ValueSliderStyleConfiguration.Track
+    //public let track: ValueSliderStyleConfiguration.Track
     public let thumb: ValueSliderStyleConfiguration.Thumb
     
     func with(dragOffset: Binding<CGFloat?>) -> Self {

@@ -29,7 +29,7 @@ extension ValueSlider where Track == ValueSliderStyleConfiguration.Track {
                 step: CGFloat(step),
                 onEditingChanged: onEditingChanged,
                 dragOffset: .constant(0),
-                track: .init(view: DefaultHorizontalValueTrack(value: CGFloat(value.wrappedValue))),
+                //track: .init(view: DefaultHorizontalValueTrack(value: CGFloat(value.wrappedValue))),
                 thumb: .init(view: DefaultThumb())
             )
         )
@@ -46,7 +46,7 @@ extension ValueSlider {
                 step: CGFloat(step),
                 onEditingChanged: onEditingChanged,
                 dragOffset: .constant(0),
-                track: .init(view: track),
+                //track: .init(view: track),
                 thumb: .init(view: DefaultThumb())
             )
         )

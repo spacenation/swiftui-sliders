@@ -1,16 +1,18 @@
 import SwiftUI
 
 public struct HorizontalValueSliderStyle<Track: View>: ValueSliderStyle {
-    private let track: (CGFloat) -> Track
+    private let track: Track
     private let thumbSize: CGSize
     private let thumbInteractiveSize: CGSize
     private let options: HorizontalValueSliderOptions
 
     public func makeBody(configuration: Self.Configuration) -> some View {
         GeometryReader { geometry in
-            ZStack(alignment: .leading) {
+            ZStack {
                 if self.options.contains(.interactiveTrack) {
-                    self.track(configuration.value.wrappedValue).accentColor(.accentColor)
+                    self.track//(configuration.value.wrappedValue)
+                        .environment(\.trackValue, configuration.value.wrappedValue)
+                        .accentColor(.accentColor)
                         .gesture(
                             DragGesture(minimumDistance: 0)
                                 .onChanged { gestureValue in
@@ -30,7 +32,10 @@ public struct HorizontalValueSliderStyle<Track: View>: ValueSliderStyle {
                                 }
                         )
                 } else {
-                    self.track(configuration.value.wrappedValue).accentColor(.accentColor)
+                    self.track
+                        .environment(\.trackValue, configuration.value.wrappedValue)
+                        //(configuration.value.wrappedValue)
+                        .accentColor(.accentColor)
                 }
                 
                 ZStack {
@@ -38,7 +43,6 @@ public struct HorizontalValueSliderStyle<Track: View>: ValueSliderStyle {
                         .frame(width: self.thumbSize.width, height: self.thumbSize.height)
                 }
                 .frame(minWidth: self.thumbInteractiveSize.width, minHeight: self.thumbInteractiveSize.height)
-
                 .position(
                     x: distanceFrom(
                         value: configuration.value.wrappedValue,
@@ -61,7 +65,7 @@ public struct HorizontalValueSliderStyle<Track: View>: ValueSliderStyle {
                                     trailingOffset: self.thumbSize.width / 2
                                 )
                             }
-                            
+
                             let computedValue = valueFrom(
                                 distance: gestureValue.location.x - (configuration.dragOffset.wrappedValue ?? 0),
                                 availableDistance: geometry.size.width,
@@ -70,7 +74,7 @@ public struct HorizontalValueSliderStyle<Track: View>: ValueSliderStyle {
                                 leadingOffset: self.thumbSize.width / 2,
                                 trailingOffset: self.thumbSize.width / 2
                             )
-                            
+
                             configuration.value.wrappedValue = computedValue
                             configuration.onEditingChanged(true)
                         }
@@ -80,12 +84,12 @@ public struct HorizontalValueSliderStyle<Track: View>: ValueSliderStyle {
                         }
                 )
             }
-            
+            .frame(height: geometry.size.height)
         }
         .frame(minHeight: self.thumbInteractiveSize.height)
     }
     
-    public init(@ViewBuilder track: @escaping (CGFloat) -> Track, thumbSize: CGSize = CGSize(width: 32, height: 32), thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: HorizontalValueSliderOptions = .defaultOptions) {
+    public init(track: Track, thumbSize: CGSize = CGSize(width: 32, height: 32), thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: HorizontalValueSliderOptions = .defaultOptions) {
         self.track = track
         self.thumbSize = thumbSize
         self.thumbInteractiveSize = thumbInteractiveSize

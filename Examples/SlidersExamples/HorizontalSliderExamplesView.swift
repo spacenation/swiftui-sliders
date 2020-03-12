@@ -9,18 +9,17 @@ struct HorizontalSliderExamplesView: View {
             Group {
                 
                 HSlider(value: $model.value1)
-                
-//                ValueSlider(value: $model.value1)
-//                    .background(Color.yellow)
-//                    .valueSliderStyle(
-//                        HorizontalValueSliderStyle(
-//                            track: { HorizontalValueTrack(value: $0) },
-//                            thumbSize: CGSize(width: 32, height: 32),
-//                            options: .interactiveTrack
-//                        )
-//                    )
 
-                
+                ValueSlider(value: $model.value1)
+                    .background(Color.yellow)
+                    .valueSliderStyle(
+                        HorizontalValueSliderStyle(
+                            track: Track(value: 0.5, view: Capsule()).frame(height: 8),
+                            thumbSize: CGSize(width: 32, height: 32),
+                            options: .interactiveTrack
+                        )
+                    )
+
                 HSlider(value: $model.value2,
                     configuration: .init(
                         thumbSize: CGSize(width: 16, height: 32)
