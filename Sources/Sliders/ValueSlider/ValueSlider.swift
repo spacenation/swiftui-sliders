@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct ValueSlider<Track>: View where Track: View {
+public struct ValueSlider: View {
     @Environment(\.valueSliderStyle) private var style
     @State private var dragOffset: CGFloat?
     
@@ -19,7 +19,7 @@ extension ValueSlider {
     }
 }
 
-extension ValueSlider where Track == ValueSliderStyleConfiguration.Track {
+extension ValueSlider {
     public init<V>(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, onEditingChanged: @escaping (Bool) -> Void = { _ in }) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
         
         self.init(
@@ -28,34 +28,8 @@ extension ValueSlider where Track == ValueSliderStyleConfiguration.Track {
                 bounds: CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound),
                 step: CGFloat(step),
                 onEditingChanged: onEditingChanged,
-                dragOffset: .constant(0),
-                track: .init(view: DefaultHorizontalValueTrack(value: CGFloat(value.wrappedValue))),
-                thumb: .init(view: DefaultThumb())
+                dragOffset: .constant(0)
             )
         )
-    }
-}
-
-extension ValueSlider {
-    public init<V>(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, track: Track, onEditingChanged: @escaping (Bool) -> Void = { _ in }) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
-        
-        self.init(
-            ValueSliderStyleConfiguration(
-                value: Binding(get: { CGFloat(value.wrappedValue) }, set: { value.wrappedValue = V($0) }),
-                bounds: CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound),
-                step: CGFloat(step),
-                onEditingChanged: onEditingChanged,
-                dragOffset: .constant(0),
-                track: .init(view: track),
-                thumb: .init(view: DefaultThumb())
-            )
-        )
-    }
-}
-
-struct ValueSlider_Previews: PreviewProvider {
-    static var previews: some View {
-        ValueSlider(value: .constant(0.3))
-            .previewLayout(.fixed(width: 300, height: 100))
     }
 }
