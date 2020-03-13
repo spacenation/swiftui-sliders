@@ -81,9 +81,9 @@
 			children = (
 				FA0D8A35231E221300434037 /* HorizontalSliderExamplesView.swift */,
 				FA0D8A38231E231D00434037 /* VerticalSliderExamplesView.swift */,
+				FAA6C40323529AD5002C8FCD /* PointSliderExamplesView.swift */,
 				FA5592552319EDD700FD07E2 /* HalfCapsule.swift */,
 				FA815110234ABFC100E3AFA3 /* Model.swift */,
-				FAA6C40323529AD5002C8FCD /* PointSliderExamplesView.swift */,
 			);
 			path = SlidersExamples;
 			sourceTree = "<group>";
