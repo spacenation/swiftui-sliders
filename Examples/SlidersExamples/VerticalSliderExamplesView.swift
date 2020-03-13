@@ -8,86 +8,40 @@ struct VerticalSliderExamplesView: View {
         ScrollView(.horizontal) {
             HStack {
                 Group {
-                    VSlider(value: $model.value1)
-                    
-                    VSlider(value: $model.value2,
-                        configuration: .init(
-                            thumbSize: CGSize(width: 16, height: 32)
+                    ValueSlider(value: $model.value1)
+                        .valueSliderStyle(
+                            VerticalValueSliderStyle()
                         )
-                    )
-                        
-                    VSlider(value: $model.value3, track:
-                        LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .bottom, endPoint: .top)
-                            .frame(width: 8)
-                            .cornerRadius(4)
-                    )
-
-                    VSlider(
-                        value: $model.value4,
-                        track:
-                            VTrack(
-                                value: model.value4,
-                                view: Rectangle()
-                                    .foregroundColor(.green)
-                                    .frame(width: 8),
-                                configuration: .init(
-                                    offsets: 8
+                    
+                    ValueSlider(value: $model.value2)
+                        .valueSliderStyle(
+                            VerticalValueSliderStyle(thumbSize: CGSize(width: 16, height: 32))
+                        )
+                    
+                    ValueSlider(value: $model.value3)
+                        .valueSliderStyle(
+                            VerticalValueSliderStyle(track:
+                                LinearGradient(
+                                    gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]),
+                                    startPoint: .bottom, endPoint: .top
                                 )
+                                .frame(width: 8)
+                                .cornerRadius(4)
                             )
-                            .background(Color.white)
-                            .frame(width: 8)
-                            .cornerRadius(3)
-                            .overlay(
-                                Capsule().strokeBorder(Color.white.opacity(0.5), lineWidth: 1)
-                            )
-                            .animation(
-                                .spring(response: 0.7, dampingFraction: 0.4)
-                            ),
-                        configuration: .init(
-                            thumbSize: CGSize(width: 16, height: 16)
                         )
-                    )
                     
-                    VSlider(
-                        value: $model.value5,
-                        track:
-                            LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .bottom, endPoint: .top)
+                    ValueSlider(value: $model.value4)
+                        .valueSliderStyle(
+                            VerticalValueSliderStyle(
+                                track: LinearGradient(
+                                    gradient: Gradient(colors: [.purple, .blue, .purple]),
+                                    startPoint: .bottom, endPoint: .top
+                                )
                                 .frame(width: 6)
                                 .cornerRadius(3),
-                        configuration: .init(
-                            thumbSize: CGSize(width: 16, height: 48)
+                                thumbSize: CGSize(width: 16, height: 48)
+                            )
                         )
-                    )
-                    
-                    VSlider(
-                        value: $model.value6,
-                        track:
-                            ZStack {
-                                VTrack(
-                                    value: model.value6,
-                                    view: Rectangle().foregroundColor(.white).opacity(0.3),
-                                    mask: Rectangle()
-                                )
-                                
-                                VTrack(
-                                    value: model.value6,
-                                    view: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .leading, endPoint: .trailing).opacity(0.7),
-                                    mask: Rectangle()
-                                )
-                                .overlay(
-                                    Capsule().strokeBorder(Color.white.opacity(0.5), lineWidth: 2)
-                                )
-                                .animation(.easeInOut(duration: 1.0))
-                            }
-                            .background(Capsule().foregroundColor(Color.secondary.opacity(0.25)))
-                            .frame(width: 32)
-                            .cornerRadius(16),
-                        thumb: EmptyView(),
-                        configuration: .init(
-                            options: .interactiveTrack,
-                            thumbSize: .zero
-                        )
-                    )
                 }
                 
                 Group {

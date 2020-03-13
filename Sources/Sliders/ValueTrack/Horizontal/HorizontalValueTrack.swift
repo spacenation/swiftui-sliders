@@ -1,43 +1,12 @@
 import SwiftUI
 
-public extension EnvironmentValues {
-    var trackValue: CGFloat {
-        get {
-            return self[TrackValueKey.self]
-        }
-        set {
-            self[TrackValueKey.self] = newValue
-        }
-    }
-}
+public typealias HorizontalTrack = HorizontalValueTrack
 
-public struct TrackValueKey: EnvironmentKey {
-    public static let defaultValue: CGFloat = 0.0
-}
-
-extension EnvironmentValues {
-    var trackConfiguration: ValueTrackConfiguration {
-        get {
-            return self[TrackConfigurationKey.self]
-        }
-        set {
-            self[TrackConfigurationKey.self] = newValue
-        }
-    }
-}
-
-struct TrackConfigurationKey: EnvironmentKey {
-    static let defaultValue: ValueTrackConfiguration = .defaultConfiguration
-}
-
-public typealias Track = ValueTrack
-
-public struct ValueTrack<ValueView: View, MaskView: View>: View {
+public struct HorizontalValueTrack<ValueView: View, MaskView: View>: View {
     @Environment(\.trackValue) var value
     @Environment(\.trackConfiguration) var configuration
     let view: AnyView
     let mask: AnyView
-    
     
     public var body: some View {
         GeometryReader { geometry in
@@ -61,26 +30,26 @@ public struct ValueTrack<ValueView: View, MaskView: View>: View {
     }
 }
 
-extension ValueTrack {
+extension HorizontalValueTrack {
     public init(view: ValueView, mask: MaskView) {
         self.view = AnyView(view)
         self.mask = AnyView(mask)
     }
 }
 
-extension ValueTrack where ValueView == DefaultHorizontalValueView {
+extension HorizontalValueTrack where ValueView == DefaultHorizontalValueView {
     public init(mask: MaskView) {
         self.init(view: DefaultHorizontalValueView(), mask: mask)
     }
 }
 
-extension ValueTrack where MaskView == Capsule {
+extension HorizontalValueTrack where MaskView == Capsule {
     public init(view: ValueView) {
         self.init(view: view, mask: Capsule())
     }
 }
 
-extension ValueTrack where ValueView == DefaultHorizontalValueView, MaskView == Capsule {
+extension HorizontalValueTrack where ValueView == DefaultHorizontalValueView, MaskView == Capsule {
     public init() {
         self.init(view: DefaultHorizontalValueView(), mask: Capsule())
     }

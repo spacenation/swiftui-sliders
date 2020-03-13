@@ -29,27 +29,9 @@ struct HorizontalSliderExamplesView: View {
                             .cornerRadius(4)
                         )
                     )
+
                 
                 ValueSlider(value: $model.value4)
-                    .valueSliderStyle(
-                        HorizontalValueSliderStyle(
-                            track: Track(
-                                view: Rectangle().foregroundColor(.green).frame(height: 8)
-                            )
-                            .background(Color.white)
-                            .frame(height: 8)
-                            .cornerRadius(3)
-                            .overlay(
-                                Capsule().strokeBorder(Color.white.opacity(0.5), lineWidth: 1)
-                            )
-                            .animation(
-                                .spring(response: 0.7, dampingFraction: 0.4)
-                            ),
-                            thumbSize: CGSize(width: 16, height: 16)
-                        )
-                    )
-                
-                ValueSlider(value: $model.value5)
                     .valueSliderStyle(
                         HorizontalValueSliderStyle(
                             track: LinearGradient(
@@ -60,34 +42,6 @@ struct HorizontalSliderExamplesView: View {
                             .frame(height: 6)
                             .cornerRadius(3),
                             thumbSize: CGSize(width: 48, height: 16)
-                        )
-                    )
-                
-                ValueSlider(value: $model.value6)
-                    .valueSliderStyle(
-                        HorizontalValueSliderStyle(
-                            track:
-                                ZStack {
-                                    Track(
-                                        view: Rectangle().foregroundColor(.white).opacity(0.2),
-                                        mask: Rectangle()
-                                    )
-                                    
-                                    Track(
-                                        view: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .leading, endPoint: .trailing).opacity(0.8),
-                                        mask: Rectangle()
-                                    )
-                                    .overlay(
-                                        Capsule().strokeBorder(Color.white.opacity(0.5), lineWidth: 2)
-                                    )
-                                    .animation(.easeInOut(duration: 1.0))
-                                }
-                                .background(Capsule().foregroundColor(Color.secondary.opacity(0.25)))
-                                .frame(height: 32)
-                                .cornerRadius(16),
-                            thumb: EmptyView(),
-                            thumbSize: .zero,
-                            options: .interactiveTrack
                         )
                     )
             }

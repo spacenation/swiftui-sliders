@@ -8,44 +8,38 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
     private let options: ValueSliderOptions
 
     public func makeBody(configuration: Self.Configuration) -> some View {
-        GeometryReader { geometry in
+        let track = self.track
+            .environment(\.trackValue, configuration.value.wrappedValue)
+            .environment(\.trackConfiguration, ValueTrackConfiguration(
+                bounds: configuration.bounds,
+                leadingOffset: self.thumbSize.width / 2,
+                trailingOffset: self.thumbSize.width / 2)
+            )
+            .accentColor(.accentColor)
+        
+        return GeometryReader { geometry in
             ZStack {
                 if self.options.contains(.interactiveTrack) {
-                    self.track
-                        .environment(\.trackValue, configuration.value.wrappedValue)
-                        .environment(\.trackConfiguration, ValueTrackConfiguration(
-                            bounds: configuration.bounds,
-                            leadingOffset: self.thumbSize.width / 2,
-                            trailingOffset: self.thumbSize.width / 2)
-                        )
-                        .accentColor(.accentColor)
-                        .gesture(
-                            DragGesture(minimumDistance: 0)
-                                .onChanged { gestureValue in
-                                    let computedValue = valueFrom(
-                                        distance: gestureValue.location.x,
-                                        availableDistance: geometry.size.width,
-                                        bounds: configuration.bounds,
-                                        step: configuration.step,
-                                        leadingOffset: self.thumbSize.width / 2,
-                                        trailingOffset: self.thumbSize.width / 2
-                                    )
-                                    configuration.value.wrappedValue = computedValue
-                                    configuration.onEditingChanged(true)
-                                }
-                                .onEnded { _ in
-                                    configuration.onEditingChanged(false)
-                                }
-                        )
+                    track.gesture(
+                        DragGesture(minimumDistance: 0)
+                            .onChanged { gestureValue in
+                                let computedValue = valueFrom(
+                                    distance: gestureValue.location.x,
+                                    availableDistance: geometry.size.width,
+                                    bounds: configuration.bounds,
+                                    step: configuration.step,
+                                    leadingOffset: self.thumbSize.width / 2,
+                                    trailingOffset: self.thumbSize.width / 2
+                                )
+                                configuration.value.wrappedValue = computedValue
+                                configuration.onEditingChanged(true)
+                            }
+                            .onEnded { _ in
+                                configuration.onEditingChanged(false)
+                            }
+                    )
                 } else {
-                    self.track
-                        .environment(\.trackValue, configuration.value.wrappedValue)
-                        .environment(\.trackConfiguration, ValueTrackConfiguration(
-                            bounds: configuration.bounds,
-                            leadingOffset: self.thumbSize.width / 2,
-                            trailingOffset: self.thumbSize.width / 2)
-                        )
-                        .accentColor(.accentColor)
+                    track
                 }
                 
                 ZStack {
@@ -140,7 +134,7 @@ extension HorizontalValueSliderStyle where Thumb == DefaultThumb, Track == Defau
 
 public struct DefaultHorizontalValueTrack: View {
     public var body: some View {
-        Track()
+        HorizontalTrack()
             .frame(height: 3)
             .background(Color.secondary.opacity(0.25))
             .cornerRadius(1.5)
