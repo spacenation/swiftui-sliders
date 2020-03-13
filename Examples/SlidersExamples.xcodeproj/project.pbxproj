@@ -23,6 +23,7 @@
 		FA815112234ABFC100E3AFA3 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA815110234ABFC100E3AFA3 /* Model.swift */; };
 		FAA6C40423529AD5002C8FCD /* PointSliderExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA6C40323529AD5002C8FCD /* PointSliderExamplesView.swift */; };
 		FAA6C40523529AD5002C8FCD /* PointSliderExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA6C40323529AD5002C8FCD /* PointSliderExamplesView.swift */; };
+		FAAA2FCB241B7A44007021F7 /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = FAAA2FCA241B7A44007021F7 /* Sliders */; };
 		FAF1C03722ED3B7D00F92FEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF1C03622ED3B7D00F92FEA /* AppDelegate.swift */; };
 		FAF1C03922ED3B7D00F92FEA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF1C03822ED3B7D00F92FEA /* SceneDelegate.swift */; };
 		FAF1C03B22ED3B7D00F92FEA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF1C03A22ED3B7D00F92FEA /* ContentView.swift */; };
@@ -62,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAAA2FCB241B7A44007021F7 /* Sliders in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +180,7 @@
 			);
 			name = "SlidersExamples macOS";
 			packageProductDependencies = (
+				FAAA2FCA241B7A44007021F7 /* Sliders */,
 			);
 			productName = "RangeSliderExamples macOS";
 			productReference = FA61E9B3231365E3006A5B6B /* SlidersExamples macOS.app */;
@@ -729,6 +732,10 @@
 		FA493847241A13F700830AB0 /* Sliders */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FA493846241A13F700830AB0 /* XCRemoteSwiftPackageReference "swiftui-sliders" */;
+			productName = Sliders;
+		};
+		FAAA2FCA241B7A44007021F7 /* Sliders */ = {
+			isa = XCSwiftPackageProductDependency;
 			productName = Sliders;
 		};
 /* End XCSwiftPackageProductDependency section */
