@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThumb: View>: RangeSliderStyle {
+public struct VerticalRangeSliderStyle<Track: View, LowerThumb: View, UpperThumb: View>: RangeSliderStyle {
     private let track: Track
     private let lowerThumb: LowerThumb
     private let upperThumb: UpperThumb
@@ -20,48 +20,48 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                     .environment(\.trackRange, configuration.range.wrappedValue)
                     .environment(\.rangeTrackConfiguration, RangeTrackConfiguration(
                         bounds: configuration.bounds,
-                        lowerLeadingOffset: self.lowerThumbSize.width / 2,
-                        lowerTrailingOffset: self.lowerThumbSize.width / 2 + self.upperThumbSize.width,
-                        upperLeadingOffset: self.lowerThumbSize.width + self.upperThumbSize.width / 2,
-                        upperTrailingOffset: self.upperThumbSize.width / 2
+                        lowerLeadingOffset: self.lowerThumbSize.height / 2,
+                        lowerTrailingOffset: self.lowerThumbSize.height / 2 + self.upperThumbSize.height,
+                        upperLeadingOffset: self.lowerThumbSize.height + self.upperThumbSize.height / 2,
+                        upperTrailingOffset: self.upperThumbSize.height / 2
                     ))
                     .accentColor(.accentColor)
-            
+                
                 ZStack {
                     self.lowerThumb
                         .frame(width: self.lowerThumbSize.width, height: self.lowerThumbSize.height)
                 }
                 .frame(minWidth: self.lowerThumbInteractiveSize.width, minHeight: self.lowerThumbInteractiveSize.height)
                 .position(
-                    x: distanceFrom(
+                    x: geometry.size.width / 2,
+                    y: geometry.size.height - distanceFrom(
                         value: configuration.range.wrappedValue.lowerBound,
-                        availableDistance: geometry.size.width - self.upperThumbSize.width,
+                        availableDistance: geometry.size.height - self.upperThumbSize.height,
                         bounds: configuration.bounds,
-                        leadingOffset: self.lowerThumbSize.width / 2,
-                        trailingOffset: self.lowerThumbSize.width / 2
-                    ),
-                    y: geometry.size.height / 2
+                        leadingOffset: self.lowerThumbSize.height / 2,
+                        trailingOffset: self.lowerThumbSize.height / 2
+                    )
                 )
                 .gesture(
                     DragGesture()
                         .onChanged { gestureValue in
                             if configuration.dragOffset.wrappedValue == nil {
-                                configuration.dragOffset.wrappedValue = gestureValue.startLocation.x - distanceFrom(
+                                configuration.dragOffset.wrappedValue = gestureValue.startLocation.y - (geometry.size.height - distanceFrom(
                                     value: configuration.range.wrappedValue.lowerBound,
-                                    availableDistance: geometry.size.width - self.upperThumbSize.width,
+                                    availableDistance: geometry.size.height - self.upperThumbSize.height,
                                     bounds: configuration.bounds,
-                                    leadingOffset: self.lowerThumbSize.width / 2,
-                                    trailingOffset: self.lowerThumbSize.width / 2
-                                )
+                                    leadingOffset: self.lowerThumbSize.height / 2,
+                                    trailingOffset: self.lowerThumbSize.height / 2
+                                ))
                             }
                             
                             let computedLowerBound = valueFrom(
-                                distance: gestureValue.location.x - (configuration.dragOffset.wrappedValue ?? 0),
-                                availableDistance: geometry.size.width - self.upperThumbSize.width,
+                                distance: geometry.size.height - (gestureValue.location.y - (configuration.dragOffset.wrappedValue ?? 0)),
+                                availableDistance: geometry.size.height - self.upperThumbSize.height,
                                 bounds: configuration.bounds,
                                 step: configuration.step,
-                                leadingOffset: self.lowerThumbSize.width / 2,
-                                trailingOffset: self.lowerThumbSize.width / 2
+                                leadingOffset: self.lowerThumbSize.height / 2,
+                                trailingOffset: self.lowerThumbSize.height / 2
                             )
                             
                             if self.options.contains(.forceAdjacentValue) {
@@ -71,7 +71,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                                 let computedLowerBound = min(computedLowerBound, configuration.range.wrappedValue.upperBound)
                                 configuration.range.wrappedValue = computedLowerBound...configuration.range.wrappedValue.upperBound
                             }
-
+                            
                             configuration.onEditingChanged(true)
                         }
                         .onEnded { _ in
@@ -79,42 +79,42 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                             configuration.onEditingChanged(false)
                         }
                 )
-                
+
                 ZStack {
                     self.upperThumb
                         .frame(width: self.upperThumbSize.width, height: self.upperThumbSize.height)
                 }
                 .frame(minWidth: self.upperThumbInteractiveSize.width, minHeight: self.upperThumbInteractiveSize.height)
                 .position(
-                    x: distanceFrom(
+                    x: geometry.size.width / 2,
+                    y: geometry.size.height - distanceFrom(
                         value: configuration.range.wrappedValue.upperBound,
-                        availableDistance: geometry.size.width,
+                        availableDistance: geometry.size.height,
                         bounds: configuration.bounds,
-                        leadingOffset: self.lowerThumbSize.width + self.upperThumbSize.width / 2,
-                        trailingOffset: self.upperThumbSize.width / 2
-                    ),
-                    y: geometry.size.height / 2
+                        leadingOffset: self.lowerThumbSize.height + self.upperThumbSize.height / 2,
+                        trailingOffset: self.upperThumbSize.height / 2
+                    )
                 )
                 .gesture(
                     DragGesture()
                         .onChanged { gestureValue in
                             if configuration.dragOffset.wrappedValue == nil {
-                                configuration.dragOffset.wrappedValue = gestureValue.startLocation.x - distanceFrom(
+                                configuration.dragOffset.wrappedValue = gestureValue.startLocation.y - (geometry.size.height - distanceFrom(
                                     value: configuration.range.wrappedValue.upperBound,
-                                    availableDistance: geometry.size.width,
+                                    availableDistance: geometry.size.height,
                                     bounds: configuration.bounds,
-                                    leadingOffset: self.lowerThumbSize.width + self.upperThumbSize.width / 2,
-                                    trailingOffset: self.upperThumbSize.width / 2
-                                )
+                                    leadingOffset: self.lowerThumbSize.height + self.upperThumbSize.height / 2,
+                                    trailingOffset: self.upperThumbSize.height / 2
+                                ))
                             }
                             
                             let computedUpperBound = valueFrom(
-                                distance: gestureValue.location.x - (configuration.dragOffset.wrappedValue ?? 0),
-                                availableDistance: geometry.size.width,
+                                distance: geometry.size.height - (gestureValue.location.y - (configuration.dragOffset.wrappedValue ?? 0)),
+                                availableDistance: geometry.size.height,
                                 bounds: configuration.bounds,
                                 step: configuration.step,
-                                leadingOffset: self.lowerThumbSize.width + self.upperThumbSize.width / 2,
-                                trailingOffset: self.upperThumbSize.width / 2
+                                leadingOffset: self.lowerThumbSize.height + self.upperThumbSize.height / 2,
+                                trailingOffset: self.upperThumbSize.height / 2
                             )
                             
                             if self.options.contains(.forceAdjacentValue) {
@@ -124,7 +124,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                                 let computedUpperBound = max(computedUpperBound, configuration.range.wrappedValue.lowerBound)
                                 configuration.range.wrappedValue = configuration.range.wrappedValue.lowerBound...computedUpperBound
                             }
-
+                            
                             configuration.onEditingChanged(true)
                         }
                         .onEnded { _ in
@@ -132,11 +132,11 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                             configuration.onEditingChanged(false)
                         }
                 )
-
+            
             }
-            .frame(height: geometry.size.height)
+            .frame(width: geometry.size.width)
         }
-        .frame(minHeight: max(self.lowerThumbInteractiveSize.height, self.upperThumbInteractiveSize.height))
+        .frame(minWidth: max(self.lowerThumbInteractiveSize.width, self.upperThumbInteractiveSize.width))
     }
     
     public init(track: Track, lowerThumb: LowerThumb, upperThumb: UpperThumb, lowerThumbSize: CGSize = CGSize(width: 27, height: 27), upperThumbSize: CGSize = CGSize(width: 27, height: 27), lowerThumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), upperThumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: RangeSliderOptions = .defaultOptions) {
@@ -151,9 +151,9 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
     }
 }
 
-extension HorizontalRangeSliderStyle where Track == DefaultHorizontalRangeTrack {
+extension VerticalRangeSliderStyle where Track == DefaultVerticalRangeTrack {
     public init(lowerThumb: LowerThumb, upperThumb: UpperThumb, lowerThumbSize: CGSize = CGSize(width: 27, height: 27), upperThumbSize: CGSize = CGSize(width: 27, height: 27), lowerThumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), upperThumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: RangeSliderOptions = .defaultOptions) {
-        self.track = DefaultHorizontalRangeTrack()
+        self.track = DefaultVerticalRangeTrack()
         self.lowerThumb = lowerThumb
         self.upperThumb = upperThumb
         self.lowerThumbSize = lowerThumbSize
@@ -164,7 +164,7 @@ extension HorizontalRangeSliderStyle where Track == DefaultHorizontalRangeTrack 
     }
 }
 
-extension HorizontalRangeSliderStyle where LowerThumb == DefaultThumb, UpperThumb == DefaultThumb {
+extension VerticalRangeSliderStyle where LowerThumb == DefaultThumb, UpperThumb == DefaultThumb {
     public init(track: Track, lowerThumbSize: CGSize = CGSize(width: 27, height: 27), upperThumbSize: CGSize = CGSize(width: 27, height: 27), lowerThumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), upperThumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: RangeSliderOptions = .defaultOptions) {
         self.track = track
         self.lowerThumb = DefaultThumb()
@@ -177,9 +177,9 @@ extension HorizontalRangeSliderStyle where LowerThumb == DefaultThumb, UpperThum
     }
 }
 
-extension HorizontalRangeSliderStyle where LowerThumb == DefaultThumb, UpperThumb == DefaultThumb, Track == DefaultHorizontalRangeTrack {
+extension VerticalRangeSliderStyle where LowerThumb == DefaultThumb, UpperThumb == DefaultThumb, Track == DefaultVerticalRangeTrack {
     public init(lowerThumbSize: CGSize = CGSize(width: 27, height: 27), upperThumbSize: CGSize = CGSize(width: 27, height: 27), lowerThumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), upperThumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: RangeSliderOptions = .defaultOptions) {
-        self.track = DefaultHorizontalRangeTrack()
+        self.track = DefaultVerticalRangeTrack()
         self.lowerThumb = DefaultThumb()
         self.upperThumb = DefaultThumb()
         self.lowerThumbSize = lowerThumbSize
@@ -190,10 +190,10 @@ extension HorizontalRangeSliderStyle where LowerThumb == DefaultThumb, UpperThum
     }
 }
 
-public struct DefaultHorizontalRangeTrack: View {
+public struct DefaultVerticalRangeTrack: View {
     public var body: some View {
-        HorizontalRangeTrack()
-            .frame(height: 3)
+        VerticalRangeTrack()
+            .frame(width: 3)
             .background(Color.secondary.opacity(0.25))
             .cornerRadius(1.5)
     }
