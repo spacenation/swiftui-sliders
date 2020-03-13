@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension EnvironmentValues {
+public extension EnvironmentValues {
     var trackValue: CGFloat {
         get {
             return self[TrackValueKey.self]
@@ -11,18 +11,33 @@ extension EnvironmentValues {
     }
 }
 
-struct TrackValueKey: EnvironmentKey {
-    static let defaultValue: CGFloat = 0.0
+public struct TrackValueKey: EnvironmentKey {
+    public static let defaultValue: CGFloat = 0.0
+}
+
+extension EnvironmentValues {
+    var trackConfiguration: ValueTrackConfiguration {
+        get {
+            return self[TrackConfigurationKey.self]
+        }
+        set {
+            self[TrackConfigurationKey.self] = newValue
+        }
+    }
+}
+
+struct TrackConfigurationKey: EnvironmentKey {
+    static let defaultValue: ValueTrackConfiguration = .defaultConfiguration
 }
 
 public typealias Track = ValueTrack
 
-public struct ValueTrack<V, ValueView: View, MaskView: View>: View where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
-    @Environment(\.trackValue) var trackValue
-    let bounds: ClosedRange<CGFloat>
+public struct ValueTrack<ValueView: View, MaskView: View>: View {
+    @Environment(\.trackValue) var value
+    @Environment(\.trackConfiguration) var configuration
     let view: AnyView
     let mask: AnyView
-    let configuration: ValueTrackConfiguration
+    
     
     public var body: some View {
         GeometryReader { geometry in
@@ -32,9 +47,9 @@ public struct ValueTrack<V, ValueView: View, MaskView: View>: View where V : Bin
                         self.mask
                             .frame(
                                 width: distanceFrom(
-                                    value: self.trackValue,
+                                    value: self.value,
                                     availableDistance: geometry.size.width,
-                                    bounds: self.bounds,
+                                    bounds: self.configuration.bounds,
                                     leadingOffset: self.configuration.leadingOffset,
                                     trailingOffset: self.configuration.trailingOffset
                                 )
@@ -47,29 +62,26 @@ public struct ValueTrack<V, ValueView: View, MaskView: View>: View where V : Bin
 }
 
 extension ValueTrack {
-    public init(value: V, in bounds: ClosedRange<V> = 0.0...1.0, view: ValueView, mask: MaskView, configuration: ValueTrackConfiguration = .defaultConfiguration) {
-        //self.value = CGFloat(value)
-        self.bounds = CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound)
+    public init(view: ValueView, mask: MaskView) {
         self.view = AnyView(view)
         self.mask = AnyView(mask)
-        self.configuration = configuration
     }
 }
 
 extension ValueTrack where ValueView == DefaultHorizontalValueView {
-    public init(value: V, in bounds: ClosedRange<V> = 0.0...1.0, mask: MaskView, configuration: ValueTrackConfiguration = .defaultConfiguration) {
-        self.init(value: value, in: bounds, view: DefaultHorizontalValueView(), mask: mask, configuration: configuration)
+    public init(mask: MaskView) {
+        self.init(view: DefaultHorizontalValueView(), mask: mask)
     }
 }
 
 extension ValueTrack where MaskView == Capsule {
-    public init(value: V, in bounds: ClosedRange<V> = 0.0...1.0, view: ValueView, configuration: ValueTrackConfiguration = .defaultConfiguration) {
-        self.init(value: value, in: bounds, view: view, mask: Capsule(), configuration: configuration)
+    public init(view: ValueView) {
+        self.init(view: view, mask: Capsule())
     }
 }
 
 extension ValueTrack where ValueView == DefaultHorizontalValueView, MaskView == Capsule {
-    public init(value: V, in bounds: ClosedRange<V> = 0.0...1.0, configuration: ValueTrackConfiguration = .defaultConfiguration) {
-        self.init(value: value, in: bounds, view: DefaultHorizontalValueView(), mask: Capsule(), configuration: configuration)
+    public init() {
+        self.init(view: DefaultHorizontalValueView(), mask: Capsule())
     }
 }

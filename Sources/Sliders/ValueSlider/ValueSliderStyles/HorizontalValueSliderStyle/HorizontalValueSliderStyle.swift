@@ -1,17 +1,23 @@
 import SwiftUI
 
-public struct HorizontalValueSliderStyle<Track: View>: ValueSliderStyle {
+public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderStyle {
     private let track: Track
+    private let thumb: Thumb
     private let thumbSize: CGSize
     private let thumbInteractiveSize: CGSize
-    private let options: HorizontalValueSliderOptions
+    private let options: ValueSliderOptions
 
     public func makeBody(configuration: Self.Configuration) -> some View {
         GeometryReader { geometry in
             ZStack {
                 if self.options.contains(.interactiveTrack) {
-                    self.track//(configuration.value.wrappedValue)
+                    self.track
                         .environment(\.trackValue, configuration.value.wrappedValue)
+                        .environment(\.trackConfiguration, ValueTrackConfiguration(
+                            bounds: configuration.bounds,
+                            leadingOffset: self.thumbSize.width / 2,
+                            trailingOffset: self.thumbSize.width / 2)
+                        )
                         .accentColor(.accentColor)
                         .gesture(
                             DragGesture(minimumDistance: 0)
@@ -34,12 +40,16 @@ public struct HorizontalValueSliderStyle<Track: View>: ValueSliderStyle {
                 } else {
                     self.track
                         .environment(\.trackValue, configuration.value.wrappedValue)
-                        //(configuration.value.wrappedValue)
+                        .environment(\.trackConfiguration, ValueTrackConfiguration(
+                            bounds: configuration.bounds,
+                            leadingOffset: self.thumbSize.width / 2,
+                            trailingOffset: self.thumbSize.width / 2)
+                        )
                         .accentColor(.accentColor)
                 }
                 
                 ZStack {
-                    configuration.thumb
+                    self.thumb
                         .frame(width: self.thumbSize.width, height: self.thumbSize.height)
                 }
                 .frame(minWidth: self.thumbInteractiveSize.width, minHeight: self.thumbInteractiveSize.height)
@@ -89,21 +99,50 @@ public struct HorizontalValueSliderStyle<Track: View>: ValueSliderStyle {
         .frame(minHeight: self.thumbInteractiveSize.height)
     }
     
-    public init(track: Track, thumbSize: CGSize = CGSize(width: 32, height: 32), thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: HorizontalValueSliderOptions = .defaultOptions) {
+    public init(track: Track, thumb: Thumb, thumbSize: CGSize = CGSize(width: 27, height: 27), thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: ValueSliderOptions = .defaultOptions) {
         self.track = track
+        self.thumb = thumb
         self.thumbSize = thumbSize
         self.thumbInteractiveSize = thumbInteractiveSize
         self.options = options
     }
 }
 
-public struct HorizontalValueSliderOptions: OptionSet {
-    public let rawValue: Int
+extension HorizontalValueSliderStyle where Track == DefaultHorizontalValueTrack {
+    public init(thumb: Thumb, thumbSize: CGSize = CGSize(width: 27, height: 27), thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: ValueSliderOptions = .defaultOptions) {
+        self.track = DefaultHorizontalValueTrack()
+        self.thumb = thumb
+        self.thumbSize = thumbSize
+        self.thumbInteractiveSize = thumbInteractiveSize
+        self.options = options
+    }
+}
 
-    public static let interactiveTrack = HorizontalValueSliderOptions(rawValue: 1 << 0)
-    public static let defaultOptions: HorizontalValueSliderOptions = []
-    
-    public init(rawValue: Int) {
-        self.rawValue = rawValue
+extension HorizontalValueSliderStyle where Thumb == DefaultThumb {
+    public init(track: Track, thumbSize: CGSize = CGSize(width: 27, height: 27), thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: ValueSliderOptions = .defaultOptions) {
+        self.track = track
+        self.thumb = DefaultThumb()
+        self.thumbSize = thumbSize
+        self.thumbInteractiveSize = thumbInteractiveSize
+        self.options = options
+    }
+}
+
+extension HorizontalValueSliderStyle where Thumb == DefaultThumb, Track == DefaultHorizontalValueTrack {
+    public init(thumbSize: CGSize = CGSize(width: 27, height: 27), thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: ValueSliderOptions = .defaultOptions) {
+        self.track = DefaultHorizontalValueTrack()
+        self.thumb = DefaultThumb()
+        self.thumbSize = thumbSize
+        self.thumbInteractiveSize = thumbInteractiveSize
+        self.options = options
+    }
+}
+
+public struct DefaultHorizontalValueTrack: View {
+    public var body: some View {
+        Track()
+            .frame(height: 3)
+            .background(Color.secondary.opacity(0.25))
+            .cornerRadius(1.5)
     }
 }

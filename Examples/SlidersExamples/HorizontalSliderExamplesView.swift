@@ -8,97 +8,88 @@ struct HorizontalSliderExamplesView: View {
         ScrollView {
             Group {
                 
-                HSlider(value: $model.value1)
+                Slider(value: $model.value1)
 
                 ValueSlider(value: $model.value1)
-                    .background(Color.yellow)
+
+                ValueSlider(value: $model.value2)
+                    .valueSliderStyle(
+                        HorizontalValueSliderStyle(thumbSize: CGSize(width: 16, height: 32))
+                    )
+                
+                ValueSlider(value: $model.value3)
                     .valueSliderStyle(
                         HorizontalValueSliderStyle(
-                            track: Track(value: 0.5, view: Capsule()).frame(height: 8),
-                            thumbSize: CGSize(width: 32, height: 32),
+                            track: LinearGradient(
+                                gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]),
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                            .frame(height: 8)
+                            .cornerRadius(4)
+                        )
+                    )
+                
+                ValueSlider(value: $model.value4)
+                    .valueSliderStyle(
+                        HorizontalValueSliderStyle(
+                            track: Track(
+                                view: Rectangle().foregroundColor(.green).frame(height: 8)
+                            )
+                            .background(Color.white)
+                            .frame(height: 8)
+                            .cornerRadius(3)
+                            .overlay(
+                                Capsule().strokeBorder(Color.white.opacity(0.5), lineWidth: 1)
+                            )
+                            .animation(
+                                .spring(response: 0.7, dampingFraction: 0.4)
+                            ),
+                            thumbSize: CGSize(width: 16, height: 16)
+                        )
+                    )
+                
+                ValueSlider(value: $model.value5)
+                    .valueSliderStyle(
+                        HorizontalValueSliderStyle(
+                            track: LinearGradient(
+                                gradient: Gradient(colors: [.purple, .blue, .purple]),
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                            .frame(height: 6)
+                            .cornerRadius(3),
+                            thumbSize: CGSize(width: 48, height: 16)
+                        )
+                    )
+                
+                ValueSlider(value: $model.value6)
+                    .valueSliderStyle(
+                        HorizontalValueSliderStyle(
+                            track:
+                                ZStack {
+                                    Track(
+                                        view: Rectangle().foregroundColor(.white).opacity(0.2),
+                                        mask: Rectangle()
+                                    )
+                                    
+                                    Track(
+                                        view: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .leading, endPoint: .trailing).opacity(0.8),
+                                        mask: Rectangle()
+                                    )
+                                    .overlay(
+                                        Capsule().strokeBorder(Color.white.opacity(0.5), lineWidth: 2)
+                                    )
+                                    .animation(.easeInOut(duration: 1.0))
+                                }
+                                .background(Capsule().foregroundColor(Color.secondary.opacity(0.25)))
+                                .frame(height: 32)
+                                .cornerRadius(16),
+                            thumb: EmptyView(),
+                            thumbSize: .zero,
                             options: .interactiveTrack
                         )
                     )
-
-                HSlider(value: $model.value2,
-                    configuration: .init(
-                        thumbSize: CGSize(width: 16, height: 32)
-                    )
-                )
-                                    
-                HSlider(value: $model.value3, track:
-                    LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing)
-                        .frame(height: 8)
-                        .cornerRadius(4)
-                )
-
-                HSlider(
-                    value: $model.value4,
-                    track:
-                        HTrack(
-                            value: model.value4,
-                            view: Rectangle()
-                                .foregroundColor(.green)
-                                .frame(height: 8),
-                            configuration: .init(
-                                offsets: 8
-                            )
-                        )
-                        .background(Color.white)
-                        .frame(height: 8)
-                        .cornerRadius(3)
-                        .overlay(
-                            Capsule().strokeBorder(Color.white.opacity(0.5), lineWidth: 1)
-                        )
-                        .animation(
-                            .spring(response: 0.7, dampingFraction: 0.4)
-                        ),
-                    configuration: .init(
-                        thumbSize: CGSize(width: 16, height: 16)
-                    )
-                    
-                )
-
-                HSlider(
-                    value: $model.value5,
-                    track:
-                        LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .leading, endPoint: .trailing)
-                            .frame(height: 6)
-                            .cornerRadius(3),
-                    configuration: .init(
-                        thumbSize: CGSize(width: 48, height: 16)
-                    )
-                )
-
-                HSlider(
-                    value: $model.value6,
-                    track:
-                        ZStack {
-                            HTrack(
-                                value: model.value6,
-                                view: Rectangle().foregroundColor(.white).opacity(0.2),
-                                mask: Rectangle()
-                            )
-                            
-                            HTrack(
-                                value: model.value6,
-                                view: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .leading, endPoint: .trailing).opacity(0.8),
-                                mask: Rectangle()
-                            )
-                            .overlay(
-                                Capsule().strokeBorder(Color.white.opacity(0.5), lineWidth: 2)
-                            )
-                            .animation(.easeInOut(duration: 1.0))
-                        }
-                        .background(Capsule().foregroundColor(Color.secondary.opacity(0.25)))
-                        .frame(height: 32)
-                        .cornerRadius(16),
-                    thumb: EmptyView(),
-                    configuration: .init(
-                        options: .interactiveTrack,
-                        thumbSize: .zero
-                    )
-                )
             }
 
             Group {
@@ -222,6 +213,7 @@ struct HorizontalSliderExamplesView: View {
 
         }
         .padding()
+
     }
 }
 
