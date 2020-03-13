@@ -10,3 +10,16 @@ extension EnvironmentValues {
         }
     }
 }
+
+struct ValueSliderStyleKey: EnvironmentKey {
+    static let defaultValue: AnyValueSliderStyle = AnyValueSliderStyle(
+        HorizontalValueSliderStyle()
+    )
+}
+
+extension View {
+    /// Sets the style for `ValueSlider` within the environment of `self`.
+    public func valueSliderStyle<S>(_ style: S) -> some View where S : ValueSliderStyle {
+        self.environment(\.valueSliderStyle, AnyValueSliderStyle(style))
+    }
+}

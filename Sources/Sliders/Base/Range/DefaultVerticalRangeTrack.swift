@@ -6,7 +6,7 @@ public struct DefaultVerticalRangeTrack<V>: View where V : BinaryFloatingPoint, 
     var configuration: RangeTrackConfiguration
     
     public var body: some View {
-        VRangeTrack(
+        OLDVerticalRangeTrack(
             range: range,
             in: bounds,
             configuration: configuration

@@ -154,9 +154,9 @@ extension HorizontalRangeSlider {
     }
 }
 
-extension HorizontalRangeSlider where TrackView == DefaultHorizontalRangeTrack<V> {
+extension HorizontalRangeSlider where TrackView == OLDDefaultHorizontalRangeTrack<V> {
     public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, lowerThumb: LowerThumbView, upperThumb: UpperThumbView, configuration: RangeSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        let track = DefaultHorizontalRangeTrack(range: range.wrappedValue, in: bounds, configuration: configuration.horizontalTrackConfiguration)
+        let track = OLDDefaultHorizontalRangeTrack(range: range.wrappedValue, in: bounds, configuration: configuration.horizontalTrackConfiguration)
         self.init(range: range, in: bounds, step: step, track: track, lowerThumb: lowerThumb, upperThumb: upperThumb, configuration: configuration, onEditingChanged: onEditingChanged)
     }
 }
@@ -167,9 +167,9 @@ extension HorizontalRangeSlider where LowerThumbView == DefaultThumb, UpperThumb
     }
 }
 
-extension HorizontalRangeSlider where TrackView == DefaultHorizontalRangeTrack<V>, LowerThumbView == DefaultThumb, UpperThumbView == DefaultThumb {
+extension HorizontalRangeSlider where TrackView == OLDDefaultHorizontalRangeTrack<V>, LowerThumbView == DefaultThumb, UpperThumbView == DefaultThumb {
     public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, configuration: RangeSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        let track = DefaultHorizontalRangeTrack(range: range.wrappedValue, in: bounds, configuration: configuration.horizontalTrackConfiguration)
+        let track = OLDDefaultHorizontalRangeTrack(range: range.wrappedValue, in: bounds, configuration: configuration.horizontalTrackConfiguration)
         self.init(range: range, in: bounds, step: step, track: track, lowerThumb: DefaultThumb(), upperThumb: DefaultThumb(), configuration: configuration, onEditingChanged: onEditingChanged)
     }
 }
@@ -182,9 +182,9 @@ extension HorizontalRangeSlider where LowerThumbView == UpperThumbView {
     }
 }
 
-extension HorizontalRangeSlider where TrackView == DefaultHorizontalRangeTrack<V>, LowerThumbView == UpperThumbView {
+extension HorizontalRangeSlider where TrackView == OLDDefaultHorizontalRangeTrack<V>, LowerThumbView == UpperThumbView {
     public init(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, thumb: LowerThumbView, configuration: RangeSliderConfiguration = .defaultConfiguration, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        let track = DefaultHorizontalRangeTrack(range: range.wrappedValue, in: bounds, configuration: configuration.horizontalTrackConfiguration)
+        let track = OLDDefaultHorizontalRangeTrack(range: range.wrappedValue, in: bounds, configuration: configuration.horizontalTrackConfiguration)
         self.init(range: range, in: bounds, step: step, track: track, lowerThumb: thumb, upperThumb: thumb, configuration: configuration, onEditingChanged: onEditingChanged)
     }
 }

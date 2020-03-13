@@ -33,10 +33,3 @@ extension ValueSlider {
         )
     }
 }
-
-struct ValueSlider_Previews: PreviewProvider {
-    static var previews: some View {
-        ValueSlider(value: .constant(0.3))
-            .previewLayout(.fixed(width: 300, height: 100))
-    }
-}

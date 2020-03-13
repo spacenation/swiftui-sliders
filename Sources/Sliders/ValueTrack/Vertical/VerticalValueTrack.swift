@@ -4,7 +4,7 @@ public typealias VerticalTrack = VerticalValueTrack
 
 public struct VerticalValueTrack<ValueView: View, MaskView: View>: View {
     @Environment(\.trackValue) var value
-    @Environment(\.trackConfiguration) var configuration
+    @Environment(\.valueTrackConfiguration) var configuration
     let view: AnyView
     let mask: AnyView
     

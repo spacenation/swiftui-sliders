@@ -172,12 +172,3 @@ extension PointSlider where TrackView == DefaultPointTrackView, ThumbView == Def
         self.init(x: x, xBounds: xBounds, xStep: xStep, y: y, yBounds: yBounds, yStep: yStep, track: DefaultPointTrackView(), thumb: DefaultThumb(), configuration: configuration, onEditingChanged: onEditingChanged)
     }
 }
-
-#if DEBUG
-struct PointSlider_Previews: PreviewProvider {
-    static var previews: some View {
-        PointSlider(x: .constant(0.5), y: .constant(0.5), track: Rectangle(), thumb: Circle())
-            .previewLayout(.fixed(width: 300, height: 100))
-    }
-}
-#endif

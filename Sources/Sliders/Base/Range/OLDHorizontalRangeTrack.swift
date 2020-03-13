@@ -1,8 +1,8 @@
 import SwiftUI
 
-public typealias VRangeTrack = VerticalRangeTrack
+public typealias HRangeTrack = OLDHorizontalRangeTrack
 
-public struct VerticalRangeTrack<V, ValueView: View, MaskView: View>: View where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
+public struct OLDHorizontalRangeTrack<V, ValueView: View, MaskView: View>: View where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint  {
     let range: ClosedRange<CGFloat>
     let bounds: ClosedRange<CGFloat>
     let view: AnyView
@@ -16,8 +16,8 @@ public struct VerticalRangeTrack<V, ValueView: View, MaskView: View>: View where
                     ZStack {
                         self.mask
                              .frame(
-                                 height: rangeDistance(
-                                    overallLength: geometry.size.height,
+                                 width: rangeDistance(
+                                    overallLength: geometry.size.width,
                                     range: self.range,
                                     bounds: self.bounds,
                                     lowerStartOffset: self.configuration.lowerLeadingOffset,
@@ -27,23 +27,22 @@ public struct VerticalRangeTrack<V, ValueView: View, MaskView: View>: View where
                                  )
                              )
                              .offset(
-                                 y: -distanceFrom(
+                                 x: distanceFrom(
                                     value: self.range.lowerBound,
-                                    availableDistance: geometry.size.height,
+                                    availableDistance: geometry.size.width,
                                     bounds: self.bounds,
                                     leadingOffset: self.configuration.lowerLeadingOffset,
                                     trailingOffset: self.configuration.lowerTrailingOffset
                                  )
                              )
                     }
-                    .frame(height: geometry.size.height, alignment: .bottom)
+                    .frame(width: geometry.size.width, alignment: .leading)
                 )
         }
-        .frame(minWidth: 1)
     }
 }
 
-extension VerticalRangeTrack {
+extension OLDHorizontalRangeTrack {
     public init(range: ClosedRange<V>, in bounds: ClosedRange<V> = 0.0...1.0, view: ValueView, mask: MaskView, configuration: RangeTrackConfiguration = .defaultConfiguration) {
         self.range = CGFloat(range.lowerBound)...CGFloat(range.upperBound)
         self.bounds = CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound)
@@ -53,20 +52,20 @@ extension VerticalRangeTrack {
     }
 }
 
-extension VerticalRangeTrack where ValueView == DefaultVerticalValueView {
+extension OLDHorizontalRangeTrack where ValueView == DefaultHorizontalValueView {
     public init(range: ClosedRange<V>, in bounds: ClosedRange<V> = 0.0...1.0, mask: MaskView, configuration: RangeTrackConfiguration = .defaultConfiguration) {
-        self.init(range: range, in: bounds, view: DefaultVerticalValueView(), mask: mask, configuration: configuration)
+        self.init(range: range, in: bounds, view: DefaultHorizontalValueView(), mask: mask, configuration: configuration)
     }
 }
 
-extension VerticalRangeTrack where MaskView == Capsule {
-    public init(range: ClosedRange<V>, in bounds: ClosedRange<V> = 0.0...1.0, value: ValueView, configuration: RangeTrackConfiguration = .defaultConfiguration) {
-        self.init(range: range, in: bounds, view: value, mask: Capsule(), configuration: configuration)
+extension OLDHorizontalRangeTrack where MaskView == Capsule {
+    public init(range: ClosedRange<V>, in bounds: ClosedRange<V> = 0.0...1.0, view: ValueView, configuration: RangeTrackConfiguration = .defaultConfiguration) {
+        self.init(range: range, in: bounds, view: view, mask: Capsule(), configuration: configuration)
     }
 }
 
-extension VerticalRangeTrack where ValueView == DefaultVerticalValueView, MaskView == Capsule {
+extension OLDHorizontalRangeTrack where ValueView == DefaultHorizontalValueView, MaskView == Capsule {
     public init(range: ClosedRange<V>, in bounds: ClosedRange<V> = 0.0...1.0, configuration: RangeTrackConfiguration = .defaultConfiguration) {
-        self.init(range: range, in: bounds, view: DefaultVerticalValueView(), mask: Capsule(), configuration: configuration)
+        self.init(range: range, in: bounds, view: DefaultHorizontalValueView(), mask: Capsule(), configuration: configuration)
     }
 }

@@ -4,7 +4,7 @@ public typealias HorizontalTrack = HorizontalValueTrack
 
 public struct HorizontalValueTrack<ValueView: View, MaskView: View>: View {
     @Environment(\.trackValue) var value
-    @Environment(\.trackConfiguration) var configuration
+    @Environment(\.valueTrackConfiguration) var configuration
     let view: AnyView
     let mask: AnyView
     

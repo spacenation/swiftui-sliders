@@ -10,7 +10,7 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
     public func makeBody(configuration: Self.Configuration) -> some View {
         let track = self.track
             .environment(\.trackValue, configuration.value.wrappedValue)
-            .environment(\.trackConfiguration, ValueTrackConfiguration(
+            .environment(\.valueTrackConfiguration, ValueTrackConfiguration(
                 bounds: configuration.bounds,
                 leadingOffset: self.thumbSize.width / 2,
                 trailingOffset: self.thumbSize.width / 2)

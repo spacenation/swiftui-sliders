@@ -50,7 +50,7 @@ struct VerticalSliderExamplesView: View {
                     VRangeSlider(
                         range: $model.range2,
                         track:
-                            VRangeTrack(
+                            OLDVerticalRangeTrack(
                                 range: model.range2,
                                 view: Capsule().foregroundColor(.purple),
                                 mask: Rectangle(),
@@ -71,7 +71,7 @@ struct VerticalSliderExamplesView: View {
                     
                     VRangeSlider(
                         range: $model.range3,
-                        track: VRangeTrack(
+                        track: OLDVerticalRangeTrack(
                             range: model.range3,
                             value: LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .bottom, endPoint: .top),
                             configuration: .init(
@@ -89,7 +89,7 @@ struct VerticalSliderExamplesView: View {
                     VRangeSlider(
                         range: $model.range4,
                         track:
-                            VRangeTrack(
+                            OLDVerticalRangeTrack(
                                 range: model.range4,
                                 view: LinearGradient(gradient: Gradient(colors: [.purple, .blue, .purple]), startPoint: .bottom, endPoint: .top),
                                 mask: Rectangle(),
@@ -110,7 +110,7 @@ struct VerticalSliderExamplesView: View {
                     VRangeSlider(
                         range: $model.range5,
                         track:
-                            VRangeTrack(
+                            OLDVerticalRangeTrack(
                                 range: model.range5,
                                 view: LinearGradient(gradient: Gradient(colors: [.yellow, .orange, .red]), startPoint: .bottom, endPoint: .top),
                                 mask: Rectangle(),
