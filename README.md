@@ -12,6 +12,13 @@ This package allows you to build highly customizable sliders and tracks for iOS,
 <img src="Resources/sliders.png"/>
 </center>
 
+### Styles
+- HorizontalValueSliderStyle
+- VerticalValueSliderStyle
+- HorizontalRangeSliderStyle
+- VerticalRangeSliderStyle
+- RectangularPointSliderStyle
+
 ## How to use
 
 Add this swift package to your project
@@ -33,97 +40,36 @@ struct ContentView: View {
     
     var body: some View {
         Group {
-            HSlider(value: $value)
-            HRangeSlider(range: $range)
-            XYSlider(x: $x, y: $y)
+            ValueSlider(value: $value)
+            RangeSlider(range: $range)
+            PointSlider(x: $x, y: $y)
         }
     }
 }
 ```
 For more examples open `/Examples/SlidersExamples.xcodeproj`
 
-## Customizations
-Use can use any SwiftUI view modifier to create custom tracks and thumbs.
+## Customizations with Styles
+Use any SwiftUI view modifiers to create custom tracks and thumbs.
 
-### Simple gradient value slider style
 ```swift
-HSlider(value: $value, track:
-    LinearGradient(gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]), startPoint: .leading, endPoint: .trailing)
-        .frame(height: 8)
-        .cornerRadius(4)
-)
-```
-
-### Multivalue track
-```swift
-ZStack {
-    HTrack(value: value1, view: Capsule().foregroundColor(.red)).opacity(0.5)
-    HTrack(value: value2, view: Capsule().foregroundColor(.blue)).opacity(0.5)
-    HTrack(value: value3, view: Capsule().foregroundColor(.green)).opacity(0.5)
-}
-.animation(.spring())
-.frame(height: 8)
-.background(Color.secondary.opacity(0.25))
-```
-
-### Complex range slider style
-```swift
-HRangeSlider(range: $range, in: 0.0...1.0, step: 0.01,
-    track:
-        HRangeTrack(
-            range: range,
-            view: LinearGradient(gradient: Gradient(colors: [.yellow, .orange, .red]), startPoint: .leading, endPoint: .trailing),
-            mask: Rectangle(),
-            configuration: .init(
-                offsets: 32
-            )
+RangeSlider(range: $model.range2)
+    .rangeSliderStyle(
+        HorizontalRangeSliderStyle(
+            track:
+                HorizontalRangeTrack(
+                    view: Capsule().foregroundColor(.purple)
+                )
+                .background(Capsule().foregroundColor(Color.purple.opacity(0.25)))
+                .frame(height: 8),
+            lowerThumb: Circle().foregroundColor(.purple),
+            upperThumb: Circle().foregroundColor(.purple),
+            lowerThumbSize: CGSize(width: 32, height: 32),
+            upperThumbSize: CGSize(width: 32, height: 32),
+            options: .forceAdjacentValue
         )
-        .background(Color.secondary.opacity(0.25))
-        .cornerRadius(16)
-        .padding(.vertical, 8)
-        .animation(.easeInOut(duration: 0.5)),
-    lowerThumb: 
-        Capsule()
-            .foregroundColor(.white),
-    upperThumb:
-        Capsule()
-            .foregroundColor(.white),
-    configuration: .init(
-        thumbSize: CGSize(width: 32, height: 64),
-        thumbInteractiveSize: CGSize(width: 44, height: 64)
-    ),
-    onEditingChanged: { print($0) }
-)
-.frame(height: 64)
-```
-
-### Complex point slider style
-```swift
-XYSlider(x: $x, y: $y,
-    track:
-        RoundedRectangle(cornerRadius: 24)
-            .foregroundColor(
-                Color(hue: 0.67, saturation: y, brightness: 1.0)
-            ),
-    thumb:
-        ZStack {
-            Capsule().frame(width: 12).foregroundColor(.white)
-            Capsule().frame(height: 12).foregroundColor(.white)
-        }
-        .compositingGroup()
-        .rotationEffect(Angle(radians: x * 10))
-        .shadow(radius: 3),
-    configuration: .init(
-        options: .interactiveTrack,
-        thumbSize: CGSize(width: 48, height: 48)
     )
-)
-.frame(height: 256)
-.shadow(radius: 3)
-.padding()
 ```
-
-###
 
 ## SDKs
 - iOS 13+
@@ -135,5 +81,8 @@ XYSlider(x: $x, y: $y,
 - Slider styles
 - Circular sliders and tracks
 
-## Contibutions
+## Code Contributions
 Feel free to contribute via fork/pull request to master branch. If you want to request a feature or report a bug please start a new issue.
+
+## Coffee Contributions
+If you find this project useful please consider becoming my GitHub sponsor.

@@ -61,7 +61,8 @@ struct HorizontalSliderExamplesView: View {
                             lowerThumb: Circle().foregroundColor(.purple),
                             upperThumb: Circle().foregroundColor(.purple),
                             lowerThumbSize: CGSize(width: 32, height: 32),
-                            upperThumbSize: CGSize(width: 32, height: 32)
+                            upperThumbSize: CGSize(width: 32, height: 32),
+                            options: .forceAdjacentValue
                         )
                     )
                 
