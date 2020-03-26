@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension EnvironmentValues {
+public extension EnvironmentValues {
     var valueSliderStyle: AnyValueSliderStyle {
         get {
             return self[ValueSliderStyleKey.self]
@@ -17,9 +17,9 @@ struct ValueSliderStyleKey: EnvironmentKey {
     )
 }
 
-extension View {
+public extension View {
     /// Sets the style for `ValueSlider` within the environment of `self`.
-    public func valueSliderStyle<S>(_ style: S) -> some View where S : ValueSliderStyle {
+    @inlinable func valueSliderStyle<S>(_ style: S) -> some View where S : ValueSliderStyle {
         self.environment(\.valueSliderStyle, AnyValueSliderStyle(style))
     }
 }

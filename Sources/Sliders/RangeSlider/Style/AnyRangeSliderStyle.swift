@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct AnyRangeSliderStyle: RangeSliderStyle {
+public struct AnyRangeSliderStyle: RangeSliderStyle {
     private let styleMakeBody: (RangeSliderStyle.Configuration) -> AnyView
     
-    init<S: RangeSliderStyle>(_ style: S) {
+    public init<S: RangeSliderStyle>(_ style: S) {
         self.styleMakeBody = style.makeTypeErasedBody
     }
     
-    func makeBody(configuration: RangeSliderStyle.Configuration) -> AnyView {
+    public func makeBody(configuration: RangeSliderStyle.Configuration) -> AnyView {
         self.styleMakeBody(configuration)
     }
 }

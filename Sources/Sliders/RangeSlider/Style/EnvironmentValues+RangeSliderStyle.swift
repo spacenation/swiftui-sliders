@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension EnvironmentValues {
+public extension EnvironmentValues {
     var rangeSliderStyle: AnyRangeSliderStyle {
         get {
             return self[RangeSliderStyleKey.self]
@@ -17,9 +17,9 @@ struct RangeSliderStyleKey: EnvironmentKey {
     )
 }
 
-extension View {
+public extension View {
     /// Sets the style for `RangeSlider` within the environment of `self`.
-    public func rangeSliderStyle<S>(_ style: S) -> some View where S : RangeSliderStyle {
+    @inlinable func rangeSliderStyle<S>(_ style: S) -> some View where S : RangeSliderStyle {
         self.environment(\.rangeSliderStyle, AnyRangeSliderStyle(style))
     }
 }

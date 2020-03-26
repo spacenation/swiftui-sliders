@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct AnyPointSliderStyle: PointSliderStyle {
+public struct AnyPointSliderStyle: PointSliderStyle {
     private let styleMakeBody: (PointSliderStyle.Configuration) -> AnyView
     
-    init<S: PointSliderStyle>(_ style: S) {
+    public init<S: PointSliderStyle>(_ style: S) {
         self.styleMakeBody = style.makeTypeErasedBody
     }
     
-    func makeBody(configuration: PointSliderStyle.Configuration) -> AnyView {
+    public func makeBody(configuration: PointSliderStyle.Configuration) -> AnyView {
         self.styleMakeBody(configuration)
     }
 }

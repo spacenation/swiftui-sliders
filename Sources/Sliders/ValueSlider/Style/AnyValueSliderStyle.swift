@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct AnyValueSliderStyle: ValueSliderStyle {
+public struct AnyValueSliderStyle: ValueSliderStyle {
     private let styleMakeBody: (ValueSliderStyle.Configuration) -> AnyView
     
-    init<S: ValueSliderStyle>(_ style: S) {
+    public init<S: ValueSliderStyle>(_ style: S) {
         self.styleMakeBody = style.makeTypeErasedBody
     }
     
-    func makeBody(configuration: ValueSliderStyle.Configuration) -> AnyView {
+    public func makeBody(configuration: ValueSliderStyle.Configuration) -> AnyView {
         self.styleMakeBody(configuration)
     }
 }
