@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension EnvironmentValues {
+public extension EnvironmentValues {
     var pointSliderStyle: AnyPointSliderStyle {
         get {
             return self[PointSliderStyleKey.self]
@@ -17,9 +17,9 @@ struct PointSliderStyleKey: EnvironmentKey {
     )
 }
 
-extension View {
+public extension View {
     /// Sets the style for `PointSlider` within the environment of `self`.
-    public func pointSliderStyle<S>(_ style: S) -> some View where S : PointSliderStyle {
+    @inlinable func pointSliderStyle<S>(_ style: S) -> some View where S : PointSliderStyle {
         self.environment(\.pointSliderStyle, AnyPointSliderStyle(style))
     }
 }
