@@ -23,7 +23,7 @@ This package allows you to build highly customizable sliders and tracks for iOS,
 
 Add this swift package to your project
 ```
-git@github.com:SwiftUIExtensions/Sliders.git
+git@github.com:spacenation/swiftui-sliders.git
 ```
 
 Import and use
@@ -78,7 +78,6 @@ RangeSlider(range: $model.range2)
 - Xcode 11.0+
 
 ## Roadmap
-- Slider styles
 - Circular sliders and tracks
 
 ## Code Contributions
