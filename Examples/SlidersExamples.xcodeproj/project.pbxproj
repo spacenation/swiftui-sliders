@@ -11,6 +11,7 @@
 		FA0D8A37231E221300434037 /* HorizontalSliderExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0D8A35231E221300434037 /* HorizontalSliderExamplesView.swift */; };
 		FA0D8A39231E231D00434037 /* VerticalSliderExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0D8A38231E231D00434037 /* VerticalSliderExamplesView.swift */; };
 		FA0D8A3A231E231D00434037 /* VerticalSliderExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0D8A38231E231D00434037 /* VerticalSliderExamplesView.swift */; };
+		FA493848241A13F700830AB0 /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = FA493847241A13F700830AB0 /* Sliders */; };
 		FA5592562319EDD700FD07E2 /* HalfCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5592552319EDD700FD07E2 /* HalfCapsule.swift */; };
 		FA5592572319EDD700FD07E2 /* HalfCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5592552319EDD700FD07E2 /* HalfCapsule.swift */; };
 		FA61E9B6231365E3006A5B6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61E9B5231365E3006A5B6B /* AppDelegate.swift */; };
@@ -18,13 +19,11 @@
 		FA61E9BA231365E5006A5B6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA61E9B9231365E5006A5B6B /* Assets.xcassets */; };
 		FA61E9BD231365E5006A5B6B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA61E9BC231365E5006A5B6B /* Preview Assets.xcassets */; };
 		FA61E9C0231365E5006A5B6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA61E9BE231365E5006A5B6B /* Main.storyboard */; };
-		FA61E9CA23136A48006A5B6B /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = FA61E9C923136A48006A5B6B /* Sliders */; };
-		FA61E9CC23136A50006A5B6B /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = FA61E9CB23136A50006A5B6B /* Sliders */; };
-		FA66B3802356586D00AB542A /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = FA66B37F2356586D00AB542A /* Sliders */; };
 		FA815111234ABFC100E3AFA3 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA815110234ABFC100E3AFA3 /* Model.swift */; };
 		FA815112234ABFC100E3AFA3 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA815110234ABFC100E3AFA3 /* Model.swift */; };
 		FAA6C40423529AD5002C8FCD /* PointSliderExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA6C40323529AD5002C8FCD /* PointSliderExamplesView.swift */; };
 		FAA6C40523529AD5002C8FCD /* PointSliderExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA6C40323529AD5002C8FCD /* PointSliderExamplesView.swift */; };
+		FAAA2FCB241B7A44007021F7 /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = FAAA2FCA241B7A44007021F7 /* Sliders */; };
 		FAF1C03722ED3B7D00F92FEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF1C03622ED3B7D00F92FEA /* AppDelegate.swift */; };
 		FAF1C03922ED3B7D00F92FEA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF1C03822ED3B7D00F92FEA /* SceneDelegate.swift */; };
 		FAF1C03B22ED3B7D00F92FEA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF1C03A22ED3B7D00F92FEA /* ContentView.swift */; };
@@ -64,7 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA61E9CC23136A50006A5B6B /* Sliders in Frameworks */,
+				FAAA2FCB241B7A44007021F7 /* Sliders in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,8 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA61E9CA23136A48006A5B6B /* Sliders in Frameworks */,
-				FA66B3802356586D00AB542A /* Sliders in Frameworks */,
+				FA493848241A13F700830AB0 /* Sliders in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,9 +83,9 @@
 			children = (
 				FA0D8A35231E221300434037 /* HorizontalSliderExamplesView.swift */,
 				FA0D8A38231E231D00434037 /* VerticalSliderExamplesView.swift */,
+				FAA6C40323529AD5002C8FCD /* PointSliderExamplesView.swift */,
 				FA5592552319EDD700FD07E2 /* HalfCapsule.swift */,
 				FA815110234ABFC100E3AFA3 /* Model.swift */,
-				FAA6C40323529AD5002C8FCD /* PointSliderExamplesView.swift */,
 			);
 			path = SlidersExamples;
 			sourceTree = "<group>";
@@ -182,7 +180,7 @@
 			);
 			name = "SlidersExamples macOS";
 			packageProductDependencies = (
-				FA61E9CB23136A50006A5B6B /* Sliders */,
+				FAAA2FCA241B7A44007021F7 /* Sliders */,
 			);
 			productName = "RangeSliderExamples macOS";
 			productReference = FA61E9B3231365E3006A5B6B /* SlidersExamples macOS.app */;
@@ -202,8 +200,7 @@
 			);
 			name = "SlidersExamples iOS";
 			packageProductDependencies = (
-				FA61E9C923136A48006A5B6B /* Sliders */,
-				FA66B37F2356586D00AB542A /* Sliders */,
+				FA493847241A13F700830AB0 /* Sliders */,
 			);
 			productName = "RangeSliderExamples iOS";
 			productReference = FAF1C03322ED3B7D00F92FEA /* SlidersExamples iOS.app */;
@@ -236,7 +233,7 @@
 			);
 			mainGroup = FAF1C02722ED3AD500F92FEA;
 			packageReferences = (
-				FA66B37E2356586D00AB542A /* XCRemoteSwiftPackageReference "Sliders" */,
+				FA493846241A13F700830AB0 /* XCRemoteSwiftPackageReference "swiftui-sliders" */,
 			);
 			productRefGroup = FAF1C03422ED3B7D00F92FEA /* Products */;
 			projectDirPath = "";
@@ -576,7 +573,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SlidersExamples iOS\"/Preview\\ Content";
-				DEVELOPMENT_TEAM = Z8L4G5WZR3;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -655,7 +652,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SlidersExamples iOS\"/Preview\\ Content";
-				DEVELOPMENT_TEAM = Z8L4G5WZR3;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -721,28 +718,24 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FA66B37E2356586D00AB542A /* XCRemoteSwiftPackageReference "Sliders" */ = {
+		FA493846241A13F700830AB0 /* XCRemoteSwiftPackageReference "swiftui-sliders" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:SwiftUIExtensions/Sliders.git";
+			repositoryURL = "https://github.com/spacenation/swiftui-sliders.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.9;
+				minimumVersion = 0.1.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FA61E9C923136A48006A5B6B /* Sliders */ = {
+		FA493847241A13F700830AB0 /* Sliders */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = FA493846241A13F700830AB0 /* XCRemoteSwiftPackageReference "swiftui-sliders" */;
 			productName = Sliders;
 		};
-		FA61E9CB23136A50006A5B6B /* Sliders */ = {
+		FAAA2FCA241B7A44007021F7 /* Sliders */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Sliders;
-		};
-		FA66B37F2356586D00AB542A /* Sliders */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FA66B37E2356586D00AB542A /* XCRemoteSwiftPackageReference "Sliders" */;
 			productName = Sliders;
 		};
 /* End XCSwiftPackageProductDependency section */
