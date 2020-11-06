@@ -51,6 +51,9 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                 .gesture(
                     DragGesture()
                         .onChanged { gestureValue in
+                           
+                            self.onSelectLower()
+                          
                             if configuration.dragOffset.wrappedValue == nil {
                                 configuration.dragOffset.wrappedValue = gestureValue.startLocation.x - distanceFrom(
                                     value: configuration.range.wrappedValue.lowerBound,
@@ -107,6 +110,9 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                 .gesture(
                     DragGesture()
                         .onChanged { gestureValue in
+                          
+                            self.onSelectUpper()
+
                             if configuration.dragOffset.wrappedValue == nil {
                                 configuration.dragOffset.wrappedValue = gestureValue.startLocation.x - distanceFrom(
                                     value: configuration.range.wrappedValue.upperBound,
