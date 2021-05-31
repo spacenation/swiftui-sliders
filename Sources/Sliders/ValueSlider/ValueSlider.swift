@@ -47,3 +47,23 @@ extension ValueSlider {
         )
     }
 }
+
+extension ValueSlider {
+    public init(value: Binding<Measurement<Unit>>, in bounds: ClosedRange<Measurement<Unit>>, step: Measurement<Unit>, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+        
+        self.init(
+            ValueSliderStyleConfiguration(
+                value: Binding(get: {
+                    CGFloat(value.wrappedValue.value)
+                },
+                set: {
+                    value.wrappedValue = Measurement<Unit>(value: Double($0), unit: value.wrappedValue.unit)
+                }),
+                bounds: CGFloat(bounds.lowerBound.value)...CGFloat(bounds.upperBound.value),
+                step: CGFloat(step.value),
+                onEditingChanged: onEditingChanged,
+                dragOffset: .constant(0)
+            )
+        )
+    }
+}
