@@ -67,3 +67,109 @@ extension ValueSlider {
         )
     }
 }
+
+
+struct ValueSlider_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            HorizontalValueSlidersPreview()
+            VerticalValueSlidersPreview()
+        }
+    }
+}
+
+private struct HorizontalValueSlidersPreview: View {
+    @State var value1 = 0.5
+    @State var value2 = 0.5
+    @State var value3 = 0.5
+    @State var value4 = 0.5
+    
+    var body: some View {
+        VStack {
+            Slider(value: $value1)
+
+            ValueSlider(value: $value1)
+
+            ValueSlider(value: $value2)
+                .valueSliderStyle(
+                    HorizontalValueSliderStyle(thumbSize: CGSize(width: 16, height: 32))
+                )
+            
+            ValueSlider(value: $value3)
+                .valueSliderStyle(
+                    HorizontalValueSliderStyle(
+                        track: LinearGradient(
+                            gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]),
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                        .frame(height: 8)
+                        .cornerRadius(4)
+                    )
+                )
+
+            
+            ValueSlider(value: $value4)
+                .valueSliderStyle(
+                    HorizontalValueSliderStyle(
+                        track: LinearGradient(
+                            gradient: Gradient(colors: [.purple, .blue, .purple]),
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                        .frame(height: 6)
+                        .cornerRadius(3),
+                        thumbSize: CGSize(width: 48, height: 16)
+                    )
+                )
+        }
+        .padding()
+    }
+}
+
+private struct VerticalValueSlidersPreview: View {
+    @State var value1 = 0.5
+    @State var value2 = 0.5
+    @State var value3 = 0.5
+    @State var value4 = 0.5
+    
+    var body: some View {
+        HStack {
+            ValueSlider(value: $value1)
+                .valueSliderStyle(
+                    VerticalValueSliderStyle()
+                )
+            
+            ValueSlider(value: $value2)
+                .valueSliderStyle(
+                    VerticalValueSliderStyle(thumbSize: CGSize(width: 16, height: 32))
+                )
+            
+            ValueSlider(value: $value3)
+                .valueSliderStyle(
+                    VerticalValueSliderStyle(track:
+                        LinearGradient(
+                            gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]),
+                            startPoint: .bottom, endPoint: .top
+                        )
+                        .frame(width: 8)
+                        .cornerRadius(4)
+                    )
+                )
+            
+            ValueSlider(value: $value4)
+                .valueSliderStyle(
+                    VerticalValueSliderStyle(
+                        track: LinearGradient(
+                            gradient: Gradient(colors: [.purple, .blue, .purple]),
+                            startPoint: .bottom, endPoint: .top
+                        )
+                        .frame(width: 6)
+                        .cornerRadius(3),
+                        thumbSize: CGSize(width: 16, height: 48)
+                    )
+                )
+        }
+        .padding()
+    }
+}
