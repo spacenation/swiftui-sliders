@@ -153,18 +153,7 @@ private struct HorizontalRangeSlidersPreview: View {
                     HorizontalRangeSliderStyle(
                         track:
                             HorizontalRangeTrack(
-                                view:
-                                    ZStack {
-                                          LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .leading, endPoint: .trailing)
-                                          VStack {
-                                              Text("Any View")
-                                                  .font(.largeTitle)
-                                                  .foregroundColor(Color.white)
-                                              Text("Place any view here and it will be masked to a selected value range")
-                                                  .font(.title)
-                                                  .foregroundColor(Color.white.opacity(0.5))
-                                          }
-                                    },
+                                view: LinearGradient(gradient: Gradient(colors: [.blue, .red]), startPoint: .leading, endPoint: .trailing),
                                 mask: RoundedRectangle(cornerRadius: 10)
                             )
                             .background(Color.secondary.opacity(0.25)),
