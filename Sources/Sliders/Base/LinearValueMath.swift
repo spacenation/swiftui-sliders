@@ -21,3 +21,9 @@ import SwiftUI
     let validatedValue = min(bounds.upperBound, max(bounds.lowerBound, steppedNewValue))
     return validatedValue
 }
+
+extension Comparable {
+    func clamped(to range: ClosedRange<Self>) -> Self {
+        min(max(self, range.lowerBound), range.upperBound)
+    }
+}
