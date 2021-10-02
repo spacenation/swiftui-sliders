@@ -24,10 +24,10 @@ extension PointSlider {
         
         self.init(
             PointSliderStyleConfiguration(
-                x: Binding(get: { CGFloat(x.wrappedValue) }, set: { x.wrappedValue = V($0) }),
+                x: Binding(get: { CGFloat(x.wrappedValue.clamped(to: xBounds)) }, set: { x.wrappedValue = V($0) }),
                 xBounds: CGFloat(xBounds.lowerBound)...CGFloat(xBounds.upperBound),
                 xStep: CGFloat(xStep),
-                y: Binding(get: { CGFloat(y.wrappedValue) }, set: { y.wrappedValue = V($0) }),
+                y: Binding(get: { CGFloat(y.wrappedValue.clamped(to: yBounds)) }, set: { y.wrappedValue = V($0) }),
                 yBounds: CGFloat(yBounds.lowerBound)...CGFloat(yBounds.upperBound),
                 yStep: CGFloat(yStep),
                 onEditingChanged: onEditingChanged,
@@ -66,8 +66,8 @@ private struct PointSlidersPreview: View {
     @State var pointX1 = 0.5
     @State var pointY1 = 0.5
     
-    @State var pointX2 = 0.5
-    @State var pointY2 = 0.5
+    @State var pointX2 = 2.0
+    @State var pointY2 = -0.5
     
     var body: some View {
         VStack(spacing: 32) {

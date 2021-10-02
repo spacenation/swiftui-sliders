@@ -24,7 +24,7 @@ extension ValueSlider {
         
         self.init(
             ValueSliderStyleConfiguration(
-                value: Binding(get: { CGFloat(value.wrappedValue) }, set: { value.wrappedValue = V($0) }),
+                value: Binding(get: { CGFloat(value.wrappedValue.clamped(to: bounds)) }, set: { value.wrappedValue = V($0) }),
                 bounds: CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound),
                 step: CGFloat(step),
                 onEditingChanged: onEditingChanged,
@@ -132,7 +132,7 @@ private struct VerticalValueSlidersPreview: View {
     @State var value1 = 0.5
     @State var value2 = 0.5
     @State var value3 = 0.5
-    @State var value4 = 0.5
+    @State var value4 = 4.0
     
     var body: some View {
         HStack {
@@ -158,7 +158,7 @@ private struct VerticalValueSlidersPreview: View {
                     )
                 )
             
-            ValueSlider(value: $value4)
+            ValueSlider(value: $value4, in: 1.0 ... 3.0)
                 .valueSliderStyle(
                     VerticalValueSliderStyle(
                         track: LinearGradient(

@@ -25,7 +25,7 @@ extension RangeSlider {
         self.init(
             RangeSliderStyleConfiguration(
                 range: Binding(
-                    get: { CGFloat(range.wrappedValue.lowerBound)...CGFloat(range.wrappedValue.upperBound) },
+                    get: { CGFloat(range.wrappedValue.clamped(to: bounds).lowerBound)...CGFloat(range.wrappedValue.clamped(to: bounds).upperBound) },
                     set: { range.wrappedValue = V($0.lowerBound)...V($0.upperBound) }
                 ),
                 bounds: CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound),
@@ -70,7 +70,7 @@ private struct HorizontalRangeSlidersPreview: View {
     @State var range3 = 0.1...0.9
     @State var range4 = 0.1...0.9
     @State var range5 = 0.1...0.9
-    @State var range6 = 0.1...0.9
+    @State var range6 = -2.0...4.0
     
     var body: some View {
         VStack {
@@ -146,7 +146,7 @@ private struct HorizontalRangeSlidersPreview: View {
                     )
                 )
             
-            RangeSlider(range: $range6)
+            RangeSlider(range: $range6, in: 1.0 ... 3.0)
                 .cornerRadius(8)
                 .frame(height: 128)
                 .rangeSliderStyle(
