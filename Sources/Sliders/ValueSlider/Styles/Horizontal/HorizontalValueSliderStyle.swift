@@ -133,6 +133,7 @@ extension HorizontalValueSliderStyle where Thumb == DefaultThumb, Track == Defau
 }
 
 public struct DefaultHorizontalValueTrack: View {
+    public init() {}
     public var body: some View {
         HorizontalTrack()
             .frame(height: 3)

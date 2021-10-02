@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension EnvironmentValues {
+public extension EnvironmentValues {
     var valueTrackConfiguration: ValueTrackConfiguration {
         get {
             return self[ValueTrackConfigurationKey.self]
