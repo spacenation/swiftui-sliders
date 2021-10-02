@@ -109,19 +109,20 @@ private struct HorizontalValueSlidersPreview: View {
                 )
 
             
-            ValueSlider(value: $value4)
-                .valueSliderStyle(
-                    HorizontalValueSliderStyle(
-                        track: LinearGradient(
-                            gradient: Gradient(colors: [.purple, .blue, .purple]),
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                        .frame(height: 6)
-                        .cornerRadius(3),
-                        thumbSize: CGSize(width: 48, height: 16)
-                    )
-                )
+ValueSlider(value: $value4)
+    .valueSliderStyle(
+        HorizontalValueSliderStyle(
+            track: LinearGradient(
+                gradient: Gradient(colors: [.purple, .blue, .purple]),
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+            .frame(height: 6)
+            .cornerRadius(3),
+            thumbSize: CGSize(width: 48, height: 16),
+            options: .interactiveTrack
+        )
+    )
         }
         .padding()
     }
@@ -166,7 +167,8 @@ private struct VerticalValueSlidersPreview: View {
                         )
                         .frame(width: 6)
                         .cornerRadius(3),
-                        thumbSize: CGSize(width: 16, height: 48)
+                        thumbSize: CGSize(width: 16, height: 48),
+                        options: .interactiveTrack
                     )
                 )
         }
