@@ -1,5 +1,3 @@
-![ci](https://github.com/swift-extensions/swiftui-sliders/workflows/ci/badge.svg)
-
 ## Custom SwiftUI sliders and tracks.
 This package allows you to build highly customizable sliders and tracks for iOS, macOS and Mac Catalyst. 
 
