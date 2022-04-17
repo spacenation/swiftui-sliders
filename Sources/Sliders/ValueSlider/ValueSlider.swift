@@ -83,6 +83,7 @@ private struct HorizontalValueSlidersPreview: View {
     @State var value2 = 0.5
     @State var value3 = 0.5
     @State var value4 = 0.5
+    @State var value5 = 0.5
     
     var body: some View {
         VStack {
@@ -123,6 +124,17 @@ private struct HorizontalValueSlidersPreview: View {
                         options: .interactiveTrack
                     )
                 )
+            
+            ValueSlider(value: $value5)
+                .valueSliderStyle(
+                    HorizontalValueSliderStyle(
+                        track:
+                            HorizontalTrack(view: Color.blue)
+                                .frame(height: 3)
+                                .background(Color.red)
+                                .cornerRadius(1.5)
+                    )
+                )
         }
         .padding()
     }
@@ -133,6 +145,7 @@ private struct VerticalValueSlidersPreview: View {
     @State var value2 = 0.5
     @State var value3 = 0.5
     @State var value4 = 4.0
+    @State var value5 = 0.5
     
     var body: some View {
         HStack {
@@ -169,6 +182,17 @@ private struct VerticalValueSlidersPreview: View {
                         .cornerRadius(3),
                         thumbSize: CGSize(width: 16, height: 48),
                         options: .interactiveTrack
+                    )
+                )
+            
+            ValueSlider(value: $value5)
+                .valueSliderStyle(
+                    VerticalValueSliderStyle(
+                        track:
+                            VerticalTrack(view: Color.blue)
+                                .frame(width: 3)
+                                .background(Color.red)
+                                .cornerRadius(1.5)
                     )
                 )
         }
