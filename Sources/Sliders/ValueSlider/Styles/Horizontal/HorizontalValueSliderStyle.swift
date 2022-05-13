@@ -15,7 +15,7 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                 leadingOffset: self.thumbSize.width / 2,
                 trailingOffset: self.thumbSize.width / 2)
             )
-            .accentColor(.accentColor)
+            .accentColor(Color.accentColor)
 
         return GeometryReader { geometry in
             ZStack {

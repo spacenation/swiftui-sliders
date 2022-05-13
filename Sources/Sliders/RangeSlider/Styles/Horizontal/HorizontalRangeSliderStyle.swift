@@ -28,7 +28,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                         upperLeadingOffset: self.lowerThumbSize.width + self.upperThumbSize.width / 2,
                         upperTrailingOffset: self.upperThumbSize.width / 2
                     ))
-                    .accentColor(.accentColor)
+                    .accentColor(Color.accentColor)
 
                 ZStack {
                     self.lowerThumb

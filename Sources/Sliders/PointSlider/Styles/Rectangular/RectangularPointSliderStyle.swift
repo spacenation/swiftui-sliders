@@ -17,7 +17,7 @@ public struct RectangularPointSliderStyle<Track: View, Thumb: View>: PointSlider
                 yBounds: configuration.yBounds,
                 yStep: configuration.yStep
             ))
-            .accentColor(.accentColor)
+            .accentColor(Color.accentColor)
 
         return GeometryReader { geometry in
             ZStack {
@@ -178,6 +178,6 @@ extension RectangularPointSliderStyle where Thumb == DefaultThumb, Track == Defa
 public struct DefaultRectangularPointTrack: View {
     public var body: some View {
         Rectangle()
-            .foregroundColor(.accentColor)
+            .foregroundColor(Color.accentColor)
     }
 }

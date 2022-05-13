@@ -3,7 +3,7 @@ import SwiftUI
 public struct DefaultVerticalValueView: View {
     public var body: some View {
         Capsule()
-            .foregroundColor(.accentColor)
+            .foregroundColor(Color.accentColor)
             .frame(width: 3)
     }
 }
