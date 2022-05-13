@@ -16,13 +16,14 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                 trailingOffset: self.thumbSize.width / 2)
             )
             .accentColor(.accentColor)
-        
+
         return GeometryReader { geometry in
             ZStack {
                 if self.options.contains(.interactiveTrack) {
                     track.gesture(
                         DragGesture(minimumDistance: 0)
                             .onChanged { gestureValue in
+                                configuration.onEditingChanged(true)
                                 let computedValue = valueFrom(
                                     distance: gestureValue.location.x,
                                     availableDistance: geometry.size.width,
@@ -32,7 +33,6 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                                     trailingOffset: self.thumbSize.width / 2
                                 )
                                 configuration.value.wrappedValue = computedValue
-                                configuration.onEditingChanged(true)
                             }
                             .onEnded { _ in
                                 configuration.onEditingChanged(false)
@@ -41,7 +41,7 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                 } else {
                     track
                 }
-                
+
                 ZStack {
                     self.thumb
                         .frame(width: self.thumbSize.width, height: self.thumbSize.height)
@@ -60,6 +60,8 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                 .gesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { gestureValue in
+                            configuration.onEditingChanged(true)
+
                             if configuration.dragOffset.wrappedValue == nil {
                                 configuration.dragOffset.wrappedValue = gestureValue.startLocation.x - distanceFrom(
                                     value: configuration.value.wrappedValue,
@@ -80,7 +82,6 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                             )
 
                             configuration.value.wrappedValue = computedValue
-                            configuration.onEditingChanged(true)
                         }
                         .onEnded { _ in
                             configuration.dragOffset.wrappedValue = nil
@@ -92,7 +93,7 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
         }
         .frame(minHeight: self.thumbInteractiveSize.height)
     }
-    
+
     public init(track: Track, thumb: Thumb, thumbSize: CGSize = CGSize(width: 27, height: 27), thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: ValueSliderOptions = .defaultOptions) {
         self.track = track
         self.thumb = thumb
