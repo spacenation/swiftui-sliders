@@ -7,10 +7,10 @@ public struct HorizontalValueTrack<ValueView: View, MaskView: View>: View {
     @Environment(\.valueTrackConfiguration) var configuration
     let view: AnyView
     let mask: AnyView
-    
+
     public var body: some View {
         GeometryReader { geometry in
-            self.view.accentColor(.accentColor)
+            self.view.accentColor(Color.accentColor)
                 .mask(
                     ZStack {
                         self.mask

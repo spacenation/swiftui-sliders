@@ -5,11 +5,11 @@ public struct HorizontalRangeTrack<ValueView: View, MaskView: View>: View {
     @Environment(\.rangeTrackConfiguration) var configuration
     let view: AnyView
     let mask: AnyView
-    
+
     public var body: some View {
         GeometryReader { geometry in
             self.view
-                .accentColor(.accentColor)
+                .accentColor(Color.accentColor)
                 .mask(
                     ZStack {
                         self.mask
