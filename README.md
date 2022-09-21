@@ -47,7 +47,7 @@ struct ContentView: View {
     }
 }
 ```
-For more examples open `/Examples/SlidersExamples.xcodeproj`
+See the preview of each file to see an example
 
 ## Customization with style
 Use any SwiftUI view modifiers to create custom tracks and thumbs.
