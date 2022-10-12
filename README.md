@@ -5,7 +5,8 @@ This package allows you to build highly customizable sliders and tracks for iOS,
 - Build your own sliders and tracks using composition
 - Highly customizable
 - Horizontal and Vertical styles
-- Range and XY values
+- Range sliders with minimum/maximum value distance
+- XY sliders
 - Different sizes for lower and upper range thumbs
 
 <center>
@@ -53,7 +54,7 @@ See the preview of each file to see an example
 Use any SwiftUI view modifiers to create custom tracks and thumbs.
 
 ```swift
-RangeSlider(range: $model.range2)
+RangeSlider(range: $model.range2, distance: 0.1 ... 1.0)
     .rangeSliderStyle(
         HorizontalRangeSliderStyle(
             track:
@@ -84,4 +85,4 @@ RangeSlider(range: $model.range2)
 Feel free to contribute via fork/pull request to master branch. If you want to request a feature or report a bug please start a new issue.
 
 ## Coffee Contributions
-If you find this project useful please consider becoming my GitHub sponsor.
+If you find this project useful please consider becoming our GitHub sponsor.

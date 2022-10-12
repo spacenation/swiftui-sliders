@@ -20,16 +20,22 @@ extension RangeSlider {
 }
 
 extension RangeSlider {
-    public init<V>(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, onEditingChanged: @escaping (Bool) -> Void = { _ in }) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
-        
+    public init<V>(
+        range: Binding<ClosedRange<V>>,
+        in bounds: ClosedRange<V> = 0.0...1.0,
+        step: V.Stride = 0.001,
+        distance: ClosedRange<V> = 0.0 ... .infinity,
+        onEditingChanged: @escaping (Bool) -> Void = { _ in }
+    ) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
         self.init(
             RangeSliderStyleConfiguration(
                 range: Binding(
-                    get: { CGFloat(range.wrappedValue.clamped(to: bounds).lowerBound)...CGFloat(range.wrappedValue.clamped(to: bounds).upperBound) },
-                    set: { range.wrappedValue = V($0.lowerBound)...V($0.upperBound) }
+                    get: { CGFloat(range.wrappedValue.clamped(to: bounds).lowerBound) ... CGFloat(range.wrappedValue.clamped(to: bounds).upperBound) },
+                    set: { range.wrappedValue = V($0.lowerBound) ... V($0.upperBound) }
                 ),
-                bounds: CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound),
+                bounds: CGFloat(bounds.lowerBound) ... CGFloat(bounds.upperBound),
                 step: CGFloat(step),
+                distance: CGFloat(distance.lowerBound) ... CGFloat(distance.upperBound),
                 onEditingChanged: onEditingChanged,
                 dragOffset: .constant(0)
             )
@@ -38,16 +44,22 @@ extension RangeSlider {
 }
 
 extension RangeSlider {
-    public init<V>(range: Binding<ClosedRange<V>>, in bounds: ClosedRange<V> = 0...1, step: V.Stride = 1, onEditingChanged: @escaping (Bool) -> Void = { _ in }) where V : BinaryInteger, V.Stride : BinaryInteger {
-        
+    public init<V>(
+        range: Binding<ClosedRange<V>>,
+        in bounds: ClosedRange<V> = 0...1,
+        step: V.Stride = 1,
+        distance: ClosedRange<V> = 0 ... .max,
+        onEditingChanged: @escaping (Bool) -> Void = { _ in }
+    ) where V : FixedWidthInteger, V.Stride : FixedWidthInteger {
         self.init(
             RangeSliderStyleConfiguration(
                 range: Binding(
-                    get: { CGFloat(range.wrappedValue.lowerBound)...CGFloat(range.wrappedValue.upperBound) },
-                    set: { range.wrappedValue = V($0.lowerBound)...V($0.upperBound) }
+                    get: { CGFloat(range.wrappedValue.lowerBound) ... CGFloat(range.wrappedValue.upperBound) },
+                    set: { range.wrappedValue = V($0.lowerBound) ... V($0.upperBound) }
                 ),
-                bounds: CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound),
+                bounds: CGFloat(bounds.lowerBound) ... CGFloat(bounds.upperBound),
                 step: CGFloat(step),
+                distance: CGFloat(distance.lowerBound) ... CGFloat(distance.upperBound),
                 onEditingChanged: onEditingChanged,
                 dragOffset: .constant(0)
             )
@@ -59,7 +71,9 @@ struct RangeSlider_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             HorizontalRangeSlidersPreview()
+                .previewDisplayName("Horizontal Range Sliders")
             VerticalRangeSlidersPreview()
+                .previewDisplayName("Vertical Range Sliders")
         }
     }
 }
@@ -76,7 +90,7 @@ private struct HorizontalRangeSlidersPreview: View {
         VStack {
             RangeSlider(range: $range1)
             
-            RangeSlider(range: $range2)
+            RangeSlider(range: $range2, distance: 0.3 ... 1.0)
                 .rangeSliderStyle(
                     HorizontalRangeSliderStyle(
                         track:
@@ -180,7 +194,7 @@ private struct VerticalRangeSlidersPreview: View {
                     VerticalRangeSliderStyle()
                 )
             
-            RangeSlider(range: $range2)
+            RangeSlider(range: $range2, distance: 0.5 ... 0.7)
                 .rangeSliderStyle(
                     VerticalRangeSliderStyle(
                         track:
