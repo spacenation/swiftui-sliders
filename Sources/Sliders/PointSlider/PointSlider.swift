@@ -38,7 +38,7 @@ extension PointSlider {
 }
 
 extension PointSlider {
-    public init<V>(x: Binding<V>, xBounds: ClosedRange<V> = 0...1, xStep: V.Stride = 1, y: Binding<V>, yBounds: ClosedRange<V> = 0...1, yStep: V.Stride = 1, onEditingChanged: @escaping (Bool) -> Void = { _ in }) where V : BinaryInteger, V.Stride : BinaryInteger {
+    public init<V>(x: Binding<V>, xBounds: ClosedRange<V> = 0...1, xStep: V.Stride = 1, y: Binding<V>, yBounds: ClosedRange<V> = 0...1, yStep: V.Stride = 1, onEditingChanged: @escaping (Bool) -> Void = { _ in }) where V : FixedWidthInteger, V.Stride : FixedWidthInteger {
         
         self.init(
             PointSliderStyleConfiguration(

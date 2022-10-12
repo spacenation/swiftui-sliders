@@ -65,14 +65,14 @@ public struct VerticalRangeSliderStyle<Track: View, LowerThumb: View, UpperThumb
                                 leadingOffset: self.lowerThumbSize.height / 2,
                                 trailingOffset: self.lowerThumbSize.height / 2
                             )
-
-                            if self.options.contains(.forceAdjacentValue) {
-                                let computedUpperBound = max(computedLowerBound, configuration.range.wrappedValue.upperBound)
-                                configuration.range.wrappedValue = computedLowerBound...computedUpperBound
-                            } else {
-                                let computedLowerBound = min(computedLowerBound, configuration.range.wrappedValue.upperBound)
-                                configuration.range.wrappedValue = computedLowerBound...configuration.range.wrappedValue.upperBound
-                            }
+                            
+                            configuration.range.wrappedValue = rangeFrom(
+                                updatedLowerBound: computedLowerBound,
+                                upperBound: configuration.range.wrappedValue.upperBound,
+                                bounds: configuration.bounds,
+                                distance: configuration.distance,
+                                forceAdjacent: options.contains(.forceAdjacentValue)
+                            )
                         }
                         .onEnded { _ in
                             configuration.dragOffset.wrappedValue = nil
@@ -118,14 +118,14 @@ public struct VerticalRangeSliderStyle<Track: View, LowerThumb: View, UpperThumb
                                 leadingOffset: self.lowerThumbSize.height + self.upperThumbSize.height / 2,
                                 trailingOffset: self.upperThumbSize.height / 2
                             )
-
-                            if self.options.contains(.forceAdjacentValue) {
-                                let computedLowerBound = min(computedUpperBound, configuration.range.wrappedValue.lowerBound)
-                                configuration.range.wrappedValue = computedLowerBound...computedUpperBound
-                            } else {
-                                let computedUpperBound = max(computedUpperBound, configuration.range.wrappedValue.lowerBound)
-                                configuration.range.wrappedValue = configuration.range.wrappedValue.lowerBound...computedUpperBound
-                            }
+                            
+                            configuration.range.wrappedValue = rangeFrom(
+                                lowerBound: configuration.range.wrappedValue.lowerBound,
+                                updatedUpperBound: computedUpperBound,
+                                bounds: configuration.bounds,
+                                distance: configuration.distance,
+                                forceAdjacent: options.contains(.forceAdjacentValue)
+                            )
                         }
                         .onEnded { _ in
                             configuration.dragOffset.wrappedValue = nil

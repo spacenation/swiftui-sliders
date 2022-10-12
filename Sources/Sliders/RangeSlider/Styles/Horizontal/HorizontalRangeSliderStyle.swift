@@ -13,8 +13,8 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
 
     private let options: RangeSliderOptions
 
-  let onSelectLower: () -> Void
-  let onSelectUpper: () -> Void
+    let onSelectLower: () -> Void
+    let onSelectUpper: () -> Void
 
     public func makeBody(configuration: Self.Configuration) -> some View {
         GeometryReader { geometry in
@@ -46,7 +46,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                     y: geometry.size.height / 2
                 )
                 .onTapGesture {
-                  self.onSelectLower()
+                    self.onSelectLower()
                 }
                 .gesture(
                     DragGesture()
@@ -73,14 +73,14 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                                 leadingOffset: self.lowerThumbSize.width / 2,
                                 trailingOffset: self.lowerThumbSize.width / 2
                             )
-
-                            if self.options.contains(.forceAdjacentValue) {
-                                let computedUpperBound = max(computedLowerBound, configuration.range.wrappedValue.upperBound)
-                                configuration.range.wrappedValue = computedLowerBound...computedUpperBound
-                            } else {
-                                let computedLowerBound = min(computedLowerBound, configuration.range.wrappedValue.upperBound)
-                                configuration.range.wrappedValue = computedLowerBound...configuration.range.wrappedValue.upperBound
-                            }
+                            
+                            configuration.range.wrappedValue = rangeFrom(
+                                updatedLowerBound: computedLowerBound,
+                                upperBound: configuration.range.wrappedValue.upperBound,
+                                bounds: configuration.bounds,
+                                distance: configuration.distance,
+                                forceAdjacent: options.contains(.forceAdjacentValue)
+                            )
                         }
                         .onEnded { _ in
                             configuration.dragOffset.wrappedValue = nil
@@ -104,7 +104,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                     y: geometry.size.height / 2
                 )
                 .onTapGesture {
-                  self.onSelectUpper()
+                    self.onSelectUpper()
                 }
                 .gesture(
                     DragGesture()
@@ -131,15 +131,14 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                                 leadingOffset: self.lowerThumbSize.width + self.upperThumbSize.width / 2,
                                 trailingOffset: self.upperThumbSize.width / 2
                             )
-
-                            if self.options.contains(.forceAdjacentValue) {
-                                let computedLowerBound = min(computedUpperBound, configuration.range.wrappedValue.lowerBound)
-                                configuration.range.wrappedValue = computedLowerBound...computedUpperBound
-                            } else {
-                                let computedUpperBound = max(computedUpperBound, configuration.range.wrappedValue.lowerBound)
-                                configuration.range.wrappedValue = configuration.range.wrappedValue.lowerBound...computedUpperBound
-                            }
-
+                            
+                            configuration.range.wrappedValue = rangeFrom(
+                                lowerBound: configuration.range.wrappedValue.lowerBound,
+                                updatedUpperBound: computedUpperBound,
+                                bounds: configuration.bounds,
+                                distance: configuration.distance,
+                                forceAdjacent: options.contains(.forceAdjacentValue)
+                            )
                         }
                         .onEnded { _ in
                             configuration.dragOffset.wrappedValue = nil
