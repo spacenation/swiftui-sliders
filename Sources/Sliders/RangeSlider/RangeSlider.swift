@@ -54,7 +54,7 @@ extension RangeSlider {
         self.init(
             RangeSliderStyleConfiguration(
                 range: Binding(
-                    get: { CGFloat(range.wrappedValue.lowerBound) ... CGFloat(range.wrappedValue.upperBound) },
+                    get: { CGFloat(range.wrappedValue.clamped(to: bounds).lowerBound) ... CGFloat(range.wrappedValue.clamped(to: bounds).upperBound) },
                     set: { range.wrappedValue = V($0.lowerBound) ... V($0.upperBound) }
                 ),
                 bounds: CGFloat(bounds.lowerBound) ... CGFloat(bounds.upperBound),
