@@ -49,7 +49,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                     self.onSelectLower()
                 }
                 .gesture(
-                    DragGesture()
+                    DragGesture(minimumDistance: 0)
                         .onChanged { gestureValue in
                             configuration.onEditingChanged(true)
 
@@ -73,7 +73,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                                 leadingOffset: self.lowerThumbSize.width / 2,
                                 trailingOffset: self.lowerThumbSize.width / 2
                             )
-                            
+
                             configuration.range.wrappedValue = rangeFrom(
                                 updatedLowerBound: computedLowerBound,
                                 upperBound: configuration.range.wrappedValue.upperBound,
@@ -107,7 +107,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                     self.onSelectUpper()
                 }
                 .gesture(
-                    DragGesture()
+                    DragGesture(minimumDistance: 0)
                         .onChanged { gestureValue in
                             configuration.onEditingChanged(true)
 
@@ -131,7 +131,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                                 leadingOffset: self.lowerThumbSize.width + self.upperThumbSize.width / 2,
                                 trailingOffset: self.upperThumbSize.width / 2
                             )
-                            
+
                             configuration.range.wrappedValue = rangeFrom(
                                 lowerBound: configuration.range.wrappedValue.lowerBound,
                                 updatedUpperBound: computedUpperBound,

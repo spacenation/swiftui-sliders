@@ -43,7 +43,7 @@ public struct VerticalRangeSliderStyle<Track: View, LowerThumb: View, UpperThumb
                     )
                 )
                 .gesture(
-                    DragGesture()
+                    DragGesture(minimumDistance: 0)
                         .onChanged { gestureValue in
                             configuration.onEditingChanged(true)
 
@@ -65,7 +65,7 @@ public struct VerticalRangeSliderStyle<Track: View, LowerThumb: View, UpperThumb
                                 leadingOffset: self.lowerThumbSize.height / 2,
                                 trailingOffset: self.lowerThumbSize.height / 2
                             )
-                            
+
                             configuration.range.wrappedValue = rangeFrom(
                                 updatedLowerBound: computedLowerBound,
                                 upperBound: configuration.range.wrappedValue.upperBound,
@@ -96,7 +96,7 @@ public struct VerticalRangeSliderStyle<Track: View, LowerThumb: View, UpperThumb
                     )
                 )
                 .gesture(
-                    DragGesture()
+                    DragGesture(minimumDistance: 0)
                         .onChanged { gestureValue in
                             configuration.onEditingChanged(true)
 
@@ -118,7 +118,7 @@ public struct VerticalRangeSliderStyle<Track: View, LowerThumb: View, UpperThumb
                                 leadingOffset: self.lowerThumbSize.height + self.upperThumbSize.height / 2,
                                 trailingOffset: self.upperThumbSize.height / 2
                             )
-                            
+
                             configuration.range.wrappedValue = rangeFrom(
                                 lowerBound: configuration.range.wrappedValue.lowerBound,
                                 updatedUpperBound: computedUpperBound,
