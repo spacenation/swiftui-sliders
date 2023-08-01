@@ -47,7 +47,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                 )
                 .gesture(
                     SimultaneousGesture(
-                        DragGesture()
+                        DragGesture(minimumDistance: 0)
                             .onChanged { gestureValue in
                                 configuration.onEditingChanged(true)
 
@@ -108,7 +108,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                 )
                 .gesture(
                     SimultaneousGesture(
-                        DragGesture()
+                        DragGesture(minimumDistance: 0)
                             .onChanged { gestureValue in
                                 configuration.onEditingChanged(true)
 
