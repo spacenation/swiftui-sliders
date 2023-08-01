@@ -45,47 +45,50 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                     ),
                     y: geometry.size.height / 2
                 )
-                .onTapGesture {
-                    self.onSelectLower()
-                }
                 .gesture(
-                    DragGesture(minimumDistance: 0)
-                        .onChanged { gestureValue in
-                            configuration.onEditingChanged(true)
+                    SimultaneousGesture(
+                        DragGesture()
+                            .onChanged { gestureValue in
+                                configuration.onEditingChanged(true)
 
-                            self.onSelectLower()
+                                self.onSelectLower()
 
-                            if configuration.dragOffset.wrappedValue == nil {
-                                configuration.dragOffset.wrappedValue = gestureValue.startLocation.x - distanceFrom(
-                                    value: configuration.range.wrappedValue.lowerBound,
+                                if configuration.dragOffset.wrappedValue == nil {
+                                    configuration.dragOffset.wrappedValue = gestureValue.startLocation.x - distanceFrom(
+                                        value: configuration.range.wrappedValue.lowerBound,
+                                        availableDistance: geometry.size.width - self.upperThumbSize.width,
+                                        bounds: configuration.bounds,
+                                        leadingOffset: self.lowerThumbSize.width / 2,
+                                        trailingOffset: self.lowerThumbSize.width / 2
+                                    )
+                                }
+
+                                let computedLowerBound = valueFrom(
+                                    distance: gestureValue.location.x - (configuration.dragOffset.wrappedValue ?? 0),
                                     availableDistance: geometry.size.width - self.upperThumbSize.width,
                                     bounds: configuration.bounds,
+                                    step: configuration.step,
                                     leadingOffset: self.lowerThumbSize.width / 2,
                                     trailingOffset: self.lowerThumbSize.width / 2
                                 )
+
+                                configuration.range.wrappedValue = rangeFrom(
+                                    updatedLowerBound: computedLowerBound,
+                                    upperBound: configuration.range.wrappedValue.upperBound,
+                                    bounds: configuration.bounds,
+                                    distance: configuration.distance,
+                                    forceAdjacent: options.contains(.forceAdjacentValue)
+                                )
                             }
-
-                            let computedLowerBound = valueFrom(
-                                distance: gestureValue.location.x - (configuration.dragOffset.wrappedValue ?? 0),
-                                availableDistance: geometry.size.width - self.upperThumbSize.width,
-                                bounds: configuration.bounds,
-                                step: configuration.step,
-                                leadingOffset: self.lowerThumbSize.width / 2,
-                                trailingOffset: self.lowerThumbSize.width / 2
-                            )
-
-                            configuration.range.wrappedValue = rangeFrom(
-                                updatedLowerBound: computedLowerBound,
-                                upperBound: configuration.range.wrappedValue.upperBound,
-                                bounds: configuration.bounds,
-                                distance: configuration.distance,
-                                forceAdjacent: options.contains(.forceAdjacentValue)
-                            )
-                        }
-                        .onEnded { _ in
-                            configuration.dragOffset.wrappedValue = nil
-                            configuration.onEditingChanged(false)
-                        }
+                            .onEnded { _ in
+                                configuration.dragOffset.wrappedValue = nil
+                                configuration.onEditingChanged(false)
+                            },
+                        TapGesture()
+                            .onEnded { _ in
+                                self.onSelectLower()
+                            }
+                    )
                 )
 
                 ZStack {
@@ -103,47 +106,50 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                     ),
                     y: geometry.size.height / 2
                 )
-                .onTapGesture {
-                    self.onSelectUpper()
-                }
                 .gesture(
-                    DragGesture(minimumDistance: 0)
-                        .onChanged { gestureValue in
-                            configuration.onEditingChanged(true)
+                    SimultaneousGesture(
+                        DragGesture()
+                            .onChanged { gestureValue in
+                                configuration.onEditingChanged(true)
 
-                            self.onSelectUpper()
+                                self.onSelectUpper()
 
-                            if configuration.dragOffset.wrappedValue == nil {
-                                configuration.dragOffset.wrappedValue = gestureValue.startLocation.x - distanceFrom(
-                                    value: configuration.range.wrappedValue.upperBound,
+                                if configuration.dragOffset.wrappedValue == nil {
+                                    configuration.dragOffset.wrappedValue = gestureValue.startLocation.x - distanceFrom(
+                                        value: configuration.range.wrappedValue.upperBound,
+                                        availableDistance: geometry.size.width,
+                                        bounds: configuration.bounds,
+                                        leadingOffset: self.lowerThumbSize.width + self.upperThumbSize.width / 2,
+                                        trailingOffset: self.upperThumbSize.width / 2
+                                    )
+                                }
+
+                                let computedUpperBound = valueFrom(
+                                    distance: gestureValue.location.x - (configuration.dragOffset.wrappedValue ?? 0),
                                     availableDistance: geometry.size.width,
                                     bounds: configuration.bounds,
+                                    step: configuration.step,
                                     leadingOffset: self.lowerThumbSize.width + self.upperThumbSize.width / 2,
                                     trailingOffset: self.upperThumbSize.width / 2
                                 )
+
+                                configuration.range.wrappedValue = rangeFrom(
+                                    lowerBound: configuration.range.wrappedValue.lowerBound,
+                                    updatedUpperBound: computedUpperBound,
+                                    bounds: configuration.bounds,
+                                    distance: configuration.distance,
+                                    forceAdjacent: options.contains(.forceAdjacentValue)
+                                )
                             }
-
-                            let computedUpperBound = valueFrom(
-                                distance: gestureValue.location.x - (configuration.dragOffset.wrappedValue ?? 0),
-                                availableDistance: geometry.size.width,
-                                bounds: configuration.bounds,
-                                step: configuration.step,
-                                leadingOffset: self.lowerThumbSize.width + self.upperThumbSize.width / 2,
-                                trailingOffset: self.upperThumbSize.width / 2
-                            )
-
-                            configuration.range.wrappedValue = rangeFrom(
-                                lowerBound: configuration.range.wrappedValue.lowerBound,
-                                updatedUpperBound: computedUpperBound,
-                                bounds: configuration.bounds,
-                                distance: configuration.distance,
-                                forceAdjacent: options.contains(.forceAdjacentValue)
-                            )
-                        }
-                        .onEnded { _ in
-                            configuration.dragOffset.wrappedValue = nil
-                            configuration.onEditingChanged(false)
-                        }
+                            .onEnded { _ in
+                                configuration.dragOffset.wrappedValue = nil
+                                configuration.onEditingChanged(false)
+                            },
+                        TapGesture()
+                            .onEnded { _ in
+                                self.onSelectUpper()
+                            }
+                    )
                 )
 
             }
