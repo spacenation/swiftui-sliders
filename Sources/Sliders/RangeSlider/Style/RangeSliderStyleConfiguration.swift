@@ -6,6 +6,7 @@ public struct RangeSliderStyleConfiguration {
     public let step: CGFloat
     public let distance: ClosedRange<CGFloat>
     public let onEditingChanged: (Bool) -> Void
+    public let onPrecisionScrubbingChange: (Float?) -> Void
     public var dragOffset: Binding<CGFloat?>
     public var lowerGestureState: GestureState<SliderGestureState?>
     public var upperGestureState: GestureState<SliderGestureState?>

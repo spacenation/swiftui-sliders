@@ -157,6 +157,9 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
             .onChange(of: configuration.lowerGestureState.wrappedValue != nil || configuration.upperGestureState.wrappedValue != nil) { editing in
                 configuration.onEditingChanged(editing)
             }
+            .onChange(of: configuration.lowerGestureState.wrappedValue?.speed ?? configuration.upperGestureState.wrappedValue?.speed) { speed in
+                configuration.onPrecisionScrubbingChange(speed?.rawValue)
+            }
         }
         .frame(minHeight: max(self.lowerThumbInteractiveSize.height, self.upperThumbInteractiveSize.height))
     }

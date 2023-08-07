@@ -24,14 +24,20 @@ extension ValueSlider {
 }
 
 extension ValueSlider {
-    public init<V>(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, onEditingChanged: @escaping (Bool) -> Void = { _ in }) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
-        
+    public init<V>(
+        value: Binding<V>,
+        in bounds: ClosedRange<V> = 0.0...1.0,
+        step: V.Stride = 0.001,
+        onEditingChanged: @escaping (Bool) -> Void = { _ in },
+        onPrecisionScrubbingChange: @escaping (Float?) -> Void = { _ in }
+    ) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
         self.init(
             ValueSliderStyleConfiguration(
                 value: Binding(get: { CGFloat(value.wrappedValue.clamped(to: bounds)) }, set: { value.wrappedValue = V($0) }),
                 bounds: CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound),
                 step: CGFloat(step),
                 onEditingChanged: onEditingChanged,
+                onPrecisionScrubbingChange: onPrecisionScrubbingChange,
                 dragOffset: .constant(0),
                 gestureState: .init(initialValue: nil)
             )
@@ -40,13 +46,20 @@ extension ValueSlider {
 }
 
 extension ValueSlider {
-    public init<V>(value: Binding<V>, in bounds: ClosedRange<V> = 0...1, step: V.Stride = 1, onEditingChanged: @escaping (Bool) -> Void = { _ in }) where V : FixedWidthInteger, V.Stride : FixedWidthInteger {
+    public init<V>(
+        value: Binding<V>,
+        in bounds: ClosedRange<V> = 0...1,
+        step: V.Stride = 1,
+        onEditingChanged: @escaping (Bool) -> Void = { _ in },
+        onPrecisionScrubbingChange: @escaping (Float?) -> Void = { _ in }
+    ) where V : FixedWidthInteger, V.Stride : FixedWidthInteger {
         self.init(
             ValueSliderStyleConfiguration(
                 value: Binding(get: { CGFloat(value.wrappedValue.clamped(to: bounds)) }, set: { value.wrappedValue = V($0) }),
                 bounds: CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound),
                 step: CGFloat(step),
                 onEditingChanged: onEditingChanged,
+                onPrecisionScrubbingChange: onPrecisionScrubbingChange,
                 dragOffset: .constant(0),
                 gestureState: .init(initialValue: nil)
             )
@@ -55,8 +68,13 @@ extension ValueSlider {
 }
 
 extension ValueSlider {
-    public init(value: Binding<Measurement<Unit>>, in bounds: ClosedRange<Measurement<Unit>>, step: Measurement<Unit>, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        
+    public init(
+        value: Binding<Measurement<Unit>>,
+        in bounds: ClosedRange<Measurement<Unit>>,
+        step: Measurement<Unit>,
+        onEditingChanged: @escaping (Bool) -> Void = { _ in },
+        onPrecisionScrubbingChange: @escaping (Float?) -> Void = { _ in }
+    ) {
         self.init(
             ValueSliderStyleConfiguration(
                 value: Binding(get: {
@@ -68,6 +86,7 @@ extension ValueSlider {
                 bounds: CGFloat(bounds.lowerBound.value)...CGFloat(bounds.upperBound.value),
                 step: CGFloat(step.value),
                 onEditingChanged: onEditingChanged,
+                onPrecisionScrubbingChange: onPrecisionScrubbingChange,
                 dragOffset: .constant(0),
                 gestureState: .init(initialValue: nil)
             )

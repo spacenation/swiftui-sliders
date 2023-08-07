@@ -2,11 +2,11 @@ import Foundation
 import SwiftUI
 
 public struct SliderGestureState: Equatable {
-    enum Speed: CGFloat {
+    enum Speed: Float {
         case normal = 1
-        case half = 0.5
-        case quarter = 0.25
-        case eighth = 0.125
+        case half = 2
+        case quarter = 4
+        case eighth = 8
     }
 
     let precisionScrubbing: Bool
@@ -20,7 +20,7 @@ public struct SliderGestureState: Equatable {
     var offset: CGFloat {
         accumulations.reduce(0) { accum, tuple in
             let (speed, value) = tuple
-            let appliedValue = precisionScrubbing ? speed.rawValue * value : value
+            let appliedValue = precisionScrubbing ? value / CGFloat(speed.rawValue) : value
             return accum + appliedValue
         }
     }
@@ -31,9 +31,9 @@ public struct SliderGestureState: Equatable {
     }
 
     private func speed(crossAxisOffset: CGFloat) -> Speed {
-        if abs(crossAxisOffset) > 200 {
+        if abs(crossAxisOffset) > 300 {
             return .eighth
-        } else if abs(crossAxisOffset) > 150 {
+        } else if abs(crossAxisOffset) > 200 {
             return .quarter
         } else if abs(crossAxisOffset) > 100 {
             return .half

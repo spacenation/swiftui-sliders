@@ -89,6 +89,9 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
             .onChange(of: configuration.gestureState.wrappedValue != nil) { editing in
                 configuration.onEditingChanged(editing)
             }
+            .onChange(of: configuration.gestureState.wrappedValue?.speed) { speed in
+                configuration.onPrecisionScrubbingChange(speed?.rawValue)
+            }
         }
         .frame(minHeight: self.thumbInteractiveSize.height)
     }

@@ -5,14 +5,24 @@ public struct ValueSliderStyleConfiguration {
     public let bounds: ClosedRange<CGFloat>
     public let step: CGFloat
     public let onEditingChanged: (Bool) -> Void
+    public let onPrecisionScrubbingChange: (Float?) -> Void
     public var dragOffset: Binding<CGFloat?>
     public var gestureState: GestureState<SliderGestureState?>
     
-    public init(value: Binding<CGFloat>, bounds: ClosedRange<CGFloat>, step: CGFloat, onEditingChanged: @escaping (Bool) -> Void, dragOffset: Binding<CGFloat?>, gestureState: GestureState<SliderGestureState?>) {
+    public init(
+        value: Binding<CGFloat>,
+        bounds: ClosedRange<CGFloat>,
+        step: CGFloat,
+        onEditingChanged: @escaping (Bool) -> Void,
+        onPrecisionScrubbingChange: @escaping (Float?) -> Void,
+        dragOffset: Binding<CGFloat?>,
+        gestureState: GestureState<SliderGestureState?>
+    ) {
         self.value = value
         self.bounds = bounds
         self.step = step
         self.onEditingChanged = onEditingChanged
+        self.onPrecisionScrubbingChange = onPrecisionScrubbingChange
         self.dragOffset = dragOffset
         self.gestureState = gestureState
     }
