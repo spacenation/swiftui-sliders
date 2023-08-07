@@ -7,10 +7,14 @@ public struct RangeSliderStyleConfiguration {
     public let distance: ClosedRange<CGFloat>
     public let onEditingChanged: (Bool) -> Void
     public var dragOffset: Binding<CGFloat?>
+    public var lowerGestureState: GestureState<SliderGestureState?>
+    public var upperGestureState: GestureState<SliderGestureState?>
     
-    func with(dragOffset: Binding<CGFloat?>) -> Self {
+    func with(dragOffset: Binding<CGFloat?>, lowerGestureState: GestureState<SliderGestureState?>, upperGestureState: GestureState<SliderGestureState?>) -> Self {
         var mutSelf = self
         mutSelf.dragOffset = dragOffset
+        mutSelf.lowerGestureState = lowerGestureState
+        mutSelf.upperGestureState = upperGestureState
         return mutSelf
     }
 }
