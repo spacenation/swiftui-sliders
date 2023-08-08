@@ -2,7 +2,11 @@ import Foundation
 import SwiftUI
 
 public struct SliderGestureState: Equatable {
-    enum Speed: Float {
+    enum Speed: Float, Comparable, CaseIterable {
+        static func < (lhs: SliderGestureState.Speed, rhs: SliderGestureState.Speed) -> Bool {
+            lhs.rawValue < rhs.rawValue
+        }
+
         case normal = 1
         case half = 2
         case quarter = 4
@@ -44,10 +48,23 @@ public struct SliderGestureState: Equatable {
 
     func updating(with offset: CGFloat, crossAxisOffset: CGFloat) -> Self {
         var mutSelf = self
+
         let speed = speed(crossAxisOffset: crossAxisOffset)
         mutSelf.speed = speed
-        mutSelf.accumulations[speed] = (accumulations[speed] ?? 0) + offset - lastOffset
+
+        var accumulations = Speed.allCases.reduce([:]) { (accum: [Speed:CGFloat], accumSpeed: Speed) in
+            var out = accum
+
+            let appliedSpeed = min(accumSpeed, speed)
+            out[appliedSpeed] = (out[appliedSpeed] ?? 0) + (self.accumulations[accumSpeed] ?? 0)
+
+            return out
+        }
+        accumulations[speed] = (accumulations[speed] ?? 0) + offset - lastOffset
+        mutSelf.accumulations = accumulations
+
         mutSelf.lastOffset = offset
+
         return mutSelf
     }
 }
