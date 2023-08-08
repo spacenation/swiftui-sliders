@@ -19,7 +19,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
     private func lowerX(configuration: Self.Configuration, geometry: GeometryProxy) -> CGFloat {
         distanceFrom(
             value: configuration.range.wrappedValue.lowerBound,
-            availableDistance: geometry.size.width,
+            availableDistance: geometry.size.width - upperThumbSize.width,
             bounds: configuration.bounds,
             leadingOffset: lowerThumbSize.width / 2,
             trailingOffset: lowerThumbSize.width / 2
@@ -31,7 +31,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
             value: configuration.range.wrappedValue.upperBound,
             availableDistance: geometry.size.width,
             bounds: configuration.bounds,
-            leadingOffset: upperThumbSize.width / 2,
+            leadingOffset: lowerThumbSize.width + upperThumbSize.width / 2,
             trailingOffset: upperThumbSize.width / 2
         )
     }
@@ -142,7 +142,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                     availableDistance: geometry.size.width,
                     bounds: configuration.bounds,
                     step: configuration.step,
-                    leadingOffset: upperThumbSize.width / 2,
+                    leadingOffset: lowerThumbSize.width + upperThumbSize.width / 2,
                     trailingOffset: upperThumbSize.width / 2
                 )
 
