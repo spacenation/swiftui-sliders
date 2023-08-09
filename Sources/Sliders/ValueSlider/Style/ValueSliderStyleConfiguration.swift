@@ -7,7 +7,8 @@ public struct ValueSliderStyleConfiguration {
     public let onEditingChanged: (Bool) -> Void
     public var precisionScrubbing: PrecisionScrubbingConfig
     public var dragOffset: Binding<CGFloat?>
-    public var gestureState: GestureState<SliderGestureState?>
+    public var thumbGestureState: GestureState<SliderGestureState?>
+    public var trackGestureState: GestureState<SliderGestureState?>
     
     public init(
         value: Binding<CGFloat>,
@@ -16,7 +17,8 @@ public struct ValueSliderStyleConfiguration {
         onEditingChanged: @escaping (Bool) -> Void,
         precisionScrubbing: PrecisionScrubbingConfig,
         dragOffset: Binding<CGFloat?>,
-        gestureState: GestureState<SliderGestureState?>
+        thumbGestureState: GestureState<SliderGestureState?>,
+        trackGestureState: GestureState<SliderGestureState?>
     ) {
         self.value = value
         self.bounds = bounds
@@ -24,14 +26,21 @@ public struct ValueSliderStyleConfiguration {
         self.onEditingChanged = onEditingChanged
         self.precisionScrubbing = precisionScrubbing
         self.dragOffset = dragOffset
-        self.gestureState = gestureState
+        self.thumbGestureState = thumbGestureState
+        self.trackGestureState = trackGestureState
     }
     
-    func with(precisionScrubbing: PrecisionScrubbingConfig, dragOffset: Binding<CGFloat?>, gestureState: GestureState<SliderGestureState?>) -> Self {
+    func with(
+        precisionScrubbing: PrecisionScrubbingConfig,
+        dragOffset: Binding<CGFloat?>,
+        thumbGestureState: GestureState<SliderGestureState?>,
+        trackGestureState: GestureState<SliderGestureState?>
+    ) -> Self {
         var mutSelf = self
         mutSelf.precisionScrubbing = precisionScrubbing
         mutSelf.dragOffset = dragOffset
-        mutSelf.gestureState = gestureState
+        mutSelf.thumbGestureState = thumbGestureState
+        mutSelf.trackGestureState = trackGestureState
         return mutSelf
     }
 }

@@ -18,6 +18,7 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
     }
 
     public func makeBody(configuration: Self.Configuration) -> some View {
+        let prominentGesture = configuration.thumbGestureState.wrappedValue ?? configuration.trackGestureState.wrappedValue
         let track = self.track
             .environment(\.trackValue, configuration.value.wrappedValue)
             .environment(\.valueTrackConfiguration, ValueTrackConfiguration(
@@ -32,7 +33,7 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                 if self.options.contains(.interactiveTrack) {
                     track.gesture(
                         DragGesture(minimumDistance: 0)
-                            .updating(configuration.gestureState) { value, state, transaction in
+                            .updating(configuration.trackGestureState) { value, state, transaction in
                                 state = (state ?? SliderGestureState(initialOffset: 0)).updating(
                                     with: value.location.x,
                                     speed: configuration.precisionScrubbing.scrubValue(Float(value.translation.height))
@@ -54,7 +55,7 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                 )
                 .gesture(
                     DragGesture(minimumDistance: 0)
-                        .updating(configuration.gestureState) { value, state, transaction in
+                        .updating(configuration.thumbGestureState) { value, state, transaction in
                             state = (state ?? {
                                 let x = x(configuration: configuration, geometry: geometry)
                                 return SliderGestureState(initialOffset: value.location.x - x)
@@ -66,7 +67,7 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                 )
             }
             .frame(height: geometry.size.height)
-            .onChange(of: configuration.gestureState.wrappedValue) { state in
+            .onChange(of: prominentGesture) { state in
                 guard let state else { return }
 
                 configuration.value.wrappedValue = valueFrom(
@@ -78,10 +79,10 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                     trailingOffset: self.thumbSize.width / 2
                 )
             }
-            .onChange(of: configuration.gestureState.wrappedValue != nil) { editing in
+            .onChange(of: prominentGesture != nil) { editing in
                 configuration.onEditingChanged(editing)
             }
-            .onChange(of: configuration.gestureState.wrappedValue?.speed) { speed in
+            .onChange(of: prominentGesture?.speed) { speed in
                 configuration.precisionScrubbing.onChange?(speed)
             }
         }

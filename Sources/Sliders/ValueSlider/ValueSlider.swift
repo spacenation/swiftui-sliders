@@ -4,7 +4,8 @@ public struct ValueSlider: View {
     @Environment(\.valueSliderStyle) private var style
     @Environment(\.precisionScrubbing) private var precisionScrubbing
     @State private var dragOffset: CGFloat?
-    @GestureState private var gestureState: SliderGestureState?
+    @GestureState private var thumbGestureState: SliderGestureState?
+    @GestureState private var trackGestureState: SliderGestureState?
     
     private var configuration: ValueSliderStyleConfiguration
     
@@ -13,7 +14,8 @@ public struct ValueSlider: View {
             self.configuration.with(
                 precisionScrubbing: self.precisionScrubbing,
                 dragOffset: self.$dragOffset,
-                gestureState: self.$gestureState
+                thumbGestureState: self.$thumbGestureState,
+                trackGestureState: self.$trackGestureState
             )
         )
     }
@@ -40,7 +42,8 @@ extension ValueSlider {
                 onEditingChanged: onEditingChanged,
                 precisionScrubbing: PrecisionScrubbingKey.defaultValue,
                 dragOffset: .constant(0),
-                gestureState: .init(initialValue: nil)
+                thumbGestureState: .init(initialValue: nil),
+                trackGestureState: .init(initialValue: nil)
             )
         )
     }
@@ -61,7 +64,8 @@ extension ValueSlider {
                 onEditingChanged: onEditingChanged,
                 precisionScrubbing: PrecisionScrubbingKey.defaultValue,
                 dragOffset: .constant(0),
-                gestureState: .init(initialValue: nil)
+                thumbGestureState: .init(initialValue: nil),
+                trackGestureState: .init(initialValue: nil)
             )
         )
     }
@@ -87,7 +91,8 @@ extension ValueSlider {
                 onEditingChanged: onEditingChanged,
                 precisionScrubbing: PrecisionScrubbingKey.defaultValue,
                 dragOffset: .constant(0),
-                gestureState: .init(initialValue: nil)
+                thumbGestureState: .init(initialValue: nil),
+                trackGestureState: .init(initialValue: nil)
             )
         )
     }
