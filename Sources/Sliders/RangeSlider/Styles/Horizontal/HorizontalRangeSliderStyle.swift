@@ -160,7 +160,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                     forceAdjacent: options.contains(.forceAdjacentValue)
                 )
             }
-            .onChange(of: configuration.lowerGestureState.wrappedValue != nil || configuration.upperGestureState.wrappedValue != nil) { editing in
+            .onChange(of: editing) { editing in
                 configuration.onEditingChanged(editing)
             }
             .onChange(of: precisionScrubbingSpeed) { precisionScrubbingSpeed in
