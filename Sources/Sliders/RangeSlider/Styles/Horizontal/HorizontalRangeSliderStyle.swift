@@ -65,13 +65,10 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                             .updating(configuration.lowerGestureState) { value, state, transaction in
                                 state = (state ?? {
                                     let x = lowerX(configuration: configuration, geometry: geometry)
-                                    return SliderGestureState(
-                                        precisionScrubbing: options.contains(.precisionScrubbing),
-                                        initialOffset: value.location.x - x
-                                    )
+                                    return SliderGestureState(initialOffset: value.location.x - x)
                                 }()).updating(
                                     with: value.location.x,
-                                    crossAxisOffset: value.translation.height
+                                    speed: configuration.precisionScrubbing(Float(value.translation.height))
                                 )
                             },
                         TapGesture()
@@ -96,13 +93,10 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                             .updating(configuration.upperGestureState) { value, state, transaction in
                                 state = (state ?? { () -> SliderGestureState in
                                     let x = upperX(configuration: configuration, geometry: geometry)
-                                    return SliderGestureState(
-                                        precisionScrubbing: options.contains(.precisionScrubbing),
-                                        initialOffset: value.location.x - x
-                                    )
+                                    return SliderGestureState(initialOffset: value.location.x - x)
                                 }()).updating(
                                     with: value.location.x,
-                                    crossAxisOffset: value.translation.height
+                                    speed: configuration.precisionScrubbing(Float(value.translation.height))
                                 )
                             },
                         TapGesture()
@@ -156,9 +150,6 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
             }
             .onChange(of: configuration.lowerGestureState.wrappedValue != nil || configuration.upperGestureState.wrappedValue != nil) { editing in
                 configuration.onEditingChanged(editing)
-            }
-            .onChange(of: configuration.lowerGestureState.wrappedValue?.speed ?? configuration.upperGestureState.wrappedValue?.speed) { speed in
-                configuration.onPrecisionScrubbingChange(speed?.rawValue)
             }
         }
         .frame(minHeight: max(self.lowerThumbInteractiveSize.height, self.upperThumbInteractiveSize.height))

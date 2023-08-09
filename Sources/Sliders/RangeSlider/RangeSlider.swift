@@ -3,6 +3,7 @@ import SwiftUI
 public struct RangeSlider: View {
     @Environment(\.rangeSliderStyle) private var style
     @State private var dragOffset: CGFloat?
+    @Environment(\.precisionScrubbing) private var precisionScrubbing
     @GestureState private var lowerGestureState: SliderGestureState?
     @GestureState private var upperGestureState: SliderGestureState?
     
@@ -11,6 +12,7 @@ public struct RangeSlider: View {
     public var body: some View {
         self.style.makeBody(configuration:
             self.configuration.with(
+                precisionScrubbing: self.precisionScrubbing,
                 dragOffset: self.$dragOffset,
                 lowerGestureState: self.$lowerGestureState,
                 upperGestureState: self.$upperGestureState
@@ -31,8 +33,7 @@ extension RangeSlider {
         in bounds: ClosedRange<V> = 0.0...1.0,
         step: V.Stride = 0.001,
         distance: ClosedRange<V> = 0.0 ... .infinity,
-        onEditingChanged: @escaping (Bool) -> Void = { _ in },
-        onPrecisionScrubbingChange: @escaping (Float?) -> Void = { _ in }
+        onEditingChanged: @escaping (Bool) -> Void = { _ in }
     ) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
         self.init(
             RangeSliderStyleConfiguration(
@@ -44,7 +45,7 @@ extension RangeSlider {
                 step: CGFloat(step),
                 distance: CGFloat(distance.lowerBound) ... CGFloat(distance.upperBound),
                 onEditingChanged: onEditingChanged,
-                onPrecisionScrubbingChange: onPrecisionScrubbingChange,
+                precisionScrubbing: { _ in 1 },
                 dragOffset: .constant(0),
                 lowerGestureState: .init(initialValue: nil),
                 upperGestureState: .init(initialValue: nil)
@@ -59,8 +60,7 @@ extension RangeSlider {
         in bounds: ClosedRange<V> = 0...1,
         step: V.Stride = 1,
         distance: ClosedRange<V> = 0 ... .max,
-        onEditingChanged: @escaping (Bool) -> Void = { _ in },
-        onPrecisionScrubbingChange: @escaping (Float?) -> Void = { _ in }
+        onEditingChanged: @escaping (Bool) -> Void = { _ in }
     ) where V : FixedWidthInteger, V.Stride : FixedWidthInteger {
         self.init(
             RangeSliderStyleConfiguration(
@@ -72,7 +72,7 @@ extension RangeSlider {
                 step: CGFloat(step),
                 distance: CGFloat(distance.lowerBound) ... CGFloat(distance.upperBound),
                 onEditingChanged: onEditingChanged,
-                onPrecisionScrubbingChange: onPrecisionScrubbingChange,
+                precisionScrubbing: { _ in 1 },
                 dragOffset: .constant(0),
                 lowerGestureState: .init(initialValue: nil),
                 upperGestureState: .init(initialValue: nil)

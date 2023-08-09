@@ -33,14 +33,9 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                     track.gesture(
                         DragGesture(minimumDistance: 0)
                             .updating(configuration.gestureState) { value, state, transaction in
-                                state = (state ?? {
-                                    SliderGestureState(
-                                        precisionScrubbing: options.contains(.precisionScrubbing),
-                                        initialOffset: 0
-                                    )
-                                }()).updating(
+                                state = (state ?? SliderGestureState(initialOffset: 0)).updating(
                                     with: value.location.x,
-                                    crossAxisOffset: value.translation.height
+                                    speed: configuration.precisionScrubbing(Float(value.translation.height))
                                 )
                             }
                     )
@@ -62,13 +57,10 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                         .updating(configuration.gestureState) { value, state, transaction in
                             state = (state ?? {
                                 let x = x(configuration: configuration, geometry: geometry)
-                                return SliderGestureState(
-                                    precisionScrubbing: options.contains(.precisionScrubbing),
-                                    initialOffset: value.location.x - x
-                                )
+                                return SliderGestureState(initialOffset: value.location.x - x)
                             }()).updating(
                                 with: value.location.x,
-                                crossAxisOffset: value.translation.height
+                                speed: configuration.precisionScrubbing(Float(value.translation.height))
                             )
                         }
                 )
@@ -88,9 +80,6 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
             }
             .onChange(of: configuration.gestureState.wrappedValue != nil) { editing in
                 configuration.onEditingChanged(editing)
-            }
-            .onChange(of: configuration.gestureState.wrappedValue?.speed) { speed in
-                configuration.onPrecisionScrubbingChange(speed?.rawValue)
             }
         }
         .frame(minHeight: self.thumbInteractiveSize.height)
