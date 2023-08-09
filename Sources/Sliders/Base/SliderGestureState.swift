@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 
 public struct SliderGestureState: Equatable {
+    var speed: Float?
     private var lastOffset: CGFloat
     private var accumulations: [Float:CGFloat] = [1: 0]
 
@@ -18,6 +19,8 @@ public struct SliderGestureState: Equatable {
 
     func updating(with offset: CGFloat, speed: Float) -> Self {
         var mutSelf = self
+
+        mutSelf.speed = speed
 
         var accumulations = self.accumulations.reduce([:]) { (accum: [Float:CGFloat], element) in
             let (elementSpeed, elementValue) = element

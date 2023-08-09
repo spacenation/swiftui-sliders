@@ -38,7 +38,7 @@ extension ValueSlider {
                 bounds: CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound),
                 step: CGFloat(step),
                 onEditingChanged: onEditingChanged,
-                precisionScrubbing: { _ in 1 },
+                precisionScrubbing: PrecisionScrubbingKey.defaultValue,
                 dragOffset: .constant(0),
                 gestureState: .init(initialValue: nil)
             )
@@ -59,7 +59,7 @@ extension ValueSlider {
                 bounds: CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound),
                 step: CGFloat(step),
                 onEditingChanged: onEditingChanged,
-                precisionScrubbing: { _ in 1 },
+                precisionScrubbing: PrecisionScrubbingKey.defaultValue,
                 dragOffset: .constant(0),
                 gestureState: .init(initialValue: nil)
             )
@@ -85,7 +85,7 @@ extension ValueSlider {
                 bounds: CGFloat(bounds.lowerBound.value)...CGFloat(bounds.upperBound.value),
                 step: CGFloat(step.value),
                 onEditingChanged: onEditingChanged,
-                precisionScrubbing: { _ in 1 },
+                precisionScrubbing: PrecisionScrubbingKey.defaultValue,
                 dragOffset: .constant(0),
                 gestureState: .init(initialValue: nil)
             )

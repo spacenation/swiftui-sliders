@@ -45,7 +45,7 @@ extension RangeSlider {
                 step: CGFloat(step),
                 distance: CGFloat(distance.lowerBound) ... CGFloat(distance.upperBound),
                 onEditingChanged: onEditingChanged,
-                precisionScrubbing: { _ in 1 },
+                precisionScrubbing: PrecisionScrubbingKey.defaultValue,
                 dragOffset: .constant(0),
                 lowerGestureState: .init(initialValue: nil),
                 upperGestureState: .init(initialValue: nil)
@@ -72,7 +72,7 @@ extension RangeSlider {
                 step: CGFloat(step),
                 distance: CGFloat(distance.lowerBound) ... CGFloat(distance.upperBound),
                 onEditingChanged: onEditingChanged,
-                precisionScrubbing: { _ in 1 },
+                precisionScrubbing: PrecisionScrubbingKey.defaultValue,
                 dragOffset: .constant(0),
                 lowerGestureState: .init(initialValue: nil),
                 upperGestureState: .init(initialValue: nil)

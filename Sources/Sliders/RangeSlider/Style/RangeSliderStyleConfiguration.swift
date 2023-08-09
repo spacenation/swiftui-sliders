@@ -6,12 +6,12 @@ public struct RangeSliderStyleConfiguration {
     public let step: CGFloat
     public let distance: ClosedRange<CGFloat>
     public let onEditingChanged: (Bool) -> Void
-    public var precisionScrubbing: (Float) -> Float
+    public var precisionScrubbing: PrecisionScrubbingConfig
     public var dragOffset: Binding<CGFloat?>
     public var lowerGestureState: GestureState<SliderGestureState?>
     public var upperGestureState: GestureState<SliderGestureState?>
     
-    func with(precisionScrubbing: @escaping (Float) -> Float, dragOffset: Binding<CGFloat?>, lowerGestureState: GestureState<SliderGestureState?>, upperGestureState: GestureState<SliderGestureState?>) -> Self {
+    func with(precisionScrubbing: PrecisionScrubbingConfig, dragOffset: Binding<CGFloat?>, lowerGestureState: GestureState<SliderGestureState?>, upperGestureState: GestureState<SliderGestureState?>) -> Self {
         var mutSelf = self
         mutSelf.precisionScrubbing = precisionScrubbing
         mutSelf.dragOffset = dragOffset

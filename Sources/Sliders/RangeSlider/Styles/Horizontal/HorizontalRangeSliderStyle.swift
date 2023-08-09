@@ -37,7 +37,19 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
     }
 
     public func makeBody(configuration: Self.Configuration) -> some View {
-        GeometryReader { geometry in
+        let editing = configuration.lowerGestureState.wrappedValue != nil || configuration.upperGestureState.wrappedValue != nil
+        let precisionScrubbingSpeed = { () -> Float? in
+            switch (
+                configuration.lowerGestureState.wrappedValue?.speed,
+                configuration.upperGestureState.wrappedValue?.speed
+            ) {
+            case (let lower?, let upper?): return min(lower, upper)
+            case (let only?, nil), (nil, let only?): return only
+            case (nil, nil): return nil
+            }
+        }()
+
+        return GeometryReader { geometry in
             ZStack {
                 self.track
                     .environment(\.trackRange, configuration.range.wrappedValue)
@@ -68,7 +80,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                                     return SliderGestureState(initialOffset: value.location.x - x)
                                 }()).updating(
                                     with: value.location.x,
-                                    speed: configuration.precisionScrubbing(Float(value.translation.height))
+                                    speed: configuration.precisionScrubbing.scrubValue(Float(value.translation.height))
                                 )
                             },
                         TapGesture()
@@ -96,7 +108,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                                     return SliderGestureState(initialOffset: value.location.x - x)
                                 }()).updating(
                                     with: value.location.x,
-                                    speed: configuration.precisionScrubbing(Float(value.translation.height))
+                                    speed: configuration.precisionScrubbing.scrubValue(Float(value.translation.height))
                                 )
                             },
                         TapGesture()
@@ -150,6 +162,9 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
             }
             .onChange(of: configuration.lowerGestureState.wrappedValue != nil || configuration.upperGestureState.wrappedValue != nil) { editing in
                 configuration.onEditingChanged(editing)
+            }
+            .onChange(of: precisionScrubbingSpeed) { precisionScrubbingSpeed in
+                configuration.precisionScrubbing.onChange?(precisionScrubbingSpeed)
             }
         }
         .frame(minHeight: max(self.lowerThumbInteractiveSize.height, self.upperThumbInteractiveSize.height))
