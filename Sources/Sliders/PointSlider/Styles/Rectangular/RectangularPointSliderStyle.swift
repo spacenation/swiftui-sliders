@@ -79,7 +79,7 @@ public struct RectangularPointSliderStyle<Track: View, Thumb: View>: PointSlider
                     )
                 )
                 .gesture(
-                    DragGesture()
+                    DragGesture(minimumDistance: 0)
                         .onChanged { gestureValue in
                             configuration.onEditingChanged(true)
 

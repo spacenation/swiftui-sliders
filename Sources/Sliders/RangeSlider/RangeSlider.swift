@@ -3,12 +3,20 @@ import SwiftUI
 public struct RangeSlider: View {
     @Environment(\.rangeSliderStyle) private var style
     @State private var dragOffset: CGFloat?
+    @Environment(\.precisionScrubbing) private var precisionScrubbing
+    @GestureState private var lowerGestureState: SliderGestureState?
+    @GestureState private var upperGestureState: SliderGestureState?
     
     private var configuration: RangeSliderStyleConfiguration
     
     public var body: some View {
         self.style.makeBody(configuration:
-            self.configuration.with(dragOffset: self.$dragOffset)
+            self.configuration.with(
+                precisionScrubbing: self.precisionScrubbing,
+                dragOffset: self.$dragOffset,
+                lowerGestureState: self.$lowerGestureState,
+                upperGestureState: self.$upperGestureState
+            )
         )
     }
 }
@@ -37,7 +45,10 @@ extension RangeSlider {
                 step: CGFloat(step),
                 distance: CGFloat(distance.lowerBound) ... CGFloat(distance.upperBound),
                 onEditingChanged: onEditingChanged,
-                dragOffset: .constant(0)
+                precisionScrubbing: PrecisionScrubbingKey.defaultValue,
+                dragOffset: .constant(0),
+                lowerGestureState: .init(initialValue: nil),
+                upperGestureState: .init(initialValue: nil)
             )
         )
     }
@@ -61,7 +72,10 @@ extension RangeSlider {
                 step: CGFloat(step),
                 distance: CGFloat(distance.lowerBound) ... CGFloat(distance.upperBound),
                 onEditingChanged: onEditingChanged,
-                dragOffset: .constant(0)
+                precisionScrubbing: PrecisionScrubbingKey.defaultValue,
+                dragOffset: .constant(0),
+                lowerGestureState: .init(initialValue: nil),
+                upperGestureState: .init(initialValue: nil)
             )
         )
     }

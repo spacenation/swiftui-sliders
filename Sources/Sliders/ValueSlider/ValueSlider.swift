@@ -2,13 +2,21 @@ import SwiftUI
 
 public struct ValueSlider: View {
     @Environment(\.valueSliderStyle) private var style
+    @Environment(\.precisionScrubbing) private var precisionScrubbing
     @State private var dragOffset: CGFloat?
+    @GestureState private var thumbGestureState: SliderGestureState?
+    @GestureState private var trackGestureState: SliderGestureState?
     
     private var configuration: ValueSliderStyleConfiguration
     
     public var body: some View {
         self.style.makeBody(configuration:
-            self.configuration.with(dragOffset: self.$dragOffset)
+            self.configuration.with(
+                precisionScrubbing: self.precisionScrubbing,
+                dragOffset: self.$dragOffset,
+                thumbGestureState: self.$thumbGestureState,
+                trackGestureState: self.$trackGestureState
+            )
         )
     }
 }
@@ -20,37 +28,56 @@ extension ValueSlider {
 }
 
 extension ValueSlider {
-    public init<V>(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, onEditingChanged: @escaping (Bool) -> Void = { _ in }) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
-        
+    public init<V>(
+        value: Binding<V>,
+        in bounds: ClosedRange<V> = 0.0...1.0,
+        step: V.Stride = 0.001,
+        onEditingChanged: @escaping (Bool) -> Void = { _ in }
+    ) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
         self.init(
             ValueSliderStyleConfiguration(
                 value: Binding(get: { CGFloat(value.wrappedValue.clamped(to: bounds)) }, set: { value.wrappedValue = V($0) }),
                 bounds: CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound),
                 step: CGFloat(step),
                 onEditingChanged: onEditingChanged,
-                dragOffset: .constant(0)
+                precisionScrubbing: PrecisionScrubbingKey.defaultValue,
+                dragOffset: .constant(0),
+                thumbGestureState: .init(initialValue: nil),
+                trackGestureState: .init(initialValue: nil)
             )
         )
     }
 }
 
 extension ValueSlider {
-    public init<V>(value: Binding<V>, in bounds: ClosedRange<V> = 0...1, step: V.Stride = 1, onEditingChanged: @escaping (Bool) -> Void = { _ in }) where V : FixedWidthInteger, V.Stride : FixedWidthInteger {
+    public init<V>(
+        value: Binding<V>,
+        in bounds: ClosedRange<V> = 0...1,
+        step: V.Stride = 1,
+        onEditingChanged: @escaping (Bool) -> Void = { _ in }
+    ) where V : FixedWidthInteger, V.Stride : FixedWidthInteger {
         self.init(
             ValueSliderStyleConfiguration(
                 value: Binding(get: { CGFloat(value.wrappedValue.clamped(to: bounds)) }, set: { value.wrappedValue = V($0) }),
                 bounds: CGFloat(bounds.lowerBound)...CGFloat(bounds.upperBound),
                 step: CGFloat(step),
                 onEditingChanged: onEditingChanged,
-                dragOffset: .constant(0)
+                precisionScrubbing: PrecisionScrubbingKey.defaultValue,
+                dragOffset: .constant(0),
+                thumbGestureState: .init(initialValue: nil),
+                trackGestureState: .init(initialValue: nil)
             )
         )
     }
 }
 
 extension ValueSlider {
-    public init(value: Binding<Measurement<Unit>>, in bounds: ClosedRange<Measurement<Unit>>, step: Measurement<Unit>, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
-        
+    public init(
+        value: Binding<Measurement<Unit>>,
+        in bounds: ClosedRange<Measurement<Unit>>,
+        step: Measurement<Unit>,
+        onEditingChanged: @escaping (Bool) -> Void = { _ in }
+    ) {
         self.init(
             ValueSliderStyleConfiguration(
                 value: Binding(get: {
@@ -62,7 +89,10 @@ extension ValueSlider {
                 bounds: CGFloat(bounds.lowerBound.value)...CGFloat(bounds.upperBound.value),
                 step: CGFloat(step.value),
                 onEditingChanged: onEditingChanged,
-                dragOffset: .constant(0)
+                precisionScrubbing: PrecisionScrubbingKey.defaultValue,
+                dragOffset: .constant(0),
+                thumbGestureState: .init(initialValue: nil),
+                trackGestureState: .init(initialValue: nil)
             )
         )
     }
