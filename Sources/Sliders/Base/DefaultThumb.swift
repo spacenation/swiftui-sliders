@@ -1,7 +1,7 @@
 import SwiftUI
 
 public struct DefaultThumb: View {
-    public init() {}
+    nonisolated public init() {}
     public var body: some View {
         Capsule()
             .foregroundColor(.white)

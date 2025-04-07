@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 public struct PointTrackConfiguration {
     public static let defaultConfiguration = PointTrackConfiguration()
     

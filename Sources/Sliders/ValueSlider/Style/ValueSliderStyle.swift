@@ -5,6 +5,8 @@ import SwiftUI
 ///
 /// To configure the current `ValueSlider` for a view hiearchy, use the
 /// `.valueSliderStyle()` modifier.
+///
+@MainActor
 @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public protocol ValueSliderStyle {
     /// A `View` representing the body of a `ValueSlider`.

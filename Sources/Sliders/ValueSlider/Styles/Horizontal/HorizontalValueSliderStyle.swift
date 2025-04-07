@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderStyle {
     private let track: Track
     private let thumb: Thumb

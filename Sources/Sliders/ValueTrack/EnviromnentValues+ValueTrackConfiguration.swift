@@ -11,6 +11,7 @@ public extension EnvironmentValues {
     }
 }
 
-struct ValueTrackConfigurationKey: EnvironmentKey {
+@MainActor
+struct ValueTrackConfigurationKey: @preconcurrency EnvironmentKey {
     static let defaultValue: ValueTrackConfiguration = .defaultConfiguration
 }

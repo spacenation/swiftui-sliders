@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThumb: View>: RangeSliderStyle {
     private let track: Track
     private let lowerThumb: LowerThumb

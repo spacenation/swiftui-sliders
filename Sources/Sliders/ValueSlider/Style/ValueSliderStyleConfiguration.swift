@@ -6,7 +6,7 @@ public struct ValueSliderStyleConfiguration {
     public let step: CGFloat
     public let onEditingChanged: (Bool) -> Void
     public var dragOffset: Binding<CGFloat?>
-    
+
     public init(value: Binding<CGFloat>, bounds: ClosedRange<CGFloat>, step: CGFloat, onEditingChanged: @escaping (Bool) -> Void, dragOffset: Binding<CGFloat?>) {
         self.value = value
         self.bounds = bounds
