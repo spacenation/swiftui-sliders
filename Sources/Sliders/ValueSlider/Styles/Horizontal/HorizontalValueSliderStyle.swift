@@ -110,7 +110,22 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
 }
 
 extension HorizontalValueSliderStyle where Track == DefaultHorizontalValueTrack {
-    public init(thumb: Thumb, thumbSize: CGSize = CGSize(width: 27, height: 27), thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: ValueSliderOptions = .defaultOptions, isRightToLeft: Bool = false) {
+    
+    /// Creates a `HorizontalValueSliderStyle` with a custom thumb and default horizontal track.
+    ///
+    /// - Parameters:
+    ///   - thumb: A custom view representing the thumb.
+    ///   - thumbSize: The visual size of the thumb. Default is `27x27`.
+    ///   - thumbInteractiveSize: The tappable area around the thumb for user interaction. Default is `44x44`.
+    ///   - options: Slider options to customize behavior (e.g., stepping, animations). Default is `.defaultOptions`.
+    ///   - isRightToLeft: Whether the slider should be drawn right-to-left. Default is `false`.
+    public init(
+        thumb: Thumb,
+        thumbSize: CGSize = CGSize(width: 27, height: 27),
+        thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44),
+        options: ValueSliderOptions = .defaultOptions,
+        isRightToLeft: Bool = false
+    ) {
         self.track = DefaultHorizontalValueTrack()
         self.thumb = thumb
         self.thumbSize = thumbSize
@@ -121,7 +136,22 @@ extension HorizontalValueSliderStyle where Track == DefaultHorizontalValueTrack 
 }
 
 extension HorizontalValueSliderStyle where Thumb == DefaultThumb {
-    public init(track: Track, thumbSize: CGSize = CGSize(width: 27, height: 27), thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: ValueSliderOptions = .defaultOptions, isRightToLeft: Bool = false) {
+    
+    /// Creates a `HorizontalValueSliderStyle` with a custom track and default thumb.
+    ///
+    /// - Parameters:
+    ///   - track: A custom view representing the slider's track.
+    ///   - thumbSize: The visual size of the default thumb. Default is `27x27`.
+    ///   - thumbInteractiveSize: The tappable area around the thumb for user interaction. Default is `44x44`.
+    ///   - options: Slider options to customize behavior (e.g., stepping, animations). Default is `.defaultOptions`.
+    ///   - isRightToLeft: Whether the slider should be drawn right-to-left. Default is `false`.
+    public init(
+        track: Track,
+        thumbSize: CGSize = CGSize(width: 27, height: 27),
+        thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44),
+        options: ValueSliderOptions = .defaultOptions,
+        isRightToLeft: Bool = false
+    ) {
         self.track = track
         self.thumb = DefaultThumb()
         self.thumbSize = thumbSize
@@ -132,7 +162,20 @@ extension HorizontalValueSliderStyle where Thumb == DefaultThumb {
 }
 
 extension HorizontalValueSliderStyle where Thumb == DefaultThumb, Track == DefaultHorizontalValueTrack {
-    public init(thumbSize: CGSize = CGSize(width: 27, height: 27), thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44), options: ValueSliderOptions = .defaultOptions, isRightToLeft: Bool = false) {
+    
+    /// Creates a `HorizontalValueSliderStyle` with the default thumb and default horizontal track.
+    ///
+    /// - Parameters:
+    ///   - thumbSize: The visual size of the thumb. Default is `27x27`.
+    ///   - thumbInteractiveSize: The tappable area around the thumb for user interaction. Default is `44x44`.
+    ///   - options: Slider options to customize behavior (e.g., stepping, animations). Default is `.defaultOptions`.
+    ///   - isRightToLeft: Whether the slider should be drawn right-to-left. Default is `false`.
+    public init(
+        thumbSize: CGSize = CGSize(width: 27, height: 27),
+        thumbInteractiveSize: CGSize = CGSize(width: 44, height: 44),
+        options: ValueSliderOptions = .defaultOptions,
+        isRightToLeft: Bool = false
+    ) {
         self.track = DefaultHorizontalValueTrack()
         self.thumb = DefaultThumb()
         self.thumbSize = thumbSize
@@ -141,6 +184,7 @@ extension HorizontalValueSliderStyle where Thumb == DefaultThumb, Track == Defau
         self.isRightToLeft = isRightToLeft
     }
 }
+
 
 public struct DefaultHorizontalValueTrack: View {
     public init() {}
