@@ -11,7 +11,8 @@ public extension EnvironmentValues {
     }
 }
 
-struct PointSliderStyleKey: EnvironmentKey {
+@MainActor
+struct PointSliderStyleKey: @preconcurrency EnvironmentKey {
     static let defaultValue: AnyPointSliderStyle = AnyPointSliderStyle(
         RectangularPointSliderStyle()
     )

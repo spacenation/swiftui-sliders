@@ -18,6 +18,21 @@ class DistanceFromValueTests: XCTestCase {
         XCTAssert(fullDistance == 100)
     }
     
+    func testDistanceFromValueForRTLLanguage() {
+        
+        /// Zero value distance without offsets should be 0
+        let zeroDistance = distanceFrom(value: 0.0, availableDistance: 100, isRightToLeft: true)
+        XCTAssert(zeroDistance == 100)
+        
+        /// Middle value distance without offsets should be half of overall length
+        let middleDistance = distanceFrom(value: 0.5, availableDistance: 100, isRightToLeft: true)
+        XCTAssert(middleDistance == 50)
+        
+        /// Largest value distance without offsets should be full overall length
+        let fullDistance = distanceFrom(value: 1.0, availableDistance: 100, isRightToLeft: true)
+        XCTAssert(fullDistance == 0)
+    }
+    
     func testDistanceFromValueWithNonUnitIntervalBounds() {
         
         /// Smallest value point distance without offsets should be 0
@@ -33,6 +48,21 @@ class DistanceFromValueTests: XCTestCase {
         XCTAssert(fullDistance == 100)
     }
     
+    func testDistanceFromValueWithNonUnitIntervalBoundsWitRTLLanguage() {
+        
+        /// Smallest value point distance without offsets should be 0
+        let zeroDistance = distanceFrom(value: 0.25, availableDistance: 100, bounds: 0.25...1.25, isRightToLeft: true)
+        XCTAssert(zeroDistance == 100)
+        
+        /// Middle value distance without offsets should be half of overall length
+        let middleDistance = distanceFrom(value: 3.0, availableDistance: 100, bounds: 2.0...4.0, isRightToLeft: true)
+        XCTAssert(middleDistance == 50)
+        
+        /// Largest value distance without offsets should be full overall length
+        let fullDistance = distanceFrom(value: 1.0, availableDistance: 100, bounds: -1.0...1.0, isRightToLeft: true)
+        XCTAssert(fullDistance == 0)
+    }
+    
     func testDistanceFromValueWithOffsets() {
         
         /// Zero value distance with start offset 5 should be 5
@@ -46,6 +76,21 @@ class DistanceFromValueTests: XCTestCase {
         /// Largest value distance with end offset of 5 should be full overall length minus end offset
         let fullDistance = distanceFrom(value: 1.0, availableDistance: 100, leadingOffset: 0, trailingOffset: 5)
         XCTAssert(fullDistance == 95)
+    }
+    
+    func testDistanceFromValueWithOffsetsForRTLLanguage() {
+        
+        /// Zero value distance with start offset 5 should be 5
+        let zeroDistance = distanceFrom(value: 0.0, availableDistance: 100, leadingOffset: 5, trailingOffset: 0, isRightToLeft: true)
+        XCTAssert(zeroDistance == 100)
+        
+        /// Middle value distance with start and end offset of 10 should be half of overall length
+        let middleDistance = distanceFrom(value: 0.5, availableDistance: 100, leadingOffset: 10, trailingOffset: 10, isRightToLeft: true)
+        XCTAssert(middleDistance == 50)
+        
+        /// Largest value distance with end offset of 5 should be full overall length minus end offset
+        let fullDistance = distanceFrom(value: 1.0, availableDistance: 100, leadingOffset: 0, trailingOffset: 5, isRightToLeft: true)
+        XCTAssert(fullDistance == 0)
     }
     
     func testDistanceFromValueWithNonUnitIntervalBoundsWithOffsets() {
@@ -77,6 +122,37 @@ class DistanceFromValueTests: XCTestCase {
         /// Largest value distance with both offsets of 5 should be full overall length minus end offset
         let fullDistance2 = distanceFrom(value: 1.0, availableDistance: 100, bounds: -1.0...1.0, leadingOffset: 5, trailingOffset: 5)
         XCTAssert(fullDistance2 == 95)
+    }
+    
+    func testDistanceFromValueWithNonUnitIntervalBoundsWithOffsetsForRTLLanguage() {
+        
+        /// Smallest value point distance with start offset 5 should be 5
+        let zeroDistance1 = distanceFrom(value: 0.25, availableDistance: 100, bounds: 0.25...1.25, leadingOffset: 5, trailingOffset: 0, isRightToLeft: true)
+        XCTAssert(zeroDistance1 == 100)
+        
+        /// Smallest value point distance with start offset 5 and end offset of 5 should be 5
+        let zeroDistance2 = distanceFrom(value: 0.25, availableDistance: 100, bounds: 0.25...1.25, leadingOffset: 5, trailingOffset: 5, isRightToLeft: true)
+        XCTAssert(zeroDistance2 == 95)
+        
+        /// Middle value distance with equal offsets should be half of overall length
+        let middleDistance1 = distanceFrom(value: 3.0, availableDistance: 100, bounds: 2.0...4.0, leadingOffset: 10, trailingOffset: 10, isRightToLeft: true)
+        XCTAssert(middleDistance1 == 50)
+        
+        /// Middle value distance with different offsets should be half of overall length minus center point of these offsets
+        let middleDistance2 = distanceFrom(value: 3.0, availableDistance: 100, bounds: 2.0...4.0, leadingOffset: 13, trailingOffset: 7, isRightToLeft: true)
+        XCTAssert(middleDistance2 == 53)
+        
+        /// Middle value distance with different offsets should be half of overall length minus center point of these offsets
+        let middleDistance3 = distanceFrom(value: 3.0, availableDistance: 100, bounds: 2.0...4.0, leadingOffset: 2, trailingOffset: 18, isRightToLeft: true)
+        XCTAssert(middleDistance3 == 42)
+        
+        /// Largest value distance with end offset of 5 should be full overall length minus end offset
+        let fullDistance1 = distanceFrom(value: 1.0, availableDistance: 100, bounds: -1.0...1.0, leadingOffset: 0, trailingOffset: 5, isRightToLeft: true)
+        XCTAssert(fullDistance1 == 0)
+        
+        /// Largest value distance with both offsets of 5 should be full overall length minus end offset
+        let fullDistance2 = distanceFrom(value: 1.0, availableDistance: 100, bounds: -1.0...1.0, leadingOffset: 5, trailingOffset: 5, isRightToLeft: true)
+        XCTAssert(fullDistance2 == 5)
     }
     
 }

@@ -11,6 +11,7 @@ extension EnvironmentValues {
     }
 }
 
-struct RangeTrackConfigurationKey: EnvironmentKey {
+@MainActor
+struct RangeTrackConfigurationKey: @preconcurrency EnvironmentKey {
     static let defaultValue: RangeTrackConfiguration = .defaultConfiguration
 }

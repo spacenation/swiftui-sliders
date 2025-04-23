@@ -5,7 +5,8 @@ import SwiftUI
 ///
 /// To configure the current `RangeSlider` for a view hiearchy, use the
 /// `.valueSliderStyle()` modifier.
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+@MainActor
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *) // nonisolated
 public protocol RangeSliderStyle {
     /// A `View` representing the body of a `RangeSlider`.
     associatedtype Body : View

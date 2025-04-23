@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 public struct AnyPointSliderStyle: PointSliderStyle {
     private let styleMakeBody: (PointSliderStyle.Configuration) -> AnyView
     

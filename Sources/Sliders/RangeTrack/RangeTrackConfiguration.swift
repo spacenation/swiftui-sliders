@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 public struct RangeTrackConfiguration {
     public static let defaultConfiguration = RangeTrackConfiguration()
     
@@ -10,7 +11,7 @@ public struct RangeTrackConfiguration {
     public let upperLeadingOffset: CGFloat
     public let upperTrailingOffset: CGFloat
     
-    public init(bounds: ClosedRange<CGFloat> = 0.0...1.0, lowerLeadingOffset: CGFloat = 0, lowerTrailingOffset: CGFloat = 0, upperLeadingOffset: CGFloat = 0, upperTrailingOffset: CGFloat = 0) {
+    nonisolated public init(bounds: ClosedRange<CGFloat> = 0.0...1.0, lowerLeadingOffset: CGFloat = 0, lowerTrailingOffset: CGFloat = 0, upperLeadingOffset: CGFloat = 0, upperTrailingOffset: CGFloat = 0) {
         self.bounds = bounds
         self.lowerLeadingOffset = lowerLeadingOffset
         self.lowerTrailingOffset = lowerTrailingOffset
@@ -20,7 +21,7 @@ public struct RangeTrackConfiguration {
 }
 
 public extension RangeTrackConfiguration {
-    init(bounds: ClosedRange<CGFloat> = 0.0...1.0, lowerOffset: CGFloat = 0, upperOffset: CGFloat = 0) {
+    nonisolated init(bounds: ClosedRange<CGFloat> = 0.0...1.0, lowerOffset: CGFloat = 0, upperOffset: CGFloat = 0) {
         self.bounds = bounds
         self.lowerLeadingOffset = lowerOffset / 2
         self.lowerTrailingOffset = lowerOffset / 2 + upperOffset
@@ -30,7 +31,7 @@ public extension RangeTrackConfiguration {
 }
 
 public extension RangeTrackConfiguration {
-    init(bounds: ClosedRange<CGFloat> = 0.0...1.0, offsets: CGFloat = 0) {
+    nonisolated init(bounds: ClosedRange<CGFloat> = 0.0...1.0, offsets: CGFloat = 0) {
         self.bounds = bounds
         self.lowerLeadingOffset = offsets / 2
         self.lowerTrailingOffset = offsets / 2 + offsets

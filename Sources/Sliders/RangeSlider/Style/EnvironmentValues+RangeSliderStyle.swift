@@ -11,7 +11,8 @@ public extension EnvironmentValues {
     }
 }
 
-struct RangeSliderStyleKey: EnvironmentKey {
+@MainActor
+struct RangeSliderStyleKey: @preconcurrency EnvironmentKey {
     static let defaultValue: AnyRangeSliderStyle = AnyRangeSliderStyle(
         HorizontalRangeSliderStyle()
     )

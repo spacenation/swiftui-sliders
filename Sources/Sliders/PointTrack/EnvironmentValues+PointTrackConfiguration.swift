@@ -11,6 +11,7 @@ extension EnvironmentValues {
     }
 }
 
-struct PointTrackConfigurationKey: EnvironmentKey {
+@MainActor
+struct PointTrackConfigurationKey: @preconcurrency EnvironmentKey {
     static let defaultValue: PointTrackConfiguration = .defaultConfiguration
 }
