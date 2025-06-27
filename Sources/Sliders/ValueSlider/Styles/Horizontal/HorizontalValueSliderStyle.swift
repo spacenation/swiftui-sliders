@@ -7,13 +7,25 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
     private let thumbInteractiveSize: CGSize
     private let options: ValueSliderOptions
 
+    private func x(configuration: Self.Configuration, geometry: GeometryProxy) -> CGFloat {
+        distanceFrom(
+            value: configuration.value.wrappedValue,
+            availableDistance: geometry.size.width,
+            bounds: configuration.bounds,
+            leadingOffset: thumbSize.width / 2,
+            trailingOffset: thumbSize.width / 2
+        )
+    }
+
     public func makeBody(configuration: Self.Configuration) -> some View {
+        let prominentGesture = configuration.thumbGestureState.wrappedValue ?? configuration.trackGestureState.wrappedValue
+        let fullBleedTrack = self.options.contains(.fullBleedTrack)
         let track = self.track
             .environment(\.trackValue, configuration.value.wrappedValue)
             .environment(\.valueTrackConfiguration, ValueTrackConfiguration(
                 bounds: configuration.bounds,
-                leadingOffset: self.thumbSize.width / 2,
-                trailingOffset: self.thumbSize.width / 2)
+                leadingOffset: fullBleedTrack ? 0 : self.thumbSize.width / 2,
+                trailingOffset: fullBleedTrack ? 0 : self.thumbSize.width / 2)
             )
             .accentColor(Color.accentColor)
 
@@ -22,20 +34,11 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                 if self.options.contains(.interactiveTrack) {
                     track.gesture(
                         DragGesture(minimumDistance: 0)
-                            .onChanged { gestureValue in
-                                configuration.onEditingChanged(true)
-                                let computedValue = valueFrom(
-                                    distance: gestureValue.location.x,
-                                    availableDistance: geometry.size.width,
-                                    bounds: configuration.bounds,
-                                    step: configuration.step,
-                                    leadingOffset: self.thumbSize.width / 2,
-                                    trailingOffset: self.thumbSize.width / 2
+                            .updating(configuration.trackGestureState) { value, state, transaction in
+                                state = (state ?? SliderGestureState(initialOffset: 0)).updating(
+                                    with: value.location.x,
+                                    speed: configuration.precisionScrubbing.scrubValue(Float(value.translation.height))
                                 )
-                                configuration.value.wrappedValue = computedValue
-                            }
-                            .onEnded { _ in
-                                configuration.onEditingChanged(false)
                             }
                     )
                 } else {
@@ -48,48 +51,41 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                 }
                 .frame(minWidth: self.thumbInteractiveSize.width, minHeight: self.thumbInteractiveSize.height)
                 .position(
-                    x: distanceFrom(
-                        value: configuration.value.wrappedValue,
-                        availableDistance: geometry.size.width,
-                        bounds: configuration.bounds,
-                        leadingOffset: self.thumbSize.width / 2,
-                        trailingOffset: self.thumbSize.width / 2
-                    ),
+                    x: x(configuration: configuration, geometry: geometry),
                     y: geometry.size.height / 2
                 )
                 .gesture(
                     DragGesture(minimumDistance: 0)
-                        .onChanged { gestureValue in
-                            configuration.onEditingChanged(true)
-
-                            if configuration.dragOffset.wrappedValue == nil {
-                                configuration.dragOffset.wrappedValue = gestureValue.startLocation.x - distanceFrom(
-                                    value: configuration.value.wrappedValue,
-                                    availableDistance: geometry.size.width,
-                                    bounds: configuration.bounds,
-                                    leadingOffset: self.thumbSize.width / 2,
-                                    trailingOffset: self.thumbSize.width / 2
-                                )
-                            }
-
-                            let computedValue = valueFrom(
-                                distance: gestureValue.location.x - (configuration.dragOffset.wrappedValue ?? 0),
-                                availableDistance: geometry.size.width,
-                                bounds: configuration.bounds,
-                                step: configuration.step,
-                                leadingOffset: self.thumbSize.width / 2,
-                                trailingOffset: self.thumbSize.width / 2
+                        .updating(configuration.thumbGestureState) { value, state, transaction in
+                            state = (state ?? {
+                                let x = x(configuration: configuration, geometry: geometry)
+                                return SliderGestureState(initialOffset: value.location.x - x)
+                            }()).updating(
+                                with: value.location.x,
+                                speed: configuration.precisionScrubbing.scrubValue(Float(value.translation.height))
                             )
-
-                            configuration.value.wrappedValue = computedValue
-                        }
-                        .onEnded { _ in
-                            configuration.dragOffset.wrappedValue = nil
-                            configuration.onEditingChanged(false)
                         }
                 )
             }
             .frame(height: geometry.size.height)
+            .onChange(of: prominentGesture) { state in
+                guard let state else { return }
+
+                configuration.value.wrappedValue = valueFrom(
+                    distance: state.offset - (configuration.dragOffset.wrappedValue ?? 0),
+                    availableDistance: geometry.size.width,
+                    bounds: configuration.bounds,
+                    step: configuration.step,
+                    leadingOffset: self.thumbSize.width / 2,
+                    trailingOffset: self.thumbSize.width / 2
+                )
+            }
+            .onChange(of: prominentGesture != nil) { editing in
+                configuration.onEditingChanged(editing)
+            }
+            .onChange(of: prominentGesture?.speed) { speed in
+                configuration.precisionScrubbing.onChange?(speed)
+            }
         }
         .frame(minHeight: self.thumbInteractiveSize.height)
     }
