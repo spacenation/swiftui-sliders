@@ -19,10 +19,10 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
     private func lowerX(configuration: Self.Configuration, geometry: GeometryProxy) -> CGFloat {
         distanceFrom(
             value: configuration.range.wrappedValue.lowerBound,
-            availableDistance: geometry.size.width - upperThumbSize.width,
+            availableDistance: geometry.size.width,
             bounds: configuration.bounds,
             leadingOffset: lowerThumbSize.width / 2,
-            trailingOffset: lowerThumbSize.width / 2
+            trailingOffset: lowerThumbSize.width / 2 + upperThumbSize.width
         )
     }
 
@@ -37,7 +37,17 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
     }
 
     public func makeBody(configuration: Self.Configuration) -> some View {
-        let editing = configuration.lowerGestureState.wrappedValue != nil || configuration.upperGestureState.wrappedValue != nil
+        let editing = { () -> EditingRange in
+            switch (
+                configuration.lowerGestureState.wrappedValue?.speed,
+                configuration.upperGestureState.wrappedValue?.speed
+            ) {
+            case (_?, _?): return [.upper, .lower]
+            case (_?, nil): return [.lower]
+            case (nil, _?): return [.upper]
+            case (nil, nil): return []
+            }
+        }()
         let precisionScrubbingSpeed = { () -> Float? in
             switch (
                 configuration.lowerGestureState.wrappedValue?.speed,
@@ -50,15 +60,16 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
         }()
 
         return GeometryReader { geometry in
+            let fullBleedTrack = self.options.contains(.fullBleedTrack)
             ZStack {
                 self.track
                     .environment(\.trackRange, configuration.range.wrappedValue)
                     .environment(\.rangeTrackConfiguration, RangeTrackConfiguration(
                         bounds: configuration.bounds,
-                        lowerLeadingOffset: self.lowerThumbSize.width / 2,
-                        lowerTrailingOffset: self.lowerThumbSize.width / 2 + self.upperThumbSize.width,
-                        upperLeadingOffset: self.lowerThumbSize.width + self.upperThumbSize.width / 2,
-                        upperTrailingOffset: self.upperThumbSize.width / 2
+                        lowerLeadingOffset: fullBleedTrack ? 0 : self.lowerThumbSize.width / 2,
+                        lowerTrailingOffset: self.upperThumbSize.width + (fullBleedTrack ? 0 : self.lowerThumbSize.width / 2),
+                        upperLeadingOffset: self.lowerThumbSize.width + (fullBleedTrack ? 0 : self.upperThumbSize.width / 2),
+                        upperTrailingOffset: fullBleedTrack ? 0 : self.upperThumbSize.width / 2
                     ))
                     .accentColor(Color.accentColor)
 
@@ -129,7 +140,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                     bounds: configuration.bounds,
                     step: configuration.step,
                     leadingOffset: lowerThumbSize.width / 2,
-                    trailingOffset: lowerThumbSize.width / 2
+                    trailingOffset: lowerThumbSize.width / 2 + upperThumbSize.width
                 )
 
                 configuration.range.wrappedValue = rangeFrom(

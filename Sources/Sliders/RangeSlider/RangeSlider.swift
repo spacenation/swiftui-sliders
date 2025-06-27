@@ -33,7 +33,7 @@ extension RangeSlider {
         in bounds: ClosedRange<V> = 0.0...1.0,
         step: V.Stride = 0.001,
         distance: ClosedRange<V> = 0.0 ... .infinity,
-        onEditingChanged: @escaping (Bool) -> Void = { _ in }
+        onEditingChanged: @escaping (EditingRange) -> Void = { _ in }
     ) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
         self.init(
             RangeSliderStyleConfiguration(
@@ -60,7 +60,7 @@ extension RangeSlider {
         in bounds: ClosedRange<V> = 0...1,
         step: V.Stride = 1,
         distance: ClosedRange<V> = 0 ... .max,
-        onEditingChanged: @escaping (Bool) -> Void = { _ in }
+        onEditingChanged: @escaping (EditingRange) -> Void = { _ in }
     ) where V : FixedWidthInteger, V.Stride : FixedWidthInteger {
         self.init(
             RangeSliderStyleConfiguration(

@@ -28,9 +28,9 @@ public extension View {
     ) -> some View  {
         self.environment(
             \.precisionScrubbing,
-             PrecisionScrubbingConfig { offset in
-                 scrubValue(offset).rawValue
-             } onChange: { value in
+            PrecisionScrubbingConfig { offset in
+                scrubValue(offset).rawValue
+            } onChange: { value in
                 guard let value else {
                     onChange?(nil)
                     return

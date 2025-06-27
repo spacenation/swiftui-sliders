@@ -8,12 +8,13 @@ public struct VerticalValueSliderStyle<Track: View, Thumb: View>: ValueSliderSty
     private let options: ValueSliderOptions
 
     public func makeBody(configuration: Self.Configuration) -> some View {
+        let fullBleedTrack = self.options.contains(.fullBleedTrack)
         let track = self.track
             .environment(\.trackValue, configuration.value.wrappedValue)
             .environment(\.valueTrackConfiguration, ValueTrackConfiguration(
                 bounds: configuration.bounds,
-                leadingOffset: self.thumbSize.height / 2,
-                trailingOffset: self.thumbSize.height / 2)
+                leadingOffset: fullBleedTrack ? 0 : self.thumbSize.height / 2,
+                trailingOffset: fullBleedTrack ? 0 : self.thumbSize.height / 2)
             )
             .accentColor(Color.accentColor)
 

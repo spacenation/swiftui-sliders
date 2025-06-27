@@ -45,7 +45,7 @@ public struct VerticalRangeSliderStyle<Track: View, LowerThumb: View, UpperThumb
                 .gesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { gestureValue in
-                            configuration.onEditingChanged(true)
+                            configuration.onEditingChanged(.lower)
 
                             if configuration.dragOffset.wrappedValue == nil {
                                 configuration.dragOffset.wrappedValue = gestureValue.startLocation.y - (geometry.size.height - distanceFrom(
@@ -76,7 +76,8 @@ public struct VerticalRangeSliderStyle<Track: View, LowerThumb: View, UpperThumb
                         }
                         .onEnded { _ in
                             configuration.dragOffset.wrappedValue = nil
-                            configuration.onEditingChanged(false)
+                            let upper = configuration.upperGestureState.wrappedValue != nil
+                            configuration.onEditingChanged(upper ? .upper : [])
                         }
                 )
 
@@ -98,7 +99,7 @@ public struct VerticalRangeSliderStyle<Track: View, LowerThumb: View, UpperThumb
                 .gesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { gestureValue in
-                            configuration.onEditingChanged(true)
+                            configuration.onEditingChanged(.upper)
 
                             if configuration.dragOffset.wrappedValue == nil {
                                 configuration.dragOffset.wrappedValue = gestureValue.startLocation.y - (geometry.size.height - distanceFrom(
@@ -129,7 +130,8 @@ public struct VerticalRangeSliderStyle<Track: View, LowerThumb: View, UpperThumb
                         }
                         .onEnded { _ in
                             configuration.dragOffset.wrappedValue = nil
-                            configuration.onEditingChanged(false)
+                            let lower = configuration.lowerGestureState.wrappedValue != nil
+                            configuration.onEditingChanged(lower ? .lower : [])
                         }
                 )
 

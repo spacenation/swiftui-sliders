@@ -19,12 +19,13 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
 
     public func makeBody(configuration: Self.Configuration) -> some View {
         let prominentGesture = configuration.thumbGestureState.wrappedValue ?? configuration.trackGestureState.wrappedValue
+        let fullBleedTrack = self.options.contains(.fullBleedTrack)
         let track = self.track
             .environment(\.trackValue, configuration.value.wrappedValue)
             .environment(\.valueTrackConfiguration, ValueTrackConfiguration(
                 bounds: configuration.bounds,
-                leadingOffset: self.thumbSize.width / 2,
-                trailingOffset: self.thumbSize.width / 2)
+                leadingOffset: fullBleedTrack ? 0 : self.thumbSize.width / 2,
+                trailingOffset: fullBleedTrack ? 0 : self.thumbSize.width / 2)
             )
             .accentColor(Color.accentColor)
 
