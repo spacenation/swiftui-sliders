@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 public struct ValueTrackConfiguration {
     public static let defaultConfiguration = ValueTrackConfiguration()
     

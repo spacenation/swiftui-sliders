@@ -11,7 +11,8 @@ public extension EnvironmentValues {
     }
 }
 
-struct ValueSliderStyleKey: EnvironmentKey {
+@MainActor
+struct ValueSliderStyleKey: @preconcurrency EnvironmentKey {
     static let defaultValue: AnyValueSliderStyle = AnyValueSliderStyle(
         HorizontalValueSliderStyle()
     )
